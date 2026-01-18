@@ -1,0 +1,120 @@
+import type { Story } from "./story_types"
+
+export const story: Story = {
+  title: "NAMCS HC Data Storybook",
+  subtitle: "Microdata, dashboards, and linkage for patient centered outcomes research",
+  scenes: [
+    {
+      id: "scene01",
+      title: "Three pillars of the system",
+      subtitle: "Microdata, interactive dashboards, and external linkage",
+      component: "scene01_pillars",
+      notes: "Hover nodes to see definitions"
+    },
+    {
+      id: "scene02",
+      title: "Who FQHCs serve and why it matters",
+      subtitle: "Health centers in shortage areas and equity context",
+      component: "scene02_fqhc_map",
+      notes: "Placeholder map scene"
+    },
+    {
+      id: "scene03",
+      title: "Redesign shift in 2021",
+      subtitle: "From abstraction to full year EHR submissions",
+      component: "scene03_before_after",
+      notes: "Placeholder split panel scene"
+    },
+    {
+      id: "scene04",
+      title: "Participation growth and scale",
+      subtitle: "Centers and visit records expand over time",
+      component: "scene04_growth",
+      notes: "Uses Table 1 starter values"
+    },
+    {
+      id: "scene05",
+      title: "Data collection pipeline",
+      subtitle: "Recruit, questionnaire, HL7 install, test, submit",
+      component: "scene05_pipeline",
+      notes: "Placeholder flow scene"
+    },
+    {
+      id: "scene06",
+      title: "What data exists in each file type",
+      subtitle: "Restricted versus public variable coverage",
+      component: "scene06_data_matrix",
+      notes: "Placeholder matrix scene"
+    },
+    {
+      id: "scene07",
+      title: "Access paths for researchers",
+      subtitle: "Public download versus RDC route",
+      component: "scene07_access_paths",
+      notes: "Placeholder journey scene"
+    },
+    {
+      id: "scene08",
+      title: "Maternal health example",
+      subtitle: "Visit rates by age group plus gestational diabetes",
+      component: "scene08_maternal",
+      notes: "Uses Table 2 starter rates"
+    },
+    {
+      id: "scene09",
+      title: "Dashboards for broader PCOR",
+      subtitle: "Interactive preliminary estimates without code",
+      component: "scene09_dashboard_mock",
+      notes: "Placeholder dashboard mock scene"
+    },
+    {
+      id: "scene10",
+      title: "Respiratory disparities example",
+      subtitle: "Rates by race and ethnicity over biannual periods",
+      component: "scene10_respiratory_disparities",
+      notes: "Placeholder line chart scene"
+    },
+    {
+      id: "scene11",
+      title: "Linkage power",
+      subtitle: "Connecting NAMCS HC to external sources like HUD and NDI",
+      component: "scene11_linkage_power",
+      notes: "Placeholder bipartite graph scene"
+    },
+    {
+      id: "scene12",
+      title: "Linkage rates and who links",
+      subtitle: "Age and sex linkage percentages",
+      component: "scene12_linkage_rates",
+      notes: "Placeholder small multiples scene"
+    },
+    {
+      id: "scene13",
+      title: "Limitations and data quality",
+      subtitle: "Response rates, missingness, public exclusions, linkage years",
+      component: "scene13_limitations",
+      notes: "Placeholder limitations scene"
+    },
+    {
+      id: "scene14",
+      title: "Roadmap",
+      subtitle: "Forthcoming files, more dashboard modules, more linkages",
+      component: "scene14_roadmap",
+      notes: "Placeholder roadmap scene"
+    },
+    {
+      id: "scene15",
+      title: "Choose your own PCOR path",
+      subtitle: "Decision logic for dashboard, public file, restricted file, linkage",
+      component: "scene15_choose_path",
+      notes: "Placeholder decision tree scene"
+    },
+    {
+      id: "scene16",
+      title: "Synthesis",
+      subtitle: "Three pillars plus personas and takeaways",
+      component: "scene16_synthesis",
+      notes: "Placeholder closing scene"
+    }
+  ]
+}
