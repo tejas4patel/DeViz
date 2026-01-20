@@ -14,9 +14,7 @@
     "@mui/material": "^7.3.7",
     "d3": "^7.9.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scrollama": "^2.4.2",
-    "scrollama": "^3.2.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
