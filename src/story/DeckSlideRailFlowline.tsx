@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as d3 from 'd3'
 // import TimelinePopover from './TimelinePopover'; // removed
-import type { Scene } from './story_types'
+import type { Scene } from './storyTypes'
 
 type Props = {
 

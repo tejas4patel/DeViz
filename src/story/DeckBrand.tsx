@@ -1,5 +1,5 @@
-import type { Scene } from './story_types';
-import DeckSlideRailFlowLine from './deck_slide_rail_flowline';
+import type { Scene } from './storyTypes';
+import DeckSlideRailFlowLine from './DeckSlideRailFlowline';
 
 type Props = {
   title: string;

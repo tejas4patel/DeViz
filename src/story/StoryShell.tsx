@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { story } from './story_data';
-import SceneRenderer from './scene_renderer';
+import { story } from './storyData';
+import SceneRenderer from './SceneRenderer';
 
 export default function StoryShell() {
   const scenes = story.scenes;

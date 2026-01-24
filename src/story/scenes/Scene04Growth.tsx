@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
-import { useResizeObserver } from '../viz/use_resize_observer';
-import { axisBottom, axisLeft } from '../viz/chart_axes';
+import { useResizeObserver } from '../viz/useResizeObserver';
+import { axisBottom, axisLeft } from '../viz/chartAxes';
 
 type Row = {
   year: number;

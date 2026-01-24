@@ -1,4 +1,4 @@
-import type { Story } from './story_types';
+import type { Story } from './storyTypes';
 
 export const story: Story = {
   title: 'NAMCS HC Data Storybook',

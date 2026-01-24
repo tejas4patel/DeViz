@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { story } from './story_data';
-import SceneRenderer from './scene_renderer';
-import DeckBrand from './deck_brand';
+import { story } from './storyData';
+import SceneRenderer from './SceneRenderer';
+import DeckBrand from './DeckBrand';
 
 function isTypingTarget(el: Element | null) {
   if (!el) return false;

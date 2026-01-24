@@ -1,4 +1,4 @@
-import ScenePlaceholder from './scene_placeholder';
+import ScenePlaceholder from './ScenePlaceholder';
 
 export default function Scene11LinkagePower() {
   return (

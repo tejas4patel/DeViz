@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as d3 from 'd3'
 
-import { useResizeObserver } from '../viz/use_resize_observer';
+import { useResizeObserver } from '../viz/useResizeObserver';
 
 type PillarKey = 'microdata' | 'dashboards' | 'linkage';
 
