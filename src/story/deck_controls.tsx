@@ -1,18 +1,18 @@
-import { useMemo } from "react"
+import { useMemo } from 'react';
 
 type Props = {
-  activeIdx: number
-  total: number
-  canPrev: boolean
-  canNext: boolean
-  title: string
-  onPrev: () => void
-  onNext: () => void
-  onFirst: () => void
-  onLast: () => void
-  onToggleHelp: () => void
-  helpOpen: boolean
-}
+  activeIdx: number;
+  total: number;
+  canPrev: boolean;
+  canNext: boolean;
+  title: string;
+  onPrev: () => void;
+  onNext: () => void;
+  onFirst: () => void;
+  onLast: () => void;
+  onToggleHelp: () => void;
+  helpOpen: boolean;
+};
 
 export default function DeckControls(props: Props) {
   const {
@@ -26,13 +26,13 @@ export default function DeckControls(props: Props) {
     onFirst,
     onLast,
     onToggleHelp,
-    helpOpen
-  } = props
+    helpOpen,
+  } = props;
 
   const pct = useMemo(() => {
-    if (total <= 1) return 0
-    return Math.round((activeIdx / (total - 1)) * 100)
-  }, [activeIdx, total])
+    if (total <= 1) return 0;
+    return Math.round((activeIdx / (total - 1)) * 100);
+  }, [activeIdx, total]);
 
   return (
     <div className="deckControls">
@@ -45,7 +45,7 @@ export default function DeckControls(props: Props) {
 
       <div className="deckControlsRight">
         <button className="btn" onClick={onToggleHelp}>
-          {helpOpen ? "Close help" : "Help"}
+          {helpOpen ? 'Close help' : 'Help'}
         </button>
 
         <div className="deckNav">
@@ -64,5 +64,5 @@ export default function DeckControls(props: Props) {
         </div>
       </div>
     </div>
-  )
+  );
 }

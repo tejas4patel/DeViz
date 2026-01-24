@@ -1,4 +1,4 @@
-import ScenePlaceholder from "./scene_placeholder"
+import ScenePlaceholder from './scene_placeholder';
 
 export default function Scene14Roadmap() {
   return (
@@ -6,5 +6,5 @@ export default function Scene14Roadmap() {
       title="Scene 14"
       description="Roadmap placeholder. Replace with a timeline of planned releases, dashboard modules, and future linkages."
     />
-  )
+  );
 }

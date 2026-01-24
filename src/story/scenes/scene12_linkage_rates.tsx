@@ -1,4 +1,4 @@
-import ScenePlaceholder from "./scene_placeholder"
+import ScenePlaceholder from './scene_placeholder';
 
 export default function Scene12LinkageRates() {
   return (
@@ -6,5 +6,5 @@ export default function Scene12LinkageRates() {
       title="Scene 12"
       description="Small multiples placeholder. Replace with age and sex linkage rate visuals and counts."
     />
-  )
+  );
 }

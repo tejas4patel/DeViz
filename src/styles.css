@@ -15,8 +15,9 @@ body {
 }
 
 #root {
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
 }
 
 a {
@@ -26,7 +27,7 @@ a {
 .card {
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 14px;
   box-shadow: 0 10px 24px rgba(10, 18, 32, 0.06);
 }
@@ -65,19 +66,31 @@ a {
 
 .deckShell {
   height: 100vh;
-  padding: 14px;
+  /* slightly smaller outer padding to free vertical space */
+  padding: 12px;
   display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 12px;
+  /* Target a smaller header: approximately 8% of viewport height (clamped) */
+  grid-template-rows: clamp(48px, 8vh, 120px) 1fr;
+  gap: 10px;
 }
 
 .deckHeader {
   margin: 0;
 }
 
-/* important for small screens */
+/* vertically center header content inside the card and keep controls spaced */
 .deckHeader.card {
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  /* slightly reduced vertical padding compared to .card default for a tighter header */
+  padding-block: 10px;
+  /* keep modest horizontal padding so content doesn't rely on negative margins;
+     give slightly larger right padding to keep controls fully inside the card */
+  padding-left: 12px;
+  padding-right: 20px;
+  overflow: visible;
 }
 
 .deckBody {
@@ -186,8 +199,23 @@ a {
   opacity: 0.85;
 }
 
-/* brand */
 .deckBrand {
+  min-width: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.deckBrandText {
+  min-width: 0;
+  flex: 1; /* allow the text block to grow and take remaining space */
+  /* modest left gutter that complements header padding */
+  padding-left: 8px;
+  text-align: left;
+}
+
+.deckBrandRail {
   min-width: 0;
 }
 
@@ -203,13 +231,15 @@ a {
 }
 
 .deckBrandSubtitle {
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0.8;
   line-height: 1.35;
   min-width: 0;
-  overflow: hidden;
+  overflow: hidden; /* keep subtitle on single line and truncate at available width */
   text-overflow: ellipsis;
   white-space: nowrap;
+  /* allow subtitle to fill the left (title) column; let the grid reserve space for controls */
+  max-width: 100%;
 }
 
 /* rail container */
@@ -221,13 +251,40 @@ a {
   min-width: 0;
 }
 
-/* Desktop: buttons flank rail, rail uses all available width */
+/* Tablet + laptop: put the flowline to the right of the title (uses header whitespace) */
+@media (min-width: 721px) {
+  /* Desktop layout: place title left and compact controls to the right */
+  .deckBrand {
+    display: grid;
+    /* allocate 70% for text and 30% for controls, but guarantee minimum control width */
+    grid-template-columns: minmax(0, 70%) minmax(120px, 30%);
+    align-items: center;
+    column-gap: 12px;
+  }
+
+  .deckBrandRail {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: auto; /* shrink to content */
+    /* pull the rail slightly past the card inner edge so controls appear closer
+       to the rounded card border while keeping space for shadows */
+    margin-right: 0;
+    justify-self: end; /* ensure controls column stays right-aligned */
+  }
+
+  .deckRailHeaderWrap {
+    margin-top: 0;
+  }
+}
+
+/* Desktop: buttons flank rail; if the SVG host is absent, keep buttons compact */
 .deckRailLayout {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
-  gap: 14px;
-  width: 100%;
+  gap: 6px; /* smaller gap so groups sit closer together */
+  width: auto; /* shrink to content so the rail can sit flush to the header edge */
   min-width: 0;
 }
 
@@ -235,21 +292,28 @@ a {
 .deckRailBtnGroupLeft,
 .deckRailBtnGroupRight {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   align-items: center;
-  justify-content: center;
   flex-wrap: nowrap;
-  align-self: start;
-  margin-top: calc(var(--rail-line-y, 36px) - 21px); /* aligns button centers to the rail line */
+  margin: 0;
+  padding: 0;
+}
+
+/* ensure groups sit directly adjacent with no extra positioning rules */
+.deckRailBtnGroup,
+.deckRailBtnGroupLeft,
+.deckRailBtnGroupRight {
+  margin-inline: 0;
+  padding-inline: 0;
 }
 
 /* buttons */
 .deckRailBtn {
-  height: 42px;
-  width: 42px;
+  height: 32px;
+  width: 32px;
   padding: 0;
   border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 10px 20px rgba(10, 18, 32, 0.06);
   cursor: pointer;
@@ -260,7 +324,7 @@ a {
 
 .deckRailBtn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(10, 18, 32, 0.10);
+  box-shadow: 0 14px 28px rgba(10, 18, 32, 0.1);
   background: white;
 }
 
@@ -275,6 +339,11 @@ a {
   box-shadow: none;
 }
 
+.deckRailBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 90, 255, 0.18);
+}
+
 .deckRailBtn svg {
   display: block;
 }
@@ -282,12 +351,17 @@ a {
 /* SVG host: taller so labels never clip */
 .deckRailSvgHost {
   width: 100%;
-  height: 104px;
+  /* reduce SVG host height so the header remains compact */
+  height: clamp(36px, 5.5vh, 64px);
   min-width: 0;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  margin-inline: 0;
+  padding-inline: 0;
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(16, 24, 40, 0.03), rgba(16, 24, 40, 0.00));
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: transparent;
+  border: none;
   position: relative;
 }
 
@@ -362,6 +436,11 @@ a {
   .deckControlsRight {
     justify-content: space-between;
   }
+
+  /* keep header content clipped on small screens to preserve compact layout */
+  .deckHeader.card {
+    overflow: hidden;
+  }
 }
 
 /* Phone: keep buttons in one row (<< < on left, > >> on right) + rail full width below */
@@ -399,4 +478,67 @@ a {
     grid-row: 2;
     width: 100%;
   }
+
+  /* remove right reserve on narrow screens where buttons stack */
+  .deckBrandText {
+    padding-right: 0;
+  }
+}
+
+/* Responsive header fallback: on very small screens stack brand and controls */
+@media (max-width: 520px) {
+  .deckBrand {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .deckBrandRail {
+    justify-self: center;
+    margin-right: 0;
+  }
+
+  .deckHeader.card {
+    padding-right: 12px; /* reduce right padding on small devices */
+  }
+
+  .deckBrandTitle,
+  .deckBrandSubtitle {
+    text-align: left;
+  }
+}
+
+/* Tile pane styles (replacement for MUI tile component) */
+.tilePane {
+  width: 300px;
+  height: 240px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 8px;
+  background: white;
+}
+
+.tileGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.tileCard {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  background: #fff;
+}
+
+.tileCard .tileTitle {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -1,30 +1,30 @@
 type NodeData = {
-  date?: string
-  label: string
-  note?: string
-  type?: string
-}
+  date?: string;
+  label: string;
+  note?: string;
+  type?: string;
+};
 
 type Props = {
-  node: NodeData
-  x: number
-  y: number
-  onMouseEnter?: () => void
-  onMouseLeave?: () => void
-}
+  node: NodeData;
+  x: number;
+  y: number;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+};
 
 export default function TimelinePopover(props: Props) {
-  const { node, x, y, onMouseEnter, onMouseLeave } = props
+  const { node, x, y, onMouseEnter, onMouseLeave } = props;
 
   return (
     <div
       className="timelinePopover"
       style={{
-        position: "fixed",
+        position: 'fixed',
         left: x,
         top: y - 8,
-        transform: "translate(-50%, -100%)",
-        zIndex: 100
+        transform: 'translate(-50%, -100%)',
+        zIndex: 100,
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -36,5 +36,5 @@ export default function TimelinePopover(props: Props) {
         {node.note ? <div className="timelinePopoverNote">{node.note}</div> : null}
       </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import ScenePlaceholder from "./scene_placeholder"
+import ScenePlaceholder from './scene_placeholder';
 
 export default function Scene06DataMatrix() {
   return (
@@ -6,5 +6,5 @@ export default function Scene06DataMatrix() {
       title="Scene 06"
       description="Matrix placeholder. Replace with a grid showing which variable categories exist in public versus restricted files."
     />
-  )
+  );
 }

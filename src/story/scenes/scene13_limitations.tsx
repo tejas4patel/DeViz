@@ -1,4 +1,4 @@
-import ScenePlaceholder from "./scene_placeholder"
+import ScenePlaceholder from './scene_placeholder';
 
 export default function Scene13Limitations() {
   return (
@@ -6,5 +6,5 @@ export default function Scene13Limitations() {
       title="Scene 13"
       description="Limitations placeholder. Replace with an interactive checklist or radar view and a weight normalization explanation panel."
     />
-  )
+  );
 }
