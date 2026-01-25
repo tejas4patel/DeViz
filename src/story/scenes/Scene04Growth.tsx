@@ -2,23 +2,15 @@ import { useEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
 import { useResizeObserver } from '../viz/useResizeObserver';
 import { axisBottom, axisLeft } from '../viz/chartAxes';
-
-type Row = {
-  year: number;
-  centers_total: number;
-  visits_millions: number;
-};
+import { Scene04Row } from '../storyTypes';
+import { scene04Rows } from '../sceneData';
 
 export default function Scene04Growth() {
   const { ref, rect } = useResizeObserver<HTMLDivElement>();
   const svgRef = useRef<SVGSVGElement | null>(null);
 
-  const rows = useMemo<Row[]>(() => {
-    return [
-      { year: 2021, centers_total: 29, visits_millions: 3.543927 },
-      { year: 2022, centers_total: 64, visits_millions: 5.64037 },
-      { year: 2023, centers_total: 95, visits_millions: 9.012885 },
-    ];
+  const rows = useMemo<Scene04Row[]>(() => {
+    return scene04Rows;
   }, []);
 
   useEffect(() => {

@@ -170,7 +170,6 @@ export default function ScrollStoryShell() {
                 {activeScene.subtitle}
               </div>
             </div>
-            <div className="small">{activeScene.id}</div>
           </div>
 
           <div className="slideScrollBody">

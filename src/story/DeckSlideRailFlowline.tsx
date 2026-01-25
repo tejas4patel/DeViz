@@ -81,9 +81,9 @@ export default function DeckSlideRailFlowLine(props: Props) {
 
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const hostRef = useRef<HTMLDivElement | null>(null);
 
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  // const [popover, setPopover] = useState<PopState>({ visible: false, node: null, x: 0, y: 0 }); // removed
   const [, setPopoverState] = useState<PopState>({
     visible: false,
     node: null,
@@ -106,8 +106,10 @@ export default function DeckSlideRailFlowLine(props: Props) {
 
   useEffect(() => {
     const updateDimensions = () => {
-      if (!containerRef.current) return;
-      const width = containerRef.current.clientWidth;
+      if (!hostRef.current) return;
+      const fullWidth = hostRef.current.clientWidth;
+      // User request: SVG takes 80% of parent width
+      const width = fullWidth * 0.8;
       const height = 92; // MORE ROOM so labels never clip
       setDimensions({ width, height });
     };
@@ -365,7 +367,7 @@ export default function DeckSlideRailFlowLine(props: Props) {
       .attr('y', nodeRadius + 21) // move label UP so it never clips
       .attr('text-anchor', 'middle')
       .attr('font-size', '11px')
-      .attr('font-family', 'system-ui, Roboto, sans-serif')
+      .attr('font-family', 'Inter, system-ui, Roboto, sans-serif')
       .attr('fill', '#64748B')
       .attr('font-weight', '700')
       .text(d => `${d.globalIndex + 1}`)
@@ -437,46 +439,51 @@ export default function DeckSlideRailFlowLine(props: Props) {
   }, [])
 
   return (
-    <div className="deckRail" ref={containerRef}>
-      <button
-        className="deckRailBtn"
-        disabled={!canPrev}
-        onClick={onFirst}
-        aria-label="First Slide"
-      >
-        <IconFirst />
-      </button>
+    <div className="deckRailLayout" ref={containerRef}>
+      <div className="deckRailBtnGroupLeft">
+        <button
+          className="deckRailBtn"
+          disabled={!canPrev}
+          onClick={onFirst}
+          aria-label="First Slide"
+        >
+          <IconFirst />
+        </button>
 
-      <button
-        className="deckRailBtn"
-        disabled={!canPrev}
-        onClick={onPrev}
-        aria-label="Previous Slide"
-      >
-        <IconPrev />
-      </button>
-
-      <div className="deckRailSvgContainer">
-        <svg ref={svgRef} />
+        <button
+          className="deckRailBtn"
+          disabled={!canPrev}
+          onClick={onPrev}
+          aria-label="Previous Slide"
+        >
+          <IconPrev />
+        </button>
       </div>
 
-      <button
-        className="deckRailBtn"
-        disabled={!canNext}
-        onClick={onNext}
-        aria-label="Next Slide"
-      >
-        <IconNext />
-      </button>
+      {/* <div className="deckRailSvgHost" ref={hostRef} style={{ display: 'flex', justifyContent: 'center' }}>
+        <svg ref={svgRef} />
+      </div> */}
 
-      <button
-        className="deckRailBtn"
-        disabled={!canNext}
-        onClick={onLast}
-        aria-label="Last Slide"
-      >
-        <IconLast />
-      </button>
+
+      <div className="deckRailBtnGroupRight">
+        <button
+          className="deckRailBtn"
+          disabled={!canNext}
+          onClick={onNext}
+          aria-label="Next Slide"
+        >
+          <IconNext />
+        </button>
+
+        <button
+          className="deckRailBtn"
+          disabled={!canNext}
+          onClick={onLast}
+          aria-label="Last Slide"
+        >
+          <IconLast />
+        </button>
+      </div>
     </div>
   )
 }

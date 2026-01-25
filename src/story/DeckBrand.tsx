@@ -15,8 +15,8 @@ export default function DeckBrand(props: Props) {
   return (
     <div className="deckBrand">
       <div className="deckBrandText">
+        <div className="deckBrandSubtitle">{subtitle}</div>
         <div className="deckBrandTitle">{title}</div>
-        {subtitle ? <div className="deckBrandSubtitle">{subtitle}</div> : null}
       </div>
 
       <div className="deckBrandRail" aria-label="Story progress">

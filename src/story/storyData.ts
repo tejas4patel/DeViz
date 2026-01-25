@@ -1,7 +1,7 @@
 import type { Story } from './storyTypes';
 
 export const story: Story = {
-  title: 'NAMCS HC Data Storybook',
+  title: 'NAMCS Health Center Data',
   subtitle: 'Microdata, dashboards, and linkage for patient centered outcomes research',
   scenes: [
     {

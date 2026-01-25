@@ -31,3 +31,50 @@ export type Story = {
   subtitle: string;
   scenes: Scene[];
 };
+
+export type PillarKey = 'microdata' | 'dashboards' | 'linkage';
+
+export type SevenKey = 'who' | 'what' | 'when' | 'where' | 'why' | 'which' | 'how';
+
+export type Qa = {
+  question: string;
+  answer: string;
+};
+
+export type SevenPack = Record<SevenKey, Qa>;
+
+export type Node = {
+  id: string;
+  label: string;
+  detail: string;
+  group: 'hub' | 'pillar' | 'sub';
+  pillar?: PillarKey;
+  seven: SevenPack;
+  // D3 simulation properties
+  x?: number;
+  y?: number;
+  fx?: number | null;
+  fy?: number | null;
+  index?: number;
+  vx?: number;
+  vy?: number;
+};
+
+export type Link = {
+  source: string | Node;
+  target: string | Node;
+};
+
+export type Scene04Row = {
+  year: number;
+  centers_total: number;
+  visits_millions: number;
+};
+
+export type Scene08Row = {
+  age: string;
+  maternal_rate: number;
+  gdm_rate: number;
+};
+
+

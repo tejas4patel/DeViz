@@ -2,24 +2,15 @@ import { useEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
 import { useResizeObserver } from '../viz/useResizeObserver';
 import { axisBottom, axisLeft } from '../viz/chartAxes';
-
-type Row = {
-  age: string;
-  maternal_rate: number;
-  gdm_rate: number;
-};
+import { Scene08Row } from '../storyTypes';
+import { scene08Rows } from '../sceneData';
 
 export default function Scene08Maternal() {
   const { ref, rect } = useResizeObserver<HTMLDivElement>();
   const svgRef = useRef<SVGSVGElement | null>(null);
 
-  const rows = useMemo<Row[]>(() => {
-    return [
-      { age: '12 to 19', maternal_rate: 29.7, gdm_rate: 0.1 },
-      { age: '20 to 29', maternal_rate: 134.6, gdm_rate: 2.6 },
-      { age: '30 to 39', maternal_rate: 101.0, gdm_rate: 4.3 },
-      { age: '40 to 55', maternal_rate: 20.3, gdm_rate: 0.8 },
-    ];
+  const rows = useMemo<Scene08Row[]>(() => {
+    return scene08Rows;
   }, []);
 
   useEffect(() => {
