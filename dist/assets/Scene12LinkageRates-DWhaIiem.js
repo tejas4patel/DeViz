@@ -1,0 +1,1 @@
+import{j as e}from"./index-CktA7uae.js";import{S as a}from"./ScenePlaceholder-gkhcQilY.js";function n(){return e.jsx(a,{title:"Scene 12",description:"Small multiples placeholder. Replace with age and sex linkage rate visuals and counts."})}export{n as default};

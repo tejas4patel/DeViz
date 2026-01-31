@@ -1,0 +1,84 @@
+{
+  "story_outline": [
+    {
+      "scene_id": "SCENE_00",
+      "scene_title": "Introduction: The NAMCS Health Center Ecosystem",
+      "narrative_purpose": "Set the context by introducing the key players, concepts, and relationships in the NAMCS HC Component ecosystem. Show how FQHCs, NCHS, HRSA, and PCOR are interconnected.",
+      "source_sections": ["SEC01", "SEC02"],
+      "recommended_base_visual": "force_graph",
+      "notes": "Force-directed graph showing relationships between organizations (NCHS, HRSA, HUD), data systems (NAMCS, UDS, EHR), and concepts (PCOR, FQHCs, HPSAs). This provides a bird's-eye view of the entire ecosystem."
+    },
+    {
+      "scene_id": "SCENE_01",
+      "scene_title": "FQHCs: Serving Underserved Communities",
+      "narrative_purpose": "Highlight the critical role of FQHCs in serving underserved populations and the stark differences between FQHC patients and the general U.S. population.",
+      "source_sections": ["SEC02"],
+      "recommended_base_visual": "matrix",
+      "notes": "Compare FQHC patient demographics vs U.S. population (31.3M patients, 67.3% poverty vs 11.1% national). Show the scale and impact of FQHCs in addressing health disparities."
+    },
+    {
+      "scene_id": "SCENE_02",
+      "scene_title": "The Data Collection Pipeline",
+      "narrative_purpose": "Explain the four-step data collection methodology and sampling strategy that enables nationally representative data collection.",
+      "source_sections": ["SEC03"],
+      "recommended_base_visual": "flowchart",
+      "notes": "Visualize the 4-step process: (1) Contact & Agreement, (2) Questionnaire, (3) HL7 Implementation, (4) T&V and Submission. Include sampling funnel: 1,400 frame → 50 primary → 29 participating."
+    },
+    {
+      "scene_id": "SCENE_03",
+      "scene_title": "Two Paths to Data Access",
+      "narrative_purpose": "Illustrate the dual-track data access model with restricted and public use datafiles, showing what researchers can access at each level.",
+      "source_sections": ["SEC04"],
+      "recommended_base_visual": "tree",
+      "notes": "Tree diagram branching from NAMCS HC Component to Restricted (full data, RDC access, fee required) and Public Use (5% sample, free, fewer variables). Include data element comparison."
+    },
+    {
+      "scene_id": "SCENE_04",
+      "scene_title": "Maternal Health Insights",
+      "narrative_purpose": "Demonstrate the analytical power of the data through maternal health visit patterns across age groups.",
+      "source_sections": ["SEC04"],
+      "recommended_base_visual": "matrix",
+      "notes": "Age-based comparison matrix showing maternal health visit rates and gestational diabetes rates. Highlight significant differences between age groups (20-29: 134.6 vs 12-19: 29.7)."
+    },
+    {
+      "scene_id": "SCENE_05",
+      "scene_title": "Respiratory Health Disparities",
+      "narrative_purpose": "Reveal racial/ethnic disparities in respiratory disease visits over time, demonstrating the dashboard's analytical capabilities.",
+      "source_sections": ["SEC05"],
+      "recommended_base_visual": "timeline",
+      "notes": "Time-series from Jan 2022 to June 2024 showing respiratory visit rates by race/ethnicity. Non-Hispanic White (10.3-14.3) vs Hispanic (25.6-31.9) vs Non-Hispanic Black (24.1-36.8)."
+    },
+    {
+      "scene_id": "SCENE_06",
+      "scene_title": "The Power of Data Linkage",
+      "narrative_purpose": "Show how linking NAMCS HC data to external sources (HUD) creates new research possibilities for understanding social determinants of health.",
+      "source_sections": ["SEC06"],
+      "recommended_base_visual": "sankey",
+      "notes": "Sankey diagram showing flow from NAMCS HC patients (727K) through linkage eligibility (99.9%) to HUD programs (HCV, PH, MF). Show demographic breakdown of linked patients."
+    },
+    {
+      "scene_id": "SCENE_07",
+      "scene_title": "Remarkable Growth (2021-2023)",
+      "narrative_purpose": "Visualize the dramatic growth of the NAMCS HC Component in participating centers and visit records.",
+      "source_sections": ["SEC07"],
+      "recommended_base_visual": "timeline",
+      "notes": "Growth timeline: 2021 (29 centers, 3.5M visits) → 2022 (64 centers, 5.6M visits) → 2023 (95 centers, 9M visits). Emphasize 98.4% retention rate."
+    },
+    {
+      "scene_id": "SCENE_08",
+      "scene_title": "Acknowledging Limitations",
+      "narrative_purpose": "Present the survey's limitations transparently while showing mitigation strategies.",
+      "source_sections": ["SEC08"],
+      "recommended_base_visual": "matrix",
+      "notes": "Matrix showing limitations (response rate, data availability, missingness) paired with mitigation strategies (retention, normalization, ongoing expansion)."
+    },
+    {
+      "scene_id": "SCENE_09",
+      "scene_title": "Conclusion: The Road Ahead",
+      "narrative_purpose": "Summarize key achievements and outline future directions including planned data linkages and expanded capabilities.",
+      "source_sections": ["SEC09"],
+      "recommended_base_visual": "tree",
+      "notes": "Roadmap tree showing current achievements branching into future plans: 2024 datafiles, NDI linkage (complete), HUD linkage (complete), T-MSIS linkage (underway), expanded visualizations."
+    }
+  ]
+}

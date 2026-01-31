@@ -1,0 +1,75 @@
+{
+  "nodes": [
+    {
+      "id": "hub",
+      "label": "NAMCS HC Component",
+      "detail": "EHR based encounter submissions powering microdata, dashboards, and linkage products for research",
+      "group": "hub"
+    },
+    {
+      "id": "microdata",
+      "label": "Microdata",
+      "detail": "Visit level datasets for analysis, public sample plus restricted detail files",
+      "group": "pillar"
+    },
+    {
+      "id": "dashboards",
+      "label": "Dashboards",
+      "detail": "Interactive preliminary estimates for people who do not want to code",
+      "group": "pillar"
+    },
+    {
+      "id": "linkage",
+      "label": "Linkage",
+      "detail": "Patient level links to external sources to add outcomes and social context",
+      "group": "pillar"
+    },
+    {
+      "id": "public_file",
+      "label": "Public file",
+      "detail": "Accessible microdata tier designed to lower cost and compute barriers",
+      "group": "sub"
+    },
+    {
+      "id": "restricted_file",
+      "label": "Restricted file",
+      "detail": "Secure microdata tier with broader detail and possible linked products",
+      "group": "sub"
+    },
+    {
+      "id": "biannual_prelim",
+      "label": "Biannual prelim",
+      "detail": "Periodic preliminary estimate cadence that improves timeliness",
+      "group": "sub"
+    },
+    {
+      "id": "download_tables",
+      "label": "Download tables",
+      "detail": "Exportable tables for reporting and sharing",
+      "group": "sub"
+    },
+    {
+      "id": "hud_link",
+      "label": "HUD link",
+      "detail": "Link to housing assistance participation to add social context",
+      "group": "sub"
+    },
+    {
+      "id": "ndi_link",
+      "label": "NDI link",
+      "detail": "Link to mortality records to enable downstream outcome analysis",
+      "group": "sub"
+    }
+  ],
+  "links": [
+    { "source": "hub", "target": "microdata", "type": "partOf" },
+    { "source": "hub", "target": "dashboards", "type": "partOf" },
+    { "source": "hub", "target": "linkage", "type": "partOf" },
+    { "source": "microdata", "target": "public_file", "type": "contains" },
+    { "source": "microdata", "target": "restricted_file", "type": "contains" },
+    { "source": "dashboards", "target": "biannual_prelim", "type": "contains" },
+    { "source": "dashboards", "target": "download_tables", "type": "contains" },
+    { "source": "linkage", "target": "hud_link", "type": "contains" },
+    { "source": "linkage", "target": "ndi_link", "type": "contains" }
+  ]
+}

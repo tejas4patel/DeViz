@@ -1,0 +1,1 @@
+import{j as e}from"./index-CktA7uae.js";import{S as t}from"./ScenePlaceholder-gkhcQilY.js";function n(){return e.jsx(t,{title:"Scene 16",description:"Synthesis placeholder. Replace with a final network view plus persona takeaways."})}export{n as default};

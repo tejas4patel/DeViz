@@ -1,0 +1,1 @@
+import{j as e}from"./index-CktA7uae.js";import{S as a}from"./ScenePlaceholder-gkhcQilY.js";function t(){return e.jsx(a,{title:"Scene 14",description:"Roadmap placeholder. Replace with a timeline of planned releases, dashboard modules, and future linkages."})}export{t as default};

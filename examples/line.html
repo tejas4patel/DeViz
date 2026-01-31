@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serpentine D3 Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 700px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        
+        #serpentine-wrapper {
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+        }
+        
+        svg {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        path {
+            transition: stroke 0.3s ease, filter 0.3s ease;
+        }
+
+        path:hover {
+            stroke: #667eea;
+            filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.6));
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Serpentine Line Visualization</h1>
+        <div id="serpentine-wrapper">
+            <svg id="serpentine"></svg>
+        </div>
+    </div>
+
+    <script>
+        // Configuration object for easy adjustments
+        const config = {
+            baseWidth: 600,
+            baseHeight: 1000,
+            margin: 60,
+            lineWidth: 30,
+            rowSpacing: 70,
+            cornerRadius: 40,
+            strokeColor: '#4a4a4a',
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round'
+        };
+
+        // Function to generate serpentine path
+        function generateSerpentinePath(width, height, config) {
+            const { margin, rowSpacing, cornerRadius } = config;
+            const leftX = margin;
+            const rightX = width - margin;
+            let pathData = '';
+            
+            const numRows = Math.floor((height - 2 * margin) / rowSpacing);
+
+            for (let i = 0; i < numRows; i++) {
+                const y = margin + i * rowSpacing;
+                const goingRight = i % 2 === 0;
+
+                if (i === 0) {
+                    // First row - start from left
+                    pathData += `M ${leftX} ${y} `;
+                    pathData += `L ${rightX - cornerRadius} ${y} `;
+                    // Rounded corner (top right)
+                    pathData += `Q ${rightX} ${y} ${rightX} ${y + cornerRadius} `;
+                } else if (goingRight) {
+                    // Coming from left side, going to right
+                    pathData += `L ${rightX - cornerRadius} ${y} `;
+                    // Rounded corner (top right)
+                    pathData += `Q ${rightX} ${y} ${rightX} ${y + cornerRadius} `;
+                } else {
+                    // Coming from right side, going to left
+                    pathData += `L ${leftX + cornerRadius} ${y} `;
+                    // Rounded corner (top left)
+                    pathData += `Q ${leftX} ${y} ${leftX} ${y + cornerRadius} `;
+                }
+
+                // Vertical section with rounded corners
+                const nextY = y + rowSpacing - cornerRadius;
+                pathData += `L ${goingRight ? rightX : leftX} ${nextY} `;
+
+                // Bottom rounded corner connecting to next horizontal line
+                if (goingRight) {
+                    pathData += `Q ${rightX} ${nextY + cornerRadius} ${rightX - cornerRadius} ${nextY + cornerRadius} `;
+                } else {
+                    pathData += `Q ${leftX} ${nextY + cornerRadius} ${leftX + cornerRadius} ${nextY + cornerRadius} `;
+                }
+            }
+
+            // Final horizontal segment to complete the pattern
+            const lastGoingRight = (numRows - 1) % 2 === 0;
+            const finalY = margin + numRows * rowSpacing;
+            
+            if (lastGoingRight) {
+                // Last row went right, so extend left
+                pathData += `L ${leftX} ${finalY} `;
+            } else {
+                // Last row went left, so extend right
+                pathData += `L ${rightX} ${finalY} `;
+            }
+
+            return pathData;
+        }
+
+        // Responsive initialization
+        function initializeSerpentine() {
+            const svgElement = d3.select('#serpentine');
+            
+            // Set dimensions (responsive based on container)
+            const containerWidth = Math.min(
+                window.innerWidth - 60,
+                700
+            );
+            
+            const scaleFactor = containerWidth / config.baseWidth;
+            const width = config.baseWidth * scaleFactor;
+            const height = config.baseHeight * scaleFactor;
+
+            svgElement
+                .attr('width', width)
+                .attr('height', height)
+                .attr('viewBox', `0 0 ${width} ${height}`)
+                .attr('preserveAspectRatio', 'xMidYMid meet');
+
+            // Generate and render path
+            const pathData = generateSerpentinePath(width, height, config);
+            
+            svgElement.selectAll('path').remove();
+            svgElement.append('path')
+                .attr('d', pathData)
+                .attr('stroke', config.strokeColor)
+                .attr('stroke-width', config.lineWidth * scaleFactor)
+                .attr('fill', 'none')
+                .attr('stroke-linecap', config.strokeLinecap)
+                .attr('stroke-linejoin', config.strokeLinejoin);
+        }
+
+        // Initialize on load
+        initializeSerpentine();
+
+        // Re-initialize on window resize
+        window.addEventListener('resize', initializeSerpentine);
+    </script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stunning D3.js Petal Constellation</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 300%;
+            height: 300%;
+            top: -100%;
+            left: -100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(65, 105, 225, 0.15) 0%, transparent 50%);
+            animation: floatBg 25s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes floatBg {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(80px, 60px) scale(1.05); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #a855f7, #06b6d4, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            letter-spacing: -2px;
+            filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.3));
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        svg {
+            filter: drop-shadow(0 0 60px rgba(168, 85, 247, 0.4));
+        }
+
+        .stats-left {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        .stat-label {
+            opacity: 0.6;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 900;
+            color: #a855f7;
+            letter-spacing: -1px;
+        }
+
+        .stats-right {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
+            text-align: right;
+            z-index: 10;
+        }
+
+        .tooltip {
+            position: fixed;
+            background: rgba(15, 12, 41, 0.97);
+            color: #fff;
+            padding: 18px 22px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(168, 85, 247, 0.6);
+            pointer-events: none;
+            font-size: 13px;
+            z-index: 1000;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.5), 
+                        inset 0 0 20px rgba(168, 85, 247, 0.1),
+                        0 8px 32px rgba(0, 0, 0, 0.4);
+            display: none;
+            line-height: 1.8;
+        }
+
+        .tooltip strong {
+            color: #a855f7;
+            font-size: 15px;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PETAL NEXUS</h1>
+            <div class="subtitle">✦ Data Constellation ✦</div>
+        </div>
+        <svg id="chart"></svg>
+        <div class="tooltip" id="tooltip"></div>
+        <div class="stats-left">
+            <div class="stat-label">FOCUS:</div>
+            <div class="stat-value" id="stat-name">—</div>
+        </div>
+        <div class="stats-right">
+            <div>Interactive visualization</div>
+            <div style="margin-top: 8px;">Hover to explore data</div>
+        </div>
+    </div>
+
+    <script>
+        const data = [
+            { name: 'NEURAL', value: 94, desc: 'Deep Learning Systems', color: '#a855f7', light: '#e9d5ff' },
+            { name: 'QUANTUM', value: 91, desc: 'Quantum Processing', color: '#06b6d4', light: '#cffafe' },
+            { name: 'PLASMA', value: 88, desc: 'Plasma Dynamics', color: '#ec4899', light: '#fbcfe8' },
+            { name: 'STELLAR', value: 93, desc: 'Stellar Analytics', color: '#f59e0b', light: '#fef3c7' },
+            { name: 'COSMIC', value: 89, desc: 'Cosmic Radiation', color: '#10b981', light: '#d1fae5' },
+            { name: 'PRISM', value: 92, desc: 'Prismatic Refraction', color: '#8b5cf6', light: '#ede9fe' },
+            { name: 'AURORA', value: 87, desc: 'Aurora Phenomena', color: '#14b8a6', light: '#ccfbf1' },
+            { name: 'SURGE', value: 90, desc: 'Energy Surge', color: '#f97316', light: '#ffedd5' }
+        ];
+
+        const width = 1400;
+        const height = 1000;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const maxRadius = 280;
+        const petalWidth = 70;
+
+        const svg = d3.select('#chart')
+            .attr('width', width)
+            .attr('height', height);
+
+        const defs = svg.append('defs');
+
+        // Glow filter
+        const glowFilter = defs.append('filter')
+            .attr('id', 'petal-glow')
+            .attr('x', '-150%')
+            .attr('y', '-150%')
+            .attr('width', '400%')
+            .attr('height', '400%');
+
+        glowFilter.append('feGaussianBlur')
+            .attr('stdDeviation', '5')
+            .attr('result', 'coloredBlur');
+
+        glowFilter.append('feMerge')
+            .selectAll('feMergeNode')
+            .data([0, 1])
+            .enter()
+            .append('feMergeNode')
+            .attr('in', d => d ? 'SourceGraphic' : 'coloredBlur');
+
+        // Create vibrant gradients
+        data.forEach((d, i) => {
+            const gradient = defs.append('linearGradient')
+                .attr('id', `petal-gradient-${i}`)
+                .attr('x1', '0%')
+                .attr('y1', '0%')
+                .attr('x2', '0%')
+                .attr('y2', '100%');
+
+            gradient.append('stop')
+                .attr('offset', '0%')
+                .attr('stop-color', d.light)
+                .attr('stop-opacity', 1);
+
+            gradient.append('stop')
+                .attr('offset', '40%')
+                .attr('stop-color', d.color)
+                .attr('stop-opacity', 0.95);
+
+            gradient.append('stop')
+                .attr('offset', '100%')
+                .attr('stop-color', d.color)
+                .attr('stop-opacity', 0.6);
+        });
+
+        const mainGroup = svg.append('g')
+            .attr('transform', `translate(${centerX}, ${centerY})`);
+
+        // Background rings
+        for (let i = 1; i <= 4; i++) {
+            mainGroup.append('circle')
+                .attr('r', (maxRadius / 4) * i)
+                .attr('fill', 'none')
+                .attr('stroke', 'rgba(168, 85, 247, 0.1)')
+                .attr('stroke-width', 0.5)
+                .attr('stroke-dasharray', '8,4');
+        }
+
+        // Petal path generator
+        function createPetalPath(length, width) {
+            return `
+                M 0,0
+                C ${width * 0.75}, ${-length * 0.2} ${width * 0.95}, ${-length * 0.55} ${width * 0.7}, ${-length}
+                Q ${width * 0.35}, ${-length * 1.1} 0, ${-length * 1.15}
+                Q ${-width * 0.35}, ${-length * 1.1} ${-width * 0.7}, ${-length}
+                C ${-width * 0.95}, ${-length * 0.55} ${-width * 0.75}, ${-length * 0.2} 0, 0
+                Z
+            `;
+        }
+
+        const tooltip = d3.select('#tooltip');
+
+        // Create petal groups
+        const petalGroups = mainGroup.selectAll('.petal-group')
+            .data(data)
+            .enter()
+            .append('g')
+            .attr('class', 'petal-group')
+            .attr('transform', (d, i) => {
+                const angle = (i * 360 / data.length);
+                return `rotate(${angle})`;
+            });
+
+        // OUTER GLOW LAYER
+        petalGroups.append('path')
+            .attr('class', 'petal-glow-outer')
+            .attr('d', d => createPetalPath((d.value / 100) * maxRadius, petalWidth * 1.4))
+            .attr('fill', (d, i) => `url(#petal-gradient-${i})`)
+            .attr('opacity', 0)
+            .attr('stroke', 'none')
+            .attr('filter', 'url(#petal-glow)')
+            .transition()
+            .duration(1600)
+            .delay((d, i) => i * 80)
+            .ease(d3.easeCubicOut)
+            .attr('opacity', 0.12);
+
+        // MID GLOW LAYER
+        petalGroups.append('path')
+            .attr('class', 'petal-glow-mid')
+            .attr('d', d => createPetalPath((d.value / 100) * maxRadius, petalWidth * 1.15))
+            .attr('fill', (d, i) => `url(#petal-gradient-${i})`)
+            .attr('opacity', 0)
+            .attr('stroke', 'none')
+            .transition()
+            .duration(1600)
+            .delay((d, i) => i * 80 + 40)
+            .ease(d3.easeCubicOut)
+            .attr('opacity', 0.28);
+
+        // MAIN PETAL
+        petalGroups.append('path')
+            .attr('class', 'petal-main')
+            .attr('d', d => createPetalPath((d.value / 100) * maxRadius, petalWidth))
+            .attr('fill', (d, i) => `url(#petal-gradient-${i})`)
+            .attr('stroke', (d, i) => d.light)
+            .attr('stroke-width', 2)
+            .attr('stroke-opacity', 0.5)
+            .attr('opacity', 0)
+            .style('cursor', 'pointer')
+            .style('transition', 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)')
+            .on('mouseover', function(event, d) {
+                d3.select(this.parentNode).selectAll('path')
+                    .transition()
+                    .duration(250)
+                    .attr('filter', `drop-shadow(0 0 35px ${d.color}) drop-shadow(0 0 70px ${d.color})`)
+                    .attr('opacity', curr => parseFloat(curr) * 1.3);
+
+                tooltip.style('display', 'block')
+                    .html(`<strong>${d.name}</strong><br/>${d.desc}<br/><span style="opacity: 0.7;">Score: ${d.value}/100</span>`)
+                    .style('left', (event.pageX + 25) + 'px')
+                    .style('top', (event.pageY - 15) + 'px');
+
+                d3.select('#stat-name').text(d.name);
+            })
+            .on('mouseout', function(event, d) {
+                d3.select(this.parentNode).selectAll('path')
+                    .transition()
+                    .duration(250)
+                    .attr('filter', 'drop-shadow(0 0 15px rgba(168, 85, 247, 0.3))')
+                    .attr('opacity', curr => parseFloat(curr) / 1.3);
+
+                tooltip.style('display', 'none');
+                d3.select('#stat-name').text('—');
+            })
+            .transition()
+            .duration(1600)
+            .delay((d, i) => i * 80 + 80)
+            .ease(d3.easeCubicOut)
+            .attr('opacity', 1);
+
+        // Labels
+        const labels = mainGroup.selectAll('.label-group')
+            .data(data)
+            .enter()
+            .append('g')
+            .attr('class', 'label-group')
+            .attr('transform', (d, i) => {
+                const angle = (i * 360 / data.length) * Math.PI / 180;
+                const dist = (d.value / 100) * maxRadius + 110;
+                const x = Math.sin(angle) * dist;
+                const y = -Math.cos(angle) * dist;
+                return `translate(${x}, ${y})`;
+            });
+
+        labels.append('text')
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#fff')
+            .attr('font-size', '14px')
+            .attr('font-weight', '700')
+            .attr('letter-spacing', '1px')
+            .attr('opacity', 0)
+            .text(d => d.name)
+            .transition()
+            .duration(1000)
+            .delay((d, i) => i * 80 + 600)
+            .attr('opacity', 1);
+
+        labels.append('text')
+            .attr('text-anchor', 'middle')
+            .attr('dy', '1.6em')
+            .attr('fill', 'rgba(255, 255, 255, 0.7)')
+            .attr('font-size', '12px')
+            .attr('font-weight', '500')
+            .attr('opacity', 0)
+            .text(d => d.value + '/100')
+            .transition()
+            .duration(1000)
+            .delay((d, i) => i * 80 + 700)
+            .attr('opacity', 1);
+
+        // Center element
+        const center = mainGroup.append('g');
+
+        center.append('circle')
+            .attr('r', 85)
+            .attr('fill', 'rgba(168, 85, 247, 0.08)')
+            .attr('stroke', 'rgba(168, 85, 247, 0.25)')
+            .attr('stroke-width', 1.5)
+            .attr('opacity', 0)
+            .transition()
+            .duration(1200)
+            .delay(400)
+            .attr('opacity', 1);
+
+        center.append('circle')
+            .attr('r', 60)
+            .attr('fill', 'rgba(168, 85, 247, 0.2)')
+            .attr('stroke', 'rgba(168, 85, 247, 0.5)')
+            .attr('stroke-width', 2)
+            .attr('filter', 'url(#petal-glow)')
+            .attr('opacity', 0)
+            .transition()
+            .duration(1200)
+            .delay(500)
+            .attr('opacity', 1);
+
+        center.append('circle')
+            .attr('r', 35)
+            .attr('fill', 'url(#petal-gradient-0)')
+            .attr('filter', 'url(#petal-glow)')
+            .attr('opacity', 0)
+            .transition()
+            .duration(1200)
+            .delay(600)
+            .attr('opacity', 1);
+
+        // Subtle orbital animation
+        setInterval(() => {
+            petalGroups.transition()
+                .duration(12000)
+                .ease(d3.easeSinInOut)
+                .attr('transform', (d, i) => {
+                    const angle = (i * 360 / data.length) + 3 + Math.random() * 1.5;
+                    return `rotate(${angle})`;
+                })
+                .on('end', function() {
+                    d3.select(this)
+                        .transition()
+                        .duration(12000)
+                        .ease(d3.easeSinInOut)
+                        .attr('transform', (d, i) => {
+                            const angle = (i * 360 / data.length);
+                            return `rotate(${angle})`;
+                        });
+                });
+        }, 12000);
+
+    </script>
+</body>
+</html>

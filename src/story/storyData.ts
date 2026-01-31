@@ -6,8 +6,8 @@ export const story: Story = {
   scenes: [
     {
       id: 'scene01',
-      title: 'Three pillars of the system',
-      subtitle: 'Microdata, interactive dashboards, and external linkage',
+      title: 'Introduction to NAMCS Health Center Data',
+      subtitle: 'Microdata, dashboards, and linkage',
       component: 'scene01_pillars',
       notes: 'Hover nodes to see definitions',
     },
@@ -77,7 +77,7 @@ export const story: Story = {
     {
       id: 'scene11',
       title: 'Linkage power',
-      subtitle: 'Connecting NAMCS HC to external sources like HUD and NDI',
+      subtitle: 'HUD, NDI, and external sources',
       component: 'scene11_linkage_power',
       notes: 'Placeholder bipartite graph scene',
     },
@@ -98,21 +98,21 @@ export const story: Story = {
     {
       id: 'scene14',
       title: 'Roadmap',
-      subtitle: 'Forthcoming files, more dashboard modules, more linkages',
+      subtitle: 'New files, dashboards, and linkages',
       component: 'scene14_roadmap',
       notes: 'Placeholder roadmap scene',
     },
     {
       id: 'scene15',
       title: 'Choose your own PCOR path',
-      subtitle: 'Decision logic for dashboard, public file, restricted file, linkage',
+      subtitle: 'Dashboard, public file, restricted file, or linkage',
       component: 'scene15_choose_path',
       notes: 'Placeholder decision tree scene',
     },
     {
       id: 'scene16',
       title: 'Synthesis',
-      subtitle: 'Three pillars plus personas and takeaways',
+      subtitle: 'Pillars, personas, and takeaways',
       component: 'scene16_synthesis',
       notes: 'Placeholder closing scene',
     },

@@ -1,0 +1,159 @@
+{
+  "scene_id": "SCENE_09",
+  "scene_title": "Conclusion: The Road Ahead",
+  "narrative_purpose": "Summarize key achievements and outline future directions including planned data linkages and expanded capabilities.",
+  "base_visual": "tree",
+  "source_sections": ["SEC09"],
+  "visual_data": {
+    "tree": {
+      "root": {
+        "id": "namcs_future",
+        "label": "NAMCS HC Component: The Road Ahead",
+        "description": "A growing resource for patient-centered outcomes research",
+        "children": [
+          {
+            "id": "current_achievements",
+            "label": "Current Achievements",
+            "type": "category",
+            "color": "#16a34a",
+            "children": [
+              {
+                "id": "ach_centers",
+                "label": "95 Health Centers",
+                "description": "Participating in 2023",
+                "type": "metric"
+              },
+              {
+                "id": "ach_visits",
+                "label": "9+ Million Visits",
+                "description": "Collected in 2023",
+                "type": "metric"
+              },
+              {
+                "id": "ach_retention",
+                "label": "98.4% Retention",
+                "description": "Centers continue participating",
+                "type": "metric"
+              },
+              {
+                "id": "ach_timeliness",
+                "label": "6-Month Timeliness",
+                "description": "Preliminary estimates available within 6 months",
+                "type": "metric"
+              }
+            ]
+          },
+          {
+            "id": "data_linkages",
+            "label": "Data Linkages",
+            "type": "category",
+            "color": "#2563eb",
+            "children": [
+              {
+                "id": "link_ndi",
+                "label": "National Death Index",
+                "description": "2021-2022 NDI linkage complete",
+                "status": "complete",
+                "type": "linkage"
+              },
+              {
+                "id": "link_hud",
+                "label": "HUD Administrative Data",
+                "description": "2020-2022 housing assistance data linked",
+                "status": "complete",
+                "type": "linkage"
+              },
+              {
+                "id": "link_tmsis",
+                "label": "T-MSIS Medicaid Data",
+                "description": "2020-2021 Medicaid linkage underway",
+                "status": "in_progress",
+                "type": "linkage"
+              }
+            ]
+          },
+          {
+            "id": "upcoming_releases",
+            "label": "Upcoming Releases",
+            "type": "category",
+            "color": "#9333ea",
+            "children": [
+              {
+                "id": "rel_2024",
+                "label": "2024 Datafiles",
+                "description": "Restricted and public use files forthcoming",
+                "type": "release"
+              },
+              {
+                "id": "rel_mental",
+                "label": "Mental Health Module",
+                "description": "Dashboard visualization recently added",
+                "type": "feature"
+              },
+              {
+                "id": "rel_respiratory",
+                "label": "Respiratory Health Module",
+                "description": "Dashboard visualization recently added",
+                "type": "feature"
+              }
+            ]
+          },
+          {
+            "id": "research_impact",
+            "label": "Research Impact",
+            "type": "category",
+            "color": "#ea580c",
+            "children": [
+              {
+                "id": "impact_maternal",
+                "label": "Maternal Health Research",
+                "description": "Age-based patterns in pregnancy care",
+                "type": "outcome"
+              },
+              {
+                "id": "impact_disparities",
+                "label": "Health Disparities",
+                "description": "Racial/ethnic differences in respiratory disease",
+                "type": "outcome"
+              },
+              {
+                "id": "impact_sdoh",
+                "label": "Social Determinants",
+                "description": "Housing-health relationship studies enabled",
+                "type": "outcome"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "key_takeaways": [
+      {
+        "id": 1,
+        "title": "Unprecedented Access",
+        "description": "The NAMCS HC Component provides the first nationally representative EHR-based visit data from health centers, enabling research not possible with any other data source."
+      },
+      {
+        "id": 2,
+        "title": "Dual Access Model",
+        "description": "Restricted datafiles for detailed research and public use files for broad accessibility ensure data reaches researchers at all levels."
+      },
+      {
+        "id": 3,
+        "title": "Growing Infrastructure",
+        "description": "From 29 to 95 centers in three years with 98.4% retention demonstrates the program's sustainability and value to participating health centers."
+      },
+      {
+        "id": 4,
+        "title": "Linkage Power",
+        "description": "Integration with NDI, HUD, and soon Medicaid data creates a comprehensive picture of health outcomes for underserved populations."
+      },
+      {
+        "id": 5,
+        "title": "Actionable Insights",
+        "description": "Interactive dashboards bring timely data to patients, clinicians, and policymakers—not just researchers—within 6 months of visits occurring."
+      }
+    ]
+  },
+  "narrative_text": "The NAMCS HC Component has transformed from an ambitious redesign into a proven resource for understanding healthcare at federally qualified health centers. With 95 participating centers, over 9 million annual visits, and a 98.4% retention rate, the foundation is strong. Completed linkages to the National Death Index and HUD housing data, combined with the ongoing Medicaid linkage, create unprecedented opportunities to study how social determinants affect health outcomes for the 31.3 million patients served by health centers. As 2024 datafiles approach release and new dashboard modules expand analytical capabilities, the NAMCS HC Component stands ready to serve researchers, clinicians, patients, and policymakers in their shared mission to improve health outcomes for America's most vulnerable populations."
+}

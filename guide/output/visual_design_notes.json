@@ -1,0 +1,133 @@
+{
+  "visual_design_notes": {
+    "SCENE_00": {
+      "scene_title": "Introduction: The NAMCS Health Center Ecosystem",
+      "base_visual": "force_graph",
+      "tactical_visuals_needed": false,
+      "notes": "Introduction should be clean and simple. The force-directed graph alone provides sufficient context for the ecosystem overview. No microvisuals needed."
+    },
+    "SCENE_01": {
+      "scene_title": "FQHCs: Serving Underserved Communities",
+      "base_visual": "matrix",
+      "tactical_visuals_needed": true,
+      "tactical_visuals": [
+        {
+          "type": "bar",
+          "location": "inline",
+          "purpose": "Compare 67.3% FQHC poverty rate vs 11.1% US population poverty rate"
+        },
+        {
+          "type": "tooltip",
+          "location": "hover",
+          "purpose": "Show 31.3 million patient detail on hover over FQHC cell"
+        }
+      ],
+      "notes": "The stark poverty disparity warrants an inline bar chart for immediate visual impact."
+    },
+    "SCENE_02": {
+      "scene_title": "The Data Collection Pipeline",
+      "base_visual": "flowchart",
+      "tactical_visuals_needed": true,
+      "tactical_visuals": [
+        {
+          "type": "sparkline",
+          "location": "inline",
+          "purpose": "Show sampling funnel reduction: 1,400 → 50 → 29"
+        }
+      ],
+      "notes": "A small sparkline within the flowchart can show the sampling attrition at a glance."
+    },
+    "SCENE_03": {
+      "scene_title": "Two Paths to Data Access",
+      "base_visual": "tree",
+      "tactical_visuals_needed": true,
+      "tactical_visuals": [
+        {
+          "type": "tooltip",
+          "location": "hover",
+          "purpose": "Show detailed data element lists for each branch on hover"
+        }
+      ],
+      "notes": "Tooltips on leaf nodes can reveal the specific variables available in each datafile type."
+    },
+    "SCENE_04": {
+      "scene_title": "Maternal Health Insights",
+      "base_visual": "matrix",
+      "tactical_visuals_needed": true,
+      "tactical_visuals": [
+        {
+          "type": "bar",
+          "location": "inline",
+          "purpose": "Inline bars in matrix cells for visit rates by age group"
+        },
+        {
+          "type": "tooltip",
+          "location": "hover",
+          "purpose": "Show 95% confidence intervals on hover"
+        }
+      ],
+      "notes": "Matrix cells benefit from embedded bars to show magnitude differences (134.6 vs 29.7)."
+    },
+    "SCENE_05": {
+      "scene_title": "Respiratory Health Disparities",
+      "base_visual": "timeline",
+      "tactical_visuals_needed": true,
+      "tactical_visuals": [
+        {
+          "type": "sparkline",
+          "location": "inline",
+          "purpose": "Mini trend lines for each racial/ethnic group within timeline"
+        },
+        {
+          "type": "tooltip",
+          "location": "hover",
+          "purpose": "Show exact rate and statistical significance on hover"
+        }
+      ],
+      "notes": "Time-series data with multiple groups benefits from sparklines to show trends per group."
+    },
+    "SCENE_06": {
+      "scene_title": "The Power of Data Linkage",
+      "base_visual": "sankey",
+      "tactical_visuals_needed": true,
+      "tactical_visuals": [
+        {
+          "type": "tooltip",
+          "location": "hover",
+          "purpose": "Show linkage percentages by demographic on hover over flows"
+        }
+      ],
+      "notes": "Sankey flows naturally show the linkage process; tooltips add demographic detail."
+    },
+    "SCENE_07": {
+      "scene_title": "Remarkable Growth (2021-2023)",
+      "base_visual": "timeline",
+      "tactical_visuals_needed": true,
+      "tactical_visuals": [
+        {
+          "type": "bar",
+          "location": "inline",
+          "purpose": "Stacked bars at each year showing new vs returning centers"
+        },
+        {
+          "type": "tooltip",
+          "location": "hover",
+          "purpose": "Show exact visit counts and retention rate"
+        }
+      ],
+      "notes": "Growth story benefits from stacked bars showing composition of new vs returning participants."
+    },
+    "SCENE_08": {
+      "scene_title": "Acknowledging Limitations",
+      "base_visual": "matrix",
+      "tactical_visuals_needed": false,
+      "notes": "Limitations section should be straightforward and not distracted by extra visuals. Clean matrix suffices."
+    },
+    "SCENE_09": {
+      "scene_title": "Conclusion: The Road Ahead",
+      "base_visual": "tree",
+      "tactical_visuals_needed": false,
+      "notes": "Conclusion should be clean and forward-looking. The tree diagram alone provides clear roadmap visualization."
+    }
+  }
+}

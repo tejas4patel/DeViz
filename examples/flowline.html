@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Flow Timeline - Government Shutdown</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0B1220;
+      color: #DCE6F2;
+      overflow-x: hidden;
+    }
+
+    .timeline-container {
+      width: 100%;
+      min-height: 100vh;
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    h1 {
+      color: #DCE6F2;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-align: center;
+      filter: drop-shadow(0 2px 8px rgba(102, 217, 255, 0.3));
+    }
+
+    .subtitle {
+      color: #98A6B3;
+      font-size: 16px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    svg {
+      display: block;
+      background: transparent;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: rgba(15, 27, 46, 0.95);
+      border: 2px solid #2F6EEA;
+      border-radius: 12px;
+      padding: 16px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      max-width: 280px;
+      z-index: 1000;
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+    }
+
+    .tooltip-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #66D9FF;
+      margin-bottom: 8px;
+    }
+
+    .tooltip-date {
+      font-size: 13px;
+      color: #98A6B3;
+      margin-bottom: 4px;
+    }
+
+    .tooltip-type {
+      font-size: 12px;
+      color: #49A9F5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="timeline-container">
+    <h1>Government Shutdown Timeline</h1>
+    <p class="subtitle">September - October 2025</p>
+    <svg id="timeline"></svg>
+    <div class="tooltip" id="tooltip">
+      <div class="tooltip-title"></div>
+      <div class="tooltip-date"></div>
+      <div class="tooltip-type"></div>
+    </div>
+  </div>
+
+  <script>
+    // Data
+    const flowlineData = {
+      events: [
+        { date: '2025-09-19', label: 'Appropriations lapse', type: 'shutdown' },
+        { date: '2025-09-25', label: 'Stopgap talks', type: 'political' },
+        { date: '2025-10-01', label: 'Fiscal year starts', type: 'economic' },
+        { date: '2025-10-10', label: 'Interim funding', type: 'political' },
+        { date: '2025-10-18', label: 'Debt chatter', type: 'economic' },
+        { date: '2025-10-24', label: 'Shutdown risk', type: 'shutdown' },
+        { date: '2025-10-30', label: 'Compromise reached', type: 'political' },
+        { date: '2025-11-10', label: 'Interim funding', type: 'political' },
+        { date: '2025-11-18', label: 'Debt chatter', type: 'economic' },
+        { date: '2025-11-24', label: 'Shutdown risk', type: 'shutdown' },
+        { date: '2025-11-30', label: 'Compromise reached', type: 'political' },
+      ],
+    };
+
+    // Color palette from TreeChart
+    const PALETTE = {
+      bg0: '#0B1220',
+      bg1: '#0F1B2E',
+      linkBase: '#98A6B3',
+      linkOverlay: '#66D9FF',
+      nodeFill: '#2F6EEA',
+      nodeStroke: '#173B84',
+      nodeHover: '#49A9F5',
+      halo: '#9AD5FF',
+      text: '#DCE6F2',
+      textHalo: '#0B1220',
+    };
+
+    // Type-specific colors
+    const typeColors = {
+      shutdown: '#DC2626',
+      political: '#8B5CF6',
+      economic: '#10B981',
+    };
+
+    // Setup
+    const events = flowlineData.events;
+    const numPoints = events.length;
+
+    const container = document.querySelector('.timeline-container');
+    const svg = d3.select('#timeline');
+    
+    // Get actual container width
+    const containerWidth = container.clientWidth;
+    
+    const isMobile = containerWidth < 768;
+    const isTablet = containerWidth >= 768 && containerWidth < 1024;
+
+    const nodeRadius = isMobile ? 12 : isTablet ? 14 : 18;
+    const labelFontSize = isMobile ? 14 : isTablet ? 16 : 18;
+    const dateFontSize = isMobile ? 10 : isTablet ? 11 : 12;
+    const linkStrokeWidth = isMobile ? 18 : isTablet ? 22 : 26;
+    const linkOverlayWidth = isMobile ? 9 : isTablet ? 11 : 14;
+    const connectorLength = isMobile ? 50 : isTablet ? 60 : 70;
+    const nodesPerLine = 3;
+    const numLines = Math.ceil(numPoints / nodesPerLine);
+    const verticalSpacing = isMobile ? 120 : isTablet ? 140 : 160;
+    const height = numLines * verticalSpacing + 200;
+
+    // Use full available width
+    const width = containerWidth;
+    const horizontalPadding = isMobile ? 40 : isTablet ? 60 : 80;
+    const availableWidth = width - (horizontalPadding * 2);
+
+    svg
+      .attr('width', width)
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('preserveAspectRatio', 'xMidYMid meet');
+
+    // Defs and filters
+    const defs = svg.append('defs');
+
+    // Background gradient
+    const bgGrad = defs.append('radialGradient')
+      .attr('id', 'bgRadial')
+      .attr('cx', '50%')
+      .attr('cy', '30%')
+      .attr('r', '65%');
+    bgGrad.append('stop').attr('offset', '0%').attr('stop-color', PALETTE.bg1);
+    bgGrad.append('stop').attr('offset', '100%').attr('stop-color', PALETTE.bg0);
+
+    // Link gradient
+    const linkGrad = defs.append('linearGradient')
+      .attr('id', 'linkGrad')
+      .attr('x1', '0%')
+      .attr('y1', '0%')
+      .attr('x2', '100%')
+      .attr('y2', '0%');
+    linkGrad.append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', PALETTE.linkOverlay)
+      .attr('stop-opacity', 0.95);
+    linkGrad.append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', PALETTE.linkBase)
+      .attr('stop-opacity', 0.5);
+
+    // Node gradient
+    const nodeGrad = defs.append('radialGradient')
+      .attr('id', 'nodeGrad')
+      .attr('cx', '50%')
+      .attr('cy', '50%')
+      .attr('r', '60%');
+    nodeGrad.append('stop').attr('offset', '0%').attr('stop-color', '#5DAFFF');
+    nodeGrad.append('stop').attr('offset', '100%').attr('stop-color', PALETTE.nodeFill);
+
+    // Glow filter
+    const glow = defs.append('filter')
+      .attr('id', 'glow')
+      .attr('x', '-50%')
+      .attr('y', '-50%')
+      .attr('width', '200%')
+      .attr('height', '200%');
+    glow.append('feGaussianBlur').attr('stdDeviation', 4).attr('result', 'coloredBlur');
+    const feMerge = glow.append('feMerge');
+    feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+    feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+
+    // Text halo filter
+    const halo = defs.append('filter').attr('id', 'textHalo');
+    halo.append('feMorphology')
+      .attr('in', 'SourceAlpha')
+      .attr('operator', 'dilate')
+      .attr('radius', 1.5)
+      .attr('result', 'thick');
+    halo.append('feGaussianBlur')
+      .attr('in', 'thick')
+      .attr('stdDeviation', 2)
+      .attr('result', 'blurred');
+    halo.append('feFlood')
+      .attr('flood-color', PALETTE.textHalo)
+      .attr('result', 'haloColor');
+    halo.append('feComposite')
+      .attr('in', 'haloColor')
+      .attr('in2', 'blurred')
+      .attr('operator', 'in')
+      .attr('result', 'halo');
+    const haloMerge = halo.append('feMerge');
+    haloMerge.append('feMergeNode').attr('in', 'halo');
+    haloMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+
+    // Background
+    svg.append('rect')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('fill', 'url(#bgRadial)');
+
+    const offsetX = horizontalPadding;
+    const offsetY = 100;
+
+    const g = svg.append('g')
+      .attr('transform', `translate(${offsetX}, ${offsetY})`)
+      .attr('opacity', 0);
+
+    // Intro animation
+    g.transition()
+      .duration(900)
+      .ease(d3.easeCubicOut)
+      .attr('opacity', 1);
+
+    // Generate node positions (horizontal lines only) and curve points (for smooth path)
+    let nodePositions = [];
+    let curvePoints = []; // Points for smooth interpolation - includes curve transitions
+
+    for (let i = 0; i < numPoints; i++) {
+      const lineIndex = Math.floor(i / nodesPerLine);
+      const posInLine = i % nodesPerLine;
+      const nodesInThisLine = Math.min(nodesPerLine, numPoints - lineIndex * nodesPerLine);
+
+      const y = lineIndex * verticalSpacing;
+      let x;
+
+      if (lineIndex % 2 === 0) {
+        // Left-to-right
+        x = (posInLine / (nodesInThisLine - 1 || 1)) * availableWidth;
+      } else {
+        // Right-to-left
+        x = ((nodesInThisLine - 1 - posInLine) / (nodesInThisLine - 1 || 1)) * availableWidth;
+      }
+
+      // Add to nodePositions (only horizontal line nodes)
+      nodePositions.push({
+        x, y,
+        event: events[i],
+        index: i,
+        lineIndex,
+        posInLine
+      });
+
+      // Add to curvePoints for the smooth path
+      curvePoints.push({ x, y });
+
+      // Add curve transition points between lines (but NO nodes here)
+      if (i < numPoints - 1) {
+        const nextI = i + 1;
+        const nextLineIndex = Math.floor(nextI / nodesPerLine);
+
+        // If moving to next line, add transition points
+        if (nextLineIndex !== lineIndex) {
+          const nextPosInLine = nextI % nodesPerLine;
+          const nextNodesInThisLine = Math.min(nodesPerLine, numPoints - nextLineIndex * nodesPerLine);
+
+          let nextX;
+          if (nextLineIndex % 2 === 0) {
+            nextX = (nextPosInLine / (nextNodesInThisLine - 1 || 1)) * availableWidth;
+          } else {
+            nextX = ((nextNodesInThisLine - 1 - nextPosInLine) / (nextNodesInThisLine - 1 || 1)) * availableWidth;
+          }
+
+          const nextY = nextLineIndex * verticalSpacing;
+
+          // Add intermediate points for smooth curve WITHOUT adding nodes
+          const midY = y + (nextY - y) / 2;
+          curvePoints.push({ x, y: midY });
+          curvePoints.push({ x: nextX, y: midY });
+        }
+      }
+    }
+
+    // Build smooth continuous path using Catmull-Rom interpolation
+    const pathGenerator = d3.line()
+      .x(d => d.x)
+      .y(d => d.y)
+      .curve(d3.curveCatmullRom.alpha(0.5));
+
+    // Generate intermediate curve points for smooth transitions
+    const smoothPoints = [];
+    for (let i = 0; i < curvePoints.length; i++) {
+      smoothPoints.push(curvePoints[i]);
+
+      // Add intermediate points between nodes for smooth curves
+      if (i < curvePoints.length - 1) {
+        const current = curvePoints[i];
+        const next = curvePoints[i + 1];
+        
+        const currentLineIdx = Math.floor(i / nodesPerLine);
+        const nextLineIdx = Math.floor((i + 1) / nodesPerLine);
+
+        if (nextLineIdx > currentLineIdx) {
+          // Between different lines - add curve point
+          const samples = 15;
+          for (let s = 1; s <= samples; s++) {
+            const t = s / samples;
+            // Smooth quadratic interpolation
+            const easeT = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            const interpX = current.x + (next.x - current.x) * easeT;
+            const interpY = current.y + (next.y - current.y) * easeT;
+            smoothPoints.push({ x: interpX, y: interpY });
+          }
+        } else {
+          // Same line - add linear intermediate points
+          const samples = 8;
+          for (let s = 1; s < samples; s++) {
+            const t = s / samples;
+            const interpX = current.x + (next.x - current.x) * t;
+            const interpY = current.y + (next.y - current.y) * t;
+            smoothPoints.push({ x: interpX, y: interpY });
+          }
+        }
+      }
+    }
+
+    const pathData = pathGenerator(smoothPoints);
+
+    // Base link layer
+    g.append('path')
+      .attr('d', pathData)
+      .attr('fill', 'none')
+      .attr('stroke', 'url(#linkGrad)')
+      .attr('stroke-width', linkStrokeWidth)
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-linejoin', 'round')
+      .attr('opacity', 0.7);
+
+    // Overlay link layer
+    const overlayPath = g.append('path')
+      .attr('d', pathData)
+      .attr('fill', 'none')
+      .attr('stroke', PALETTE.linkOverlay)
+      .attr('stroke-width', linkOverlayWidth)
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-linejoin', 'round')
+      .attr('opacity', 0.55);
+
+    // Animate path drawing
+    const totalLength = overlayPath.node().getTotalLength();
+    overlayPath
+      .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
+      .attr('stroke-dashoffset', totalLength)
+      .transition()
+      .duration(2000)
+      .ease(d3.easeCubicOut)
+      .attr('stroke-dashoffset', 0);
+
+    // Draw nodes
+    const nodeGroups = g.selectAll('.timeline-node')
+      .data(nodePositions)
+      .enter()
+      .append('g')
+      .attr('class', 'timeline-node')
+      .attr('transform', d => `translate(${d.x}, ${d.y})`)
+      .style('filter', 'url(#glow)')
+      .attr('cursor', 'pointer')
+      .attr('opacity', 0);
+
+    // Staggered node entrance
+    nodeGroups
+      .transition()
+      .delay((d, i) => 1000 + i * 120)
+      .duration(600)
+      .ease(d3.easeCubicOut)
+      .attr('opacity', 1);
+
+    // Halo behind each node
+    nodeGroups.append('circle')
+      .attr('class', 'node-halo')
+      .attr('r', nodeRadius + 12)
+      .attr('fill', 'none')
+      .attr('stroke', PALETTE.halo)
+      .attr('stroke-opacity', 0.25)
+      .attr('stroke-width', 14)
+      .attr('pointer-events', 'none');
+
+    // Core node circle
+    nodeGroups.append('circle')
+      .attr('class', 'node-core')
+      .attr('r', nodeRadius)
+      .attr('fill', 'url(#nodeGrad)')
+      .attr('stroke', PALETTE.nodeStroke)
+      .attr('stroke-width', 2.5);
+
+    // Vertical connector lines
+    nodeGroups.append('line')
+      .attr('x1', 0)
+      .attr('y1', 0)
+      .attr('x2', 0)
+      .attr('y2', (d, i) => i % 2 === 0 ? -connectorLength : connectorLength)
+      .attr('stroke', PALETTE.text)
+      .attr('stroke-width', 1.5)
+      .attr('stroke-dasharray', '4,4')
+      .attr('opacity', 0.4);
+
+    // Labels
+    nodeGroups.each(function(d, i) {
+      const nodeGroup = d3.select(this);
+      const labelY = i % 2 === 0 ? -connectorLength - 15 : connectorLength + 15;
+      const dateY = i % 2 === 0 ? -connectorLength - 35 : connectorLength + 35;
+
+      // Event label
+      nodeGroup.append('text')
+        .attr('x', 0)
+        .attr('y', labelY)
+        .attr('text-anchor', 'middle')
+        .attr('font-family', 'system-ui, sans-serif')
+        .attr('font-size', `${labelFontSize}px`)
+        .attr('font-weight', 700)
+        .attr('fill', PALETTE.text)
+        .attr('filter', 'url(#textHalo)')
+        .text(d.event.label);
+
+      // Date
+      nodeGroup.append('text')
+        .attr('x', 0)
+        .attr('y', dateY)
+        .attr('text-anchor', 'middle')
+        .attr('font-family', 'system-ui, sans-serif')
+        .attr('font-size', `${dateFontSize}px`)
+        .attr('font-weight', 500)
+        .attr('fill', PALETTE.text)
+        .attr('opacity', 0.6)
+        .attr('filter', 'url(#textHalo)')
+        .text(d.event.date);
+    });
+
+    // Tooltip
+    const tooltip = d3.select('#tooltip');
+
+    // Interaction handlers
+    nodeGroups
+      .on('mouseenter', function(event, d) {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .ease(d3.easeCubicOut)
+          .attr('transform', `translate(${d.x}, ${d.y}) scale(1.2)`);
+
+        d3.select(this).select('.node-core')
+          .transition()
+          .duration(200)
+          .attr('fill', typeColors[d.event.type] || PALETTE.nodeHover)
+          .attr('stroke', typeColors[d.event.type] || PALETTE.nodeHover);
+
+        tooltip.select('.tooltip-title').text(d.event.label || 'Event');
+        tooltip.select('.tooltip-date').text(d.event.date);
+        tooltip.select('.tooltip-type').text(`Type: ${d.event.type || 'general'}`);
+        
+        tooltip
+          .style('left', `${event.pageX + 15}px`)
+          .style('top', `${event.pageY - 30}px`)
+          .classed('visible', true);
+      })
+      .on('mouseleave', function(event, d) {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .ease(d3.easeCubicOut)
+          .attr('transform', `translate(${d.x}, ${d.y}) scale(1)`);
+
+        d3.select(this).select('.node-core')
+          .transition()
+          .duration(200)
+          .attr('fill', 'url(#nodeGrad)')
+          .attr('stroke', PALETTE.nodeStroke);
+
+        tooltip.classed('visible', false);
+      })
+      .on('click', function(event, d) {
+        event.stopPropagation();
+
+        // Ripple effect
+        const ripple = d3.select(this)
+          .append('circle')
+          .attr('r', nodeRadius)
+          .attr('fill', 'none')
+          .attr('stroke', PALETTE.halo)
+          .attr('stroke-width', 3)
+          .attr('opacity', 0.8);
+
+        ripple
+          .transition()
+          .duration(800)
+          .ease(d3.easeQuadOut)
+          .attr('r', nodeRadius + 35)
+          .attr('opacity', 0)
+          .remove();
+      });
+  </script>
+</body>
+</html>

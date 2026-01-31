@@ -134,12 +134,6 @@ export default function ScrollStoryShell() {
     });
   };
 
-  const goPrev = () => setActiveIdx(v => Math.max(0, v - 1))
-  const goNext = () => setActiveIdx(v => Math.min(scenes.length - 1, v + 1))
-  const goFirst = () => setActiveIdx(0)
-  const goLast = () => setActiveIdx(scenes.length - 1)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const unusedNavRefs = [goPrev, goNext, goFirst, goLast]
 
 
 

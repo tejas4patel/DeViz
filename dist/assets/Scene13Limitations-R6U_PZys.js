@@ -1,0 +1,1 @@
+import{j as e}from"./index-CktA7uae.js";import{S as i}from"./ScenePlaceholder-gkhcQilY.js";function n(){return e.jsx(i,{title:"Scene 13",description:"Limitations placeholder. Replace with an interactive checklist or radar view and a weight normalization explanation panel."})}export{n as default};

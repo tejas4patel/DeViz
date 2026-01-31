@@ -1,0 +1,1 @@
+import{j as e}from"./index-CktA7uae.js";import{S as i}from"./ScenePlaceholder-gkhcQilY.js";function a(){return e.jsx(i,{title:"Scene 06",description:"Matrix placeholder. Replace with a grid showing which variable categories exist in public versus restricted files."})}export{a as default};

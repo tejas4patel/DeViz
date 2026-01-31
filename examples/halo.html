@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+  <title>Ikigai entity graph</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <style>
+    body { font-family: sans-serif; }
+    svg { width: 100vw; height: 100vh; }
+    .node circle { fill: steelblue; cursor: pointer; }
+    .node text { fill: white; pointer-events: none; font-size: 11px; }
+    .link { stroke: gray; opacity: 0.6; }
+    .link.two { stroke-width: 3; }
+    .w-node { fill: orange; }
+    .tooltip {
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 6px 8px;
+      font-size: 12px;
+      pointer-events: none;
+      max-width: 260px;
+    }
+  </style>
+</head>
+<body>
+  <svg></svg>
+  <div id="tooltip" class="tooltip" style="display:none;"></div>
+
+  <script>
+    const svg = d3.select("svg");
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const contextById = {
+      "Ikigai": {
+        what: "Japanese life concept meaning reason for living or purpose in life",
+        why: "Linked to higher well being and possibly longer life expectancy",
+        when: "Across the life course whenever people pursue meaningful goals",
+        where: "Originates in Japanese culture and philosophy",
+        who: "Individuals searching for or experiencing a sense of purpose",
+        how: "Through a balance of motivation attention and meaningful activity",
+        which: "This paper focuses on whether the concept can also apply to work life",
+        description: "Central construct the paper wants to capture and formalize"
+      },
+      "Ikigai model": {
+        what: "Integrated cognitive motivational model of ikigai framed as input process output",
+        why: "To connect ikigai to contemporary psychological theories in a precise way",
+        when: "Used when researchers or practitioners want to analyze ikigai systematically",
+        where: "Within psychological research and applied settings",
+        who: "Authors and future researchers who will test and refine the model",
+        how: "By mapping inputs processes and outcomes and connecting them through feedback",
+        which: "Grounded in motivation well being and attention theories",
+        description: "Formal structure that organizes how ikigai arises and what it produces"
+      },
+      "Inputs": {
+        what: "Dispositional and situational factors that support ikigai",
+        why: "They feed the core process that generates a sense of purpose",
+        when: "Present before and during the emergence of ikigai",
+        where: "Inside the person and in their environment",
+        who: "Traits contexts and circumstances relevant to the individual",
+        how: "They act as starting conditions in the input process output chain",
+        which: "Examples include personal values opportunities and social conditions",
+        description: "Starting elements in the model that precede the ikigai process"
+      },
+      "Core process": {
+        what: "Motivational and attentional mechanisms that make ikigai active",
+        why: "They transform inputs into experienced purpose and engagement",
+        when: "While a person is pursuing meaningful activities or goals",
+        where: "In cognitive and emotional activity of the person",
+        who: "The individual whose motives and focus are engaged",
+        how: "By directing attention to valued goals and sustaining motivation",
+        which: "Described as the central process in the input process output framework",
+        description: "Engine of the model that turns conditions into lived purpose"
+      },
+      "Outcomes": {
+        what: "Results such as well being life satisfaction and performance",
+        why: "They show the value of cultivating ikigai in life and work",
+        when: "After the core process has been active for some time",
+        where: "In personal life and professional settings",
+        who: "Individuals and organizations that benefit from higher engagement",
+        how: "Through improved motivation focus and sustained positive states",
+        which: "The paper stresses well being as a key outcome",
+        description: "Consequences produced by the ikigai process in the model"
+      },
+      "Feedback loop": {
+        what: "Loop from outcomes back into the system",
+        why: "Allows the ikigai process to maintain itself across time",
+        when: "Whenever outcomes reinforce inputs or the core process",
+        where: "In repeated cycles of experience and behavior",
+        who: "The same individual whose outcomes influence future states",
+        how: "Positive outcomes strengthen dispositions and contexts that support ikigai",
+        which: "Connects outputs to new inputs in the input process output view",
+        description: "Dynamic feature that keeps the system from being one shot"
+      },
+      "Professional context": {
+        what: "Use of ikigai ideas in work settings and organizations",
+        why: "To renew approaches to engagement well being and performance at work",
+        when: "In present and future attempts to design better workplaces",
+        where: "Workplaces and professional roles",
+        who: "Workers managers and organizations",
+        how: "By applying and testing the model in professional environments",
+        which: "Aimed at inspiring evolution of workplace practices",
+        description: "Application arena that motivates the whole paper"
+      }
+    };
+
+    const nodes = [
+      { id: "Ikigai" },
+      { id: "Ikigai model" },
+      { id: "Inputs" },
+      { id: "Core process" },
+      { id: "Outcomes" },
+      { id: "Feedback loop" },
+      { id: "Professional context" }
+    ];
+
+    const links = [
+      { source: "Inputs", target: "Core process", directional: "one" },
+      { source: "Core process", target: "Outcomes", directional: "one" },
+      { source: "Outcomes", target: "Feedback loop", directional: "one" },
+      { source: "Feedback loop", target: "Inputs", directional: "one" },
+      { source: "Ikigai model", target: "Ikigai", directional: "two" },
+      { source: "Ikigai", target: "Outcomes", directional: "two" },
+      { source: "Ikigai model", target: "Professional context", directional: "two" },
+      { source: "Professional context", target: "Outcomes", directional: "one" }
+    ];
+
+    const tooltip = d3.select("#tooltip");
+
+    const simulation = d3.forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id).distance(140))
+      .force("charge", d3.forceManyBody().strength(-260))
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+    const link = svg.append("g")
+      .attr("stroke", "gray")
+      .selectAll("line")
+      .data(links)
+      .join("line")
+      .attr("class", d => d.directional === "two" ? "link two" : "link");
+
+    const node = svg.append("g")
+      .selectAll("g")
+      .data(nodes)
+      .join("g")
+      .attr("class", "node")
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+
+    node.append("circle")
+      .attr("r", 26);
+
+    node.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", 4)
+      .text(d => d.id);
+
+    const wLayer = svg.append("g");
+
+    node.on("mouseenter", (event, d) => {
+      showWNodes(d, event);
+    });
+
+    node.on("mouseleave", () => {
+      wLayer.selectAll("*").remove();
+      tooltip.style("display", "none");
+    });
+
+    function showWNodes(nodeData, event) {
+      wLayer.selectAll("*").remove();
+      tooltip.style("display", "none");
+
+      const ctx = contextById[nodeData.id];
+      if (!ctx) return;
+
+      const keys = ["what", "why", "when", "where", "who", "how", "which", "description"];
+      const present = keys.filter(k => ctx[k] && ctx[k].trim().length > 0);
+      if (present.length === 0) return;
+
+      const radius = 60;
+      const angleStep = Math.PI * 2 / present.length;
+
+      const [cx, cy] = [nodeData.x || width / 2, nodeData.y || height / 2];
+
+      const data = present.map((k, i) => ({
+        key: k,
+        label: k,
+        text: ctx[k],
+        x: cx + radius * Math.cos(i * angleStep),
+        y: cy + radius * Math.sin(i * angleStep)
+      }));
+
+      const groups = wLayer.selectAll("g")
+        .data(data)
+        .join("g")
+        .attr("transform", d => `translate(${d.x},${d.y})`);
+
+      groups.append("circle")
+        .attr("r", 10)
+        .attr("class", "w-node");
+
+      groups.append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", 4)
+        .attr("font-size", 8)
+        .text(d => d.label[0].toUpperCase());
+
+      groups.on("mouseenter", (event, d) => {
+        tooltip
+          .style("display", "block")
+          .style("left", event.pageX + 10 + "px")
+          .style("top", event.pageY + 10 + "px")
+          .html(`<strong>${d.key}</strong><br>${d.text}`);
+      });
+
+      groups.on("mouseleave", () => {
+        tooltip.style("display", "none");
+      });
+    }
+
+    simulation.on("tick", () => {
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+
+      node.attr("transform", d => `translate(${d.x},${d.y})`);
+    });
+
+    function dragstarted(event, d) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragended(event, d) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+  </script>
+</body>
+</html>
+

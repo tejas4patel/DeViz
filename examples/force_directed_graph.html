@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Force Directed Graph • Clean Arrows</title>
+  <style>
+    html, body { height: 100%; margin: 0; font-family: ui-sans-serif, system-ui, Arial; background: radial-gradient(120% 120% at 50% 0%, rgb(20,24,38) 0%, rgb(8,10,18) 60%); color: rgb(236,240,255); }
+    .wrap { display: grid; grid-template-rows: auto 1fr; height: 100%; }
+    .topbar { padding: 14px 18px; display: flex; gap: 14px; align-items: center; backdrop-filter: blur(6px); position: sticky; top: 0; z-index: 3; }
+    .title { font-size: 18px; letter-spacing: 0.4px; opacity: 0.9; }
+    .btn { background: rgba(255,255,255,0.08); border: none; padding: 8px 12px; border-radius: 10px; color: white; cursor: pointer; }
+    .btn:hover { background: rgba(255,255,255,0.14); }
+    .stage { position: relative; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="title">Force Directed Graph • Clean Arrows</div>
+      <button class="btn" id="reset">reset view</button>
+      <button class="btn" id="shuffle">shuffle layout</button>
+      <button class="btn" id="toggleLabels">toggle labels</button>
+    </div>
+    <div class="stage" id="stage"></div>
+  </div>
+
+  <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
+  <script>
+    const width = window.innerWidth;
+    const height = window.innerHeight - 64;
+
+    const stage = d3.select('#stage')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .style('display', 'block');
+
+    const nodeRadius = 10;
+    const glowRadius = 18;
+    const linkStrokeWidth = 10;
+
+    const defs = stage.append('defs');
+
+    const colorByRelation = d3.scaleOrdinal()
+      .domain(['influences', 'dependsOn', 'competesWith', 'partOf'])
+      .range(['#7c5cff', '#2E598F', '#940F15', '#94A3B8']);
+
+    // Create one marker per relation type, so arrow color matches link color
+    ['influences', 'dependsOn', 'competesWith', 'partOf'].forEach(type => {
+      defs.append('marker')
+        .attr('id', `arrow-${type}`)
+        .attr('viewBox', '0 0 10 10')
+        .attr('refX', 12)
+        .attr('refY', 5)
+        .attr('markerWidth', 2.2)
+        .attr('markerHeight', 2.2)
+        .attr('orient', 'auto-start-reverse')
+        .append('path')
+        .attr('d', 'M0,0 L10,5 L0,10 L3,5 Z')
+        .attr('fill', colorByRelation(type));
+    });
+
+    const colorByGroup = d3.scaleOrdinal()
+      .domain(['Org', 'Team', 'Service', 'Topic'])
+      .range(['#002868', '#29d391', '#ffb057', '#6ecbff']);
+
+    const darkerColorByGroup = d3.scaleOrdinal()
+      .domain(['Org', 'Team', 'Service', 'Topic'])
+      .range(['#001b44', '#1a8d67', '#cc8a33', '#4b9dbf']);
+
+    const graph = buildData();
+
+    const zoom = d3.zoom().scaleExtent([0.25, 3]).on('zoom', (ev) => g.attr('transform', ev.transform));
+    stage.call(zoom);
+
+    const g = stage.append('g');
+
+    const linkGroup = g.append('g').attr('class', 'links');
+    const nodeGroup = g.append('g').attr('class', 'nodes');
+
+    const link = linkGroup.selectAll('path.link')
+      .data(graph.links)
+      .join('path')
+      .attr('class', 'link')
+      .attr('fill', 'none')
+      .attr('stroke', d => colorByRelation(d.type))
+      .attr('stroke-width', linkStrokeWidth)
+      .attr('opacity', 0.55)
+      .attr('stroke-linecap', 'round')
+      .attr('marker-end', d => `url(#arrow-${d.type})`);
+
+    const node = nodeGroup.selectAll('g.node')
+      .data(graph.nodes)
+      .join('g')
+      .attr('class', 'node')
+      .call(d3.drag()
+        .on('start', dragStarted)
+        .on('drag', dragged)
+        .on('end', dragEnded));
+
+    node.append('circle')
+      .attr('r', glowRadius)
+      .attr('fill', d => colorByGroup(d.group))
+      .attr('opacity', 0.15);
+
+    node.append('circle')
+      .attr('r', nodeRadius)
+      .attr('fill', d => colorByGroup(d.group))
+      .attr('stroke', d => darkerColorByGroup(d.group))
+      .attr('stroke-width', 2);
+
+    const labels = node.append('text')
+      .text(d => d.id)
+      .attr('x', 12)
+      .attr('y', 4)
+      .attr('font-size', 12)
+      .attr('fill', 'rgba(236,240,255,0.9)')
+      .attr('opacity', 0.9);
+
+    let labelsVisible = true;
+
+    const sim = d3.forceSimulation(graph.nodes)
+      .force('link', d3.forceLink(graph.links).id(d => d.id).distance(l => (100 + l.weight * 15) * 1.3).strength(0.45))
+      .force('charge', d3.forceManyBody().strength(-260))
+      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force('collide', d3.forceCollide().radius(glowRadius + 6))
+      .on('tick', ticked);
+
+    function ticked() {
+      link.attr('d', d => curve(d));
+      node.attr('transform', d => `translate(${d.x},${d.y})`);
+    }
+
+    function curve(d) {
+      const dx = d.target.x - d.source.x;
+      const dy = d.target.y - d.source.y;
+      const dr = Math.sqrt(dx * dx + dy * dy) * 1.1;
+      return `M${d.source.x},${d.source.y} A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+    }
+
+    function dragStarted(event, d) {
+      if (!event.active) sim.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
+
+    function dragEnded(event, d) {
+      if (!event.active) sim.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
+
+    const neighbor = new Map();
+    graph.links.forEach(l => {
+      neighbor.set(`${l.source}|${l.target}`, true);
+      neighbor.set(`${l.target}|${l.source}`, true);
+    });
+
+    function related(a, b) {
+      return a === b || neighbor.get(`${a}|${b}`);
+    }
+
+    node.on('mouseenter', function (ev, d) {
+      node.selectAll('circle').attr('opacity', n => related(d.id, n.id) ? 1 : 0.15);
+      labels.attr('opacity', n => related(d.id, n.id) ? 1 : 0.1);
+      link.attr('opacity', l => (l.source.id === d.id || l.target.id === d.id) ? 1.0 : 0.08)
+        .attr('stroke-width', l => (l.source.id === d.id || l.target.id === d.id) ? linkStrokeWidth + 2 : linkStrokeWidth);
+    });
+
+    node.on('mouseleave', function () {
+      node.selectAll('circle').attr('opacity', (d, i) => i === 0 ? 0.15 : 1);
+      labels.attr('opacity', labelsVisible ? 0.9 : 0);
+      link.attr('opacity', 0.55).attr('stroke-width', linkStrokeWidth);
+    });
+
+    document.getElementById('reset').addEventListener('click', () => {
+      stage.transition().duration(400).call(zoom.transform, d3.zoomIdentity);
+    });
+
+    document.getElementById('shuffle').addEventListener('click', () => {
+      graph.nodes.forEach(n => { n.x = width * Math.random(); n.y = height * Math.random(); });
+      sim.alpha(0.9).restart();
+    });
+
+    document.getElementById('toggleLabels').addEventListener('click', () => {
+      labelsVisible = !labelsVisible;
+      labels.attr('opacity', labelsVisible ? 0.9 : 0);
+    });
+
+    function buildData() {
+      const nodes = [
+        { id: 'Acme', group: 'Org' },
+        { id: 'Zen Labs', group: 'Org' },
+        { id: 'Core Team', group: 'Team' },
+        { id: 'Data Team', group: 'Team' },
+        { id: 'Mobile Team', group: 'Team' },
+        { id: 'Auth Service', group: 'Service' },
+        { id: 'Billing Service', group: 'Service' },
+        { id: 'Search Service', group: 'Service' },
+        { id: 'User Graph', group: 'Topic' },
+        { id: 'Privacy', group: 'Topic' },
+        { id: 'Reliability', group: 'Topic' },
+        { id: 'Growth', group: 'Topic' }
+      ];
+
+      const links = [
+        { source: 'Acme', target: 'Core Team', type: 'partOf', weight: 2 },
+        { source: 'Acme', target: 'Data Team', type: 'partOf', weight: 2 },
+        { source: 'Acme', target: 'Mobile Team', type: 'partOf', weight: 2 },
+        { source: 'Core Team', target: 'Auth Service', type: 'dependsOn', weight: 2 },
+        { source: 'Core Team', target: 'Billing Service', type: 'dependsOn', weight: 1 },
+        { source: 'Mobile Team', target: 'Auth Service', type: 'dependsOn', weight: 2 },
+        { source: 'Data Team', target: 'Search Service', type: 'dependsOn', weight: 2 },
+        { source: 'Auth Service', target: 'Privacy', type: 'influences', weight: 2 },
+        { source: 'Billing Service', target: 'Reliability', type: 'influences', weight: 1 },
+        { source: 'Search Service', target: 'Growth', type: 'influences', weight: 2 },
+        { source: 'Zen Labs', target: 'Search Service', type: 'competesWith', weight: 2 },
+        { source: 'Zen Labs', target: 'Acme', type: 'competesWith', weight: 1 },
+        { source: 'User Graph', target: 'Search Service', type: 'influences', weight: 2 },
+        { source: 'Privacy', target: 'Growth', type: 'competesWith', weight: 1 }
+      ];
+      return { nodes, links };
+    }
+  </script>
+</body>
+</html>

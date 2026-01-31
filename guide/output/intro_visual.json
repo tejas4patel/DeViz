@@ -1,0 +1,252 @@
+{
+  "scene_id": "SCENE_00",
+  "scene_title": "Introduction: The NAMCS Health Center Ecosystem",
+  "narrative_purpose": "Set the context by introducing the key players, concepts, and relationships in the NAMCS HC Component ecosystem. Show how FQHCs, NCHS, HRSA, and PCOR are interconnected.",
+  "base_visual": "force_graph",
+  "source_sections": ["SEC01", "SEC02"],
+  "visual_data": {
+    "nodes": [
+      {
+        "id": "namcs_hc",
+        "label": "NAMCS HC Component",
+        "type": "data_system",
+        "group": "core",
+        "description": "Redesigned survey collecting EHR visit data from health centers since 2021",
+        "size": 30
+      },
+      {
+        "id": "fqhc",
+        "label": "FQHCs",
+        "type": "organization",
+        "group": "providers",
+        "description": "Federally Qualified Health Centers serving 31.3 million patients",
+        "size": 25
+      },
+      {
+        "id": "fqhc_lookalikes",
+        "label": "FQHC Look-alikes",
+        "type": "organization",
+        "group": "providers",
+        "description": "Health centers meeting HRSA requirements without Program funding",
+        "size": 20
+      },
+      {
+        "id": "nchs",
+        "label": "NCHS",
+        "type": "organization",
+        "group": "government",
+        "description": "National Center for Health Statistics - conducts the survey",
+        "size": 22
+      },
+      {
+        "id": "hrsa",
+        "label": "HRSA",
+        "type": "organization",
+        "group": "government",
+        "description": "Health Resources and Services Administration - oversees Health Center Program",
+        "size": 22
+      },
+      {
+        "id": "hud",
+        "label": "HUD",
+        "type": "organization",
+        "group": "government",
+        "description": "U.S. Department of Housing and Urban Development - external linkage partner",
+        "size": 18
+      },
+      {
+        "id": "ehr",
+        "label": "EHR Data",
+        "type": "data",
+        "group": "data",
+        "description": "Electronic Health Records submitted by participating centers",
+        "size": 20
+      },
+      {
+        "id": "uds",
+        "label": "Uniform Data System",
+        "type": "data_system",
+        "group": "data",
+        "description": "HRSA reporting system for health center characteristics",
+        "size": 18
+      },
+      {
+        "id": "pcor",
+        "label": "PCOR",
+        "type": "concept",
+        "group": "outcomes",
+        "description": "Patient-Centered Outcomes Research",
+        "size": 22
+      },
+      {
+        "id": "hpsa",
+        "label": "Health Professional Shortage Areas",
+        "type": "place",
+        "group": "context",
+        "description": "Underserved areas where FQHCs provide critical healthcare",
+        "size": 18
+      },
+      {
+        "id": "researchers",
+        "label": "Researchers",
+        "type": "stakeholder",
+        "group": "users",
+        "description": "Users of datafiles and dashboards for healthcare research",
+        "size": 16
+      },
+      {
+        "id": "patients",
+        "label": "Patients",
+        "type": "stakeholder",
+        "group": "users",
+        "description": "67.3% in poverty, served by health centers",
+        "size": 20
+      },
+      {
+        "id": "policymakers",
+        "label": "Policymakers",
+        "type": "stakeholder",
+        "group": "users",
+        "description": "Use data for evidence-based decision making",
+        "size": 16
+      },
+      {
+        "id": "dashboard",
+        "label": "Interactive Dashboard",
+        "type": "data",
+        "group": "outputs",
+        "description": "Biannual preliminary estimates visualization tool",
+        "size": 18
+      },
+      {
+        "id": "datafiles",
+        "label": "Datafiles",
+        "type": "data",
+        "group": "outputs",
+        "description": "Restricted and public use datasets for research",
+        "size": 18
+      }
+    ],
+    "links": [
+      {
+        "source": "nchs",
+        "target": "namcs_hc",
+        "relationship": "administers",
+        "strength": 1.0
+      },
+      {
+        "source": "namcs_hc",
+        "target": "fqhc",
+        "relationship": "collects_from",
+        "strength": 0.9
+      },
+      {
+        "source": "namcs_hc",
+        "target": "fqhc_lookalikes",
+        "relationship": "collects_from",
+        "strength": 0.8
+      },
+      {
+        "source": "hrsa",
+        "target": "fqhc",
+        "relationship": "oversees",
+        "strength": 0.9
+      },
+      {
+        "source": "hrsa",
+        "target": "uds",
+        "relationship": "maintains",
+        "strength": 0.8
+      },
+      {
+        "source": "fqhc",
+        "target": "ehr",
+        "relationship": "generates",
+        "strength": 0.9
+      },
+      {
+        "source": "ehr",
+        "target": "namcs_hc",
+        "relationship": "submitted_to",
+        "strength": 0.9
+      },
+      {
+        "source": "fqhc",
+        "target": "hpsa",
+        "relationship": "serves",
+        "strength": 0.8
+      },
+      {
+        "source": "fqhc",
+        "target": "patients",
+        "relationship": "provides_care_to",
+        "strength": 0.9
+      },
+      {
+        "source": "namcs_hc",
+        "target": "pcor",
+        "relationship": "enables",
+        "strength": 0.9
+      },
+      {
+        "source": "namcs_hc",
+        "target": "datafiles",
+        "relationship": "produces",
+        "strength": 0.9
+      },
+      {
+        "source": "namcs_hc",
+        "target": "dashboard",
+        "relationship": "produces",
+        "strength": 0.8
+      },
+      {
+        "source": "namcs_hc",
+        "target": "hud",
+        "relationship": "links_to",
+        "strength": 0.7
+      },
+      {
+        "source": "datafiles",
+        "target": "researchers",
+        "relationship": "used_by",
+        "strength": 0.9
+      },
+      {
+        "source": "dashboard",
+        "target": "researchers",
+        "relationship": "used_by",
+        "strength": 0.8
+      },
+      {
+        "source": "dashboard",
+        "target": "policymakers",
+        "relationship": "used_by",
+        "strength": 0.8
+      },
+      {
+        "source": "pcor",
+        "target": "researchers",
+        "relationship": "conducted_by",
+        "strength": 0.8
+      },
+      {
+        "source": "pcor",
+        "target": "patients",
+        "relationship": "benefits",
+        "strength": 0.7
+      }
+    ],
+    "groups": [
+      {"id": "core", "label": "Core System", "color": "#2563eb"},
+      {"id": "providers", "label": "Healthcare Providers", "color": "#16a34a"},
+      {"id": "government", "label": "Government Agencies", "color": "#dc2626"},
+      {"id": "data", "label": "Data Systems", "color": "#9333ea"},
+      {"id": "outcomes", "label": "Research Outcomes", "color": "#ea580c"},
+      {"id": "users", "label": "Stakeholders", "color": "#0891b2"},
+      {"id": "outputs", "label": "Data Products", "color": "#4f46e5"},
+      {"id": "context", "label": "Context", "color": "#64748b"}
+    ]
+  },
+  "narrative_text": "The NAMCS Health Center Component represents a comprehensive ecosystem connecting federal agencies, healthcare providers, and research communities. At its core, the NCHS-administered survey collects electronic health record data from Federally Qualified Health Centers and their look-alikes—community-based settings that serve 31.3 million patients in health professional shortage areas. This data flows into research products including datafiles and interactive dashboards, enabling patient-centered outcomes research that benefits patients, researchers, and policymakers alike. External linkages to agencies like HUD expand the analytical possibilities, creating a powerful infrastructure for understanding healthcare delivery to underserved populations."
+}

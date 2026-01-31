@@ -1,0 +1,165 @@
+{
+  "enriched_sections": [
+    {
+      "section_id": "SEC01",
+      "title": "Abstract and Introduction",
+      "original_text": "Federally qualified health centers and look-alikes are outpatient care settings that provide primary care and other health services in health professional shortage areas and to their populations. Compiling and disseminating data from these centers that is accessible for patient-centered outcomes research (PCOR) is critical to understanding healthcare provided at these settings. The National Ambulatory Medical Care Survey Health Center (NAMCS HC) Component is a redesigned survey that can be utilized to understand healthcare provided at health centers, improve data capacity, and facilitate PCOR. Beginning in 2021, the NAMCS HC Component began collecting visit data through electronic health record (EHR) submission from a nationally representative sample of FQHCs and FQHC look-alikes. EHR data collected from FQHCs and look-alikes through the redesigned NAMCS HC Component fills a gap to improve PCOR capacity at these unique settings.",
+      "entities": [
+        {"name": "Federally Qualified Health Centers (FQHCs)", "type": "Organization"},
+        {"name": "FQHC Look-alikes", "type": "Organization"},
+        {"name": "National Ambulatory Medical Care Survey (NAMCS)", "type": "Data"},
+        {"name": "NAMCS HC Component", "type": "Process"},
+        {"name": "Patient-Centered Outcomes Research (PCOR)", "type": "Concept"},
+        {"name": "Electronic Health Records (EHR)", "type": "Data"},
+        {"name": "Health Professional Shortage Areas", "type": "Place"}
+      ],
+      "questions": [
+        {"what": "What is the NAMCS HC Component and its purpose?"},
+        {"why": "Why is PCOR data from health centers critical?"},
+        {"when": "When did the redesigned survey begin collecting data?"}
+      ]
+    },
+    {
+      "section_id": "SEC02",
+      "title": "Background on FQHCs",
+      "original_text": "Federally qualified health centers (FQHCs) and FQHC look-alikes are community-based healthcare settings that provide primary care and other health services in health professional shortage areas (HPSAs) and to their populations. FQHCs and look-alikes are important sources of healthcare in HPSAs, serve to mitigate differences in health outcomes, and allow access to quality healthcare which contributes to reduction in health differences. In 2023, FQHCs served 31.3 million patients in the United States. Patients who use FQHCs may differ from the U.S. population; for example, in 2023 67.3% of FQHC patients were in poverty compared to 11.1% of the U.S population. HRSA oversees and monitors the Health Center Program and currently has a reporting system called the Uniform Data System (UDS) that requires FQHCs and look-alikes to report on selected patient characteristics, services provided, health outcomes, and center staffing.",
+      "entities": [
+        {"name": "Health Professional Shortage Areas (HPSAs)", "type": "Place"},
+        {"name": "Health Resources and Services Administration (HRSA)", "type": "Organization"},
+        {"name": "Uniform Data System (UDS)", "type": "Data"},
+        {"name": "31.3 million patients", "type": "Data"},
+        {"name": "67.3% poverty rate", "type": "Data"},
+        {"name": "Health Center Program", "type": "Process"}
+      ],
+      "questions": [
+        {"what": "What role do FQHCs play in healthcare delivery?"},
+        {"who": "Who are the patients served by FQHCs?"},
+        {"how": "How do FQHCs contribute to reducing health differences?"}
+      ]
+    },
+    {
+      "section_id": "SEC03",
+      "title": "Methodology",
+      "original_text": "The NAMCS HC Component is a nationally representative establishment survey that collects data on ambulatory medical care visits to FQHCs and FQHC look-alikes throughout the 50 U.S. states and District of Columbia. The NAMCS HC Component collects EHR visit data on patient characteristics, medical diagnoses and procedures, lab tests and results, and medications. Patient personally identifiable information (PII) is also collected, which allows for linkage to external datasets. Its 2021 sampling frame was approximately 1,400 health centers, where a primary sample of 50 health centers was drawn, along with a reserve sample of 100 centers. This yielded 29 health centers participating in the 2021 NAMCS HC Component. Data collection occurs in four steps: (1) sampled health centers are contacted by NCHS to gain agreement to participate, (2) the participating center answers a questionnaire for survey weight calculation, (3) NCHS works with the health center to install the HL7 CDA R2 Implementation Guide, (4) a testing and validation file is submitted, and finally EHR datafiles are submitted to NCHS.",
+      "entities": [
+        {"name": "National Center for Health Statistics (NCHS)", "type": "Organization"},
+        {"name": "HL7 CDA R2 Implementation Guide", "type": "Process"},
+        {"name": "1,400 health centers sampling frame", "type": "Data"},
+        {"name": "50 primary sample", "type": "Data"},
+        {"name": "100 reserve sample", "type": "Data"},
+        {"name": "29 participating centers (2021)", "type": "Data"},
+        {"name": "Personally Identifiable Information (PII)", "type": "Concept"}
+      ],
+      "questions": [
+        {"how": "How is data collected from health centers?"},
+        {"what": "What data elements are captured in the survey?"},
+        {"how_many": "How many health centers participated in the initial sample?"}
+      ]
+    },
+    {
+      "section_id": "SEC04",
+      "title": "Visit-level Datafiles",
+      "original_text": "Data from the NAMCS HC Component are made publicly available to researchers. The survey does not focus on surveillance of visits for a specific medical condition or type of care, thus its nationally representative data can be used by researchers to explore any healthcare research topic from chronic conditions such as asthma and diabetes, to mental health, substance use, and more. NAMCS HC Component data are released annually in two versions: (1) a restricted use datafile containing millions of records from all participating health centers with a full set of data elements, accessible through the NCHS Research Data Center, and (2) a public use version containing 5% of total records collected with weights for nationally representative estimates. The 2023 data showed significantly higher maternal health visit rates among women 20-29 (134.6 per 1,000) and 30-39 (101.0) years compared to women 12-19 (29.7) and 40-55 (20.3) years.",
+      "entities": [
+        {"name": "NCHS Research Data Center", "type": "Organization"},
+        {"name": "Restricted Use Datafile", "type": "Data"},
+        {"name": "Public Use Datafile (5%)", "type": "Data"},
+        {"name": "Maternal Health Visits", "type": "Concept"},
+        {"name": "Gestational Diabetes", "type": "Concept"},
+        {"name": "Chronic Conditions", "type": "Concept"}
+      ],
+      "questions": [
+        {"what": "What types of datafiles are available to researchers?"},
+        {"how": "How can researchers access the data?"},
+        {"what": "What insights can be derived from maternal health data?"}
+      ]
+    },
+    {
+      "section_id": "SEC05",
+      "title": "Interactive Data Visualizations",
+      "original_text": "The NAMCS HC Component visit-level datafiles may be used for research on specific topics and to inform evidence-based decision making by patients, families, clinicians, and policymakers. Aggregate estimates from the NAMCS HC Component have been placed in an interactive data visualization dashboard that makes nationally representative, biannual preliminary estimates of visits to health centers available prior to datafile release. Users can navigate interactive drop-down menus to examine diagnoses/conditions and health outcome differences across patient characteristics. An empirical example examining lung/breathing-related disease visits by race/ethnicity from January 2022-June 2024 showed that non-Hispanic White people had significantly lower visit rates (10.3-14.3 per 1,000) compared to Hispanic (25.6-31.9) and Non-Hispanic Black (24.1-36.8) populations.",
+      "entities": [
+        {"name": "Interactive Dashboard", "type": "Data"},
+        {"name": "Biannual Preliminary Estimates", "type": "Data"},
+        {"name": "Lung/Breathing-related Disease", "type": "Concept"},
+        {"name": "Racial/Ethnic Health Disparities", "type": "Concept"},
+        {"name": "Non-Hispanic White", "type": "Data"},
+        {"name": "Hispanic", "type": "Data"},
+        {"name": "Non-Hispanic Black", "type": "Data"}
+      ],
+      "questions": [
+        {"what": "What does the interactive dashboard show?"},
+        {"who": "Who can use the dashboard?"},
+        {"what": "What health disparities were found in respiratory disease visits?"}
+      ]
+    },
+    {
+      "section_id": "SEC06",
+      "title": "Linkage to External Data Sources",
+      "original_text": "The NAMCS HC Component facilitates additional PCOR through linkage to external data sources. An example is the patient-level linkage of 2021 NAMCS HC Component data with 2020-2022 housing assistance program data from the U.S. Department of Housing and Urban Development (HUD). This linkage focuses on HUD's three largest housing assistance programs: Housing Choice Vouchers (HCV), Public Housing (PH), and assisted Multifamily (MF) programs. Nearly all patients in the 2021 NAMCS HC Component (726,384, or 99.9%) were eligible for linkage with HUD data using deterministic and probabilistic approaches with Fellegi-Sunter methodology. A total of 3.6% of linkage-eligible patients linked to HUD data, with variations by age (0-17: 4.4%, 18-44: 3.0%, 45-64: 3.1%, 65+: 4.7%) and sex (Male: 2.9%, Female: 4.1%).",
+      "entities": [
+        {"name": "U.S. Department of Housing and Urban Development (HUD)", "type": "Organization"},
+        {"name": "Housing Choice Vouchers (HCV)", "type": "Process"},
+        {"name": "Public Housing (PH)", "type": "Process"},
+        {"name": "Multifamily (MF) Programs", "type": "Process"},
+        {"name": "Fellegi-Sunter Methodology", "type": "Process"},
+        {"name": "726,384 linkage-eligible patients", "type": "Data"},
+        {"name": "3.6% linkage rate", "type": "Data"}
+      ],
+      "questions": [
+        {"what": "What external data sources can be linked?"},
+        {"how": "How is the linkage performed?"},
+        {"what": "What percentage of patients linked to HUD data?"}
+      ]
+    },
+    {
+      "section_id": "SEC07",
+      "title": "Survey Growth and Statistics",
+      "original_text": "The NAMCS HC Component has grown significantly since its 2021 redesign. In 2021, 29 health centers participated with 3,543,927 visits collected. In 2022, 64 health centers (38 new + 26 returning) participated with 5,640,370 visits (restricted) and 282,017 visits (public use 5%). In 2023, 95 health centers (32 new + 63 returning) participated with 9,012,885 visits (restricted) and 450,645 visits (public use 5%). Retention of recruited centers remains high at 98.4% in 2023.",
+      "entities": [
+        {"name": "2021: 29 health centers, 3.5M visits", "type": "Data"},
+        {"name": "2022: 64 health centers, 5.6M visits", "type": "Data"},
+        {"name": "2023: 95 health centers, 9M visits", "type": "Data"},
+        {"name": "98.4% retention rate", "type": "Data"}
+      ],
+      "questions": [
+        {"how": "How has the survey grown over time?"},
+        {"what": "What is the retention rate of participating centers?"},
+        {"how_many": "How many visits are captured annually?"}
+      ]
+    },
+    {
+      "section_id": "SEC08",
+      "title": "Limitations",
+      "original_text": "Some limitations of the NAMCS HC Component exist. First, although a primary/reserve sampling strategy and a set-up fee are used to maximize response rate, it remains lower than desired (42.2% year-specific response rate and 30.2% overall rate in 2023). However, retention of recruited centers remains high (98.4% in 2023) and new samples each year continue to increase participating centers. Second, not all data elements collected from EHRs are readily-available in public use files. Third, EHR data from some health centers has missingness for certain data elements. Normalization techniques can be used to address weight adjustments for missing data.",
+      "entities": [
+        {"name": "42.2% year-specific response rate", "type": "Data"},
+        {"name": "30.2% overall response rate", "type": "Data"},
+        {"name": "Data Missingness", "type": "Concept"},
+        {"name": "Weight Normalization", "type": "Process"}
+      ],
+      "questions": [
+        {"what": "What are the main limitations of the survey?"},
+        {"how": "How can data missingness be addressed?"},
+        {"why": "Why is the response rate lower than desired?"}
+      ]
+    },
+    {
+      "section_id": "SEC09",
+      "title": "Future Directions and Conclusion",
+      "original_text": "Even with limitations, the NAMCS HC Component resulted in a new resource for conducting PCOR, with plans to continue expanding its data capacity. Annual data collection is ongoing and 2024 restricted and public use datafiles are forthcoming. Data visualization modules on mental and respiratory health were recently added. Timeliness of preliminary estimates has improved to within six months of a visit occurring. Additional data linkages are scheduled including the 2021-2022 National Death Index (complete), 2020-2022 HUD administrative data (complete), and 2020-2021 Transformed Medicaid Statistical Information System (underway). The NAMCS HC Component will continue to provide data for studying PCOR at FQHCs and look-alikes with accessibility and expanding infrastructure.",
+      "entities": [
+        {"name": "National Death Index", "type": "Data"},
+        {"name": "Transformed Medicaid Statistical Information System", "type": "Data"},
+        {"name": "Mental Health Visualization Module", "type": "Data"},
+        {"name": "Respiratory Health Visualization Module", "type": "Data"},
+        {"name": "6-month timeliness", "type": "Data"}
+      ],
+      "questions": [
+        {"what": "What future data linkages are planned?"},
+        {"when": "When will 2024 datafiles be available?"},
+        {"how": "How has timeliness of estimates improved?"}
+      ]
+    }
+  ]
+}

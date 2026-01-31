@@ -1,0 +1,457 @@
+{
+  "storybook": {
+    "title": "Data Resources for Patient-Centered Outcomes Research at Federally Qualified Health Centers",
+    "subtitle": "The National Ambulatory Medical Care Survey Health Center Component",
+    "source_document": "nihms-2127800.pdf",
+    "authors": ["Lello Guluma, MPH", "Brian W. Ward, PhD", "Sonja N. Williams, MPH", "Cindy Zhang, MPH", "Cordell Golden, MPS"],
+    "affiliation": "National Center for Health Statistics",
+    "generated_date": "2026-01-31",
+    "total_scenes": 10
+  },
+  "scenes": [
+    {
+      "scene_id": "SCENE_00",
+      "scene_title": "Introduction: The NAMCS Health Center Ecosystem",
+      "narrative_purpose": "Set the context by introducing the key players, concepts, and relationships in the NAMCS HC Component ecosystem. Show how FQHCs, NCHS, HRSA, and PCOR are interconnected.",
+      "base_visual": "force_graph",
+      "source_sections": ["SEC01", "SEC02"],
+      "visual_data": {
+        "nodes": [
+          {"id": "namcs_hc", "label": "NAMCS HC Component", "type": "data_system", "group": "core", "description": "Redesigned survey collecting EHR visit data from health centers since 2021", "size": 30},
+          {"id": "fqhc", "label": "FQHCs", "type": "organization", "group": "providers", "description": "Federally Qualified Health Centers serving 31.3 million patients", "size": 25},
+          {"id": "fqhc_lookalikes", "label": "FQHC Look-alikes", "type": "organization", "group": "providers", "description": "Health centers meeting HRSA requirements without Program funding", "size": 20},
+          {"id": "nchs", "label": "NCHS", "type": "organization", "group": "government", "description": "National Center for Health Statistics - conducts the survey", "size": 22},
+          {"id": "hrsa", "label": "HRSA", "type": "organization", "group": "government", "description": "Health Resources and Services Administration - oversees Health Center Program", "size": 22},
+          {"id": "hud", "label": "HUD", "type": "organization", "group": "government", "description": "U.S. Department of Housing and Urban Development - external linkage partner", "size": 18},
+          {"id": "ehr", "label": "EHR Data", "type": "data", "group": "data", "description": "Electronic Health Records submitted by participating centers", "size": 20},
+          {"id": "uds", "label": "Uniform Data System", "type": "data_system", "group": "data", "description": "HRSA reporting system for health center characteristics", "size": 18},
+          {"id": "pcor", "label": "PCOR", "type": "concept", "group": "outcomes", "description": "Patient-Centered Outcomes Research", "size": 22},
+          {"id": "hpsa", "label": "Health Professional Shortage Areas", "type": "place", "group": "context", "description": "Underserved areas where FQHCs provide critical healthcare", "size": 18},
+          {"id": "researchers", "label": "Researchers", "type": "stakeholder", "group": "users", "description": "Users of datafiles and dashboards for healthcare research", "size": 16},
+          {"id": "patients", "label": "Patients", "type": "stakeholder", "group": "users", "description": "67.3% in poverty, served by health centers", "size": 20},
+          {"id": "policymakers", "label": "Policymakers", "type": "stakeholder", "group": "users", "description": "Use data for evidence-based decision making", "size": 16},
+          {"id": "dashboard", "label": "Interactive Dashboard", "type": "data", "group": "outputs", "description": "Biannual preliminary estimates visualization tool", "size": 18},
+          {"id": "datafiles", "label": "Datafiles", "type": "data", "group": "outputs", "description": "Restricted and public use datasets for research", "size": 18}
+        ],
+        "links": [
+          {"source": "nchs", "target": "namcs_hc", "relationship": "administers", "strength": 1.0},
+          {"source": "namcs_hc", "target": "fqhc", "relationship": "collects_from", "strength": 0.9},
+          {"source": "namcs_hc", "target": "fqhc_lookalikes", "relationship": "collects_from", "strength": 0.8},
+          {"source": "hrsa", "target": "fqhc", "relationship": "oversees", "strength": 0.9},
+          {"source": "hrsa", "target": "uds", "relationship": "maintains", "strength": 0.8},
+          {"source": "fqhc", "target": "ehr", "relationship": "generates", "strength": 0.9},
+          {"source": "ehr", "target": "namcs_hc", "relationship": "submitted_to", "strength": 0.9},
+          {"source": "fqhc", "target": "hpsa", "relationship": "serves", "strength": 0.8},
+          {"source": "fqhc", "target": "patients", "relationship": "provides_care_to", "strength": 0.9},
+          {"source": "namcs_hc", "target": "pcor", "relationship": "enables", "strength": 0.9},
+          {"source": "namcs_hc", "target": "datafiles", "relationship": "produces", "strength": 0.9},
+          {"source": "namcs_hc", "target": "dashboard", "relationship": "produces", "strength": 0.8},
+          {"source": "namcs_hc", "target": "hud", "relationship": "links_to", "strength": 0.7},
+          {"source": "datafiles", "target": "researchers", "relationship": "used_by", "strength": 0.9},
+          {"source": "dashboard", "target": "researchers", "relationship": "used_by", "strength": 0.8},
+          {"source": "dashboard", "target": "policymakers", "relationship": "used_by", "strength": 0.8},
+          {"source": "pcor", "target": "researchers", "relationship": "conducted_by", "strength": 0.8},
+          {"source": "pcor", "target": "patients", "relationship": "benefits", "strength": 0.7}
+        ],
+        "groups": [
+          {"id": "core", "label": "Core System", "color": "#2563eb"},
+          {"id": "providers", "label": "Healthcare Providers", "color": "#16a34a"},
+          {"id": "government", "label": "Government Agencies", "color": "#dc2626"},
+          {"id": "data", "label": "Data Systems", "color": "#9333ea"},
+          {"id": "outcomes", "label": "Research Outcomes", "color": "#ea580c"},
+          {"id": "users", "label": "Stakeholders", "color": "#0891b2"},
+          {"id": "outputs", "label": "Data Products", "color": "#4f46e5"},
+          {"id": "context", "label": "Context", "color": "#64748b"}
+        ]
+      },
+      "narrative_text": "The NAMCS Health Center Component represents a comprehensive ecosystem connecting federal agencies, healthcare providers, and research communities. At its core, the NCHS-administered survey collects electronic health record data from Federally Qualified Health Centers and their look-alikes—community-based settings that serve 31.3 million patients in health professional shortage areas. This data flows into research products including datafiles and interactive dashboards, enabling patient-centered outcomes research that benefits patients, researchers, and policymakers alike. External linkages to agencies like HUD expand the analytical possibilities, creating a powerful infrastructure for understanding healthcare delivery to underserved populations."
+    },
+    {
+      "scene_id": "SCENE_01",
+      "scene_title": "FQHCs: Serving Underserved Communities",
+      "narrative_purpose": "Highlight the critical role of FQHCs in serving underserved populations and the stark differences between FQHC patients and the general U.S. population.",
+      "base_visual": "matrix",
+      "source_sections": ["SEC02"],
+      "visual_data": {
+        "matrix": {
+          "rows": [
+            {"id": "fqhc_patients", "label": "FQHC Patients"},
+            {"id": "us_population", "label": "U.S. Population"}
+          ],
+          "columns": [
+            {"id": "total", "label": "Total Population"},
+            {"id": "poverty_rate", "label": "Poverty Rate"},
+            {"id": "healthcare_access", "label": "Healthcare Access"}
+          ],
+          "cells": [
+            {"row": "fqhc_patients", "column": "total", "value": "31.3 million", "highlight": true},
+            {"row": "fqhc_patients", "column": "poverty_rate", "value": "67.3%", "highlight": true},
+            {"row": "fqhc_patients", "column": "healthcare_access", "value": "HPSA-focused", "highlight": false},
+            {"row": "us_population", "column": "total", "value": "335 million", "highlight": false},
+            {"row": "us_population", "column": "poverty_rate", "value": "11.1%", "highlight": false},
+            {"row": "us_population", "column": "healthcare_access", "value": "Varied", "highlight": false}
+          ]
+        },
+        "tactical_visuals": [
+          {
+            "type": "bar",
+            "location": "inline",
+            "data": [
+              {"label": "FQHC Patients", "value": 67.3, "color": "#dc2626"},
+              {"label": "U.S. Population", "value": 11.1, "color": "#64748b"}
+            ],
+            "title": "Poverty Rate Comparison (%)"
+          }
+        ]
+      },
+      "narrative_text": "Federally Qualified Health Centers serve as a critical safety net for America's most vulnerable populations. In 2023, FQHCs provided care to 31.3 million patients—approximately 1 in 11 Americans. The disparity is stark: while only 11.1% of the overall U.S. population lives in poverty, 67.3% of FQHC patients fall below the poverty line. These centers operate primarily in Health Professional Shortage Areas, filling gaps where traditional healthcare infrastructure is insufficient."
+    },
+    {
+      "scene_id": "SCENE_02",
+      "scene_title": "The Data Collection Pipeline",
+      "narrative_purpose": "Explain the four-step data collection methodology and sampling strategy that enables nationally representative data collection.",
+      "base_visual": "flowchart",
+      "source_sections": ["SEC03"],
+      "visual_data": {
+        "flowchart": {
+          "nodes": [
+            {"id": "step1", "label": "Step 1: Contact & Agreement", "description": "NCHS contacts sampled health centers to gain participation agreement", "type": "process"},
+            {"id": "step2", "label": "Step 2: Questionnaire", "description": "~45-minute questionnaire for survey weight calculation", "type": "process"},
+            {"id": "step3", "label": "Step 3: HL7 Implementation", "description": "Install HL7 CDA R2 Implementation Guide template", "type": "process"},
+            {"id": "step4", "label": "Step 4: Testing & Validation", "description": "T&V file submitted for quality assessment", "type": "process"},
+            {"id": "submission", "label": "EHR Data Submission", "description": "Final EHR datafiles submitted to NCHS", "type": "output"}
+          ],
+          "edges": [
+            {"from": "step1", "to": "step2"},
+            {"from": "step2", "to": "step3"},
+            {"from": "step3", "to": "step4"},
+            {"from": "step4", "to": "submission"}
+          ]
+        },
+        "sampling_funnel": {
+          "stages": [
+            {"label": "Sampling Frame", "value": 1400, "description": "Total health centers in frame"},
+            {"label": "Primary Sample", "value": 50, "description": "Initial sample drawn"},
+            {"label": "Reserve Sample", "value": 100, "description": "Backup centers if primary declines"},
+            {"label": "Participating (2021)", "value": 29, "description": "Final participating centers"}
+          ]
+        }
+      },
+      "narrative_text": "The NAMCS HC Component employs a rigorous four-step data collection process. From a sampling frame of approximately 1,400 health centers, a primary sample of 50 is drawn along with a reserve sample of 100 to replace any declining centers. Each participating center completes a questionnaire, implements the HL7 CDA R2 standard for EHR data formatting, passes testing and validation, and then submits their complete EHR visit data. This process yielded 29 participating centers in the inaugural 2021 collection cycle."
+    },
+    {
+      "scene_id": "SCENE_03",
+      "scene_title": "Two Paths to Data Access",
+      "narrative_purpose": "Illustrate the dual-track data access model with restricted and public use datafiles, showing what researchers can access at each level.",
+      "base_visual": "tree",
+      "source_sections": ["SEC04"],
+      "visual_data": {
+        "tree": {
+          "root": {
+            "id": "namcs_hc_data",
+            "label": "NAMCS HC Component Data",
+            "children": [
+              {
+                "id": "restricted",
+                "label": "Restricted Use Datafile",
+                "description": "Full dataset with all variables",
+                "children": [
+                  {"id": "r_access", "label": "Access: NCHS Research Data Center", "type": "attribute"},
+                  {"id": "r_fee", "label": "Fee: Required", "type": "attribute"},
+                  {"id": "r_records", "label": "Records: 100% (millions)", "type": "attribute"},
+                  {"id": "r_vars", "label": "Variables: Full set including PII, labs, medications", "type": "attribute"}
+                ]
+              },
+              {
+                "id": "public",
+                "label": "Public Use Datafile",
+                "description": "5% sample with weights",
+                "children": [
+                  {"id": "p_access", "label": "Access: Free download", "type": "attribute"},
+                  {"id": "p_fee", "label": "Fee: None", "type": "attribute"},
+                  {"id": "p_records", "label": "Records: 5% sample (~450K in 2023)", "type": "attribute"},
+                  {"id": "p_vars", "label": "Variables: Demographics, diagnoses, survey weights", "type": "attribute"}
+                ]
+              }
+            ]
+          }
+        },
+        "data_elements_comparison": {
+          "both": ["Day/month of visit", "Patient age", "Patient sex", "Race/ethnicity", "Marital status", "Diagnoses (ICD-10-CM)", "Survey stratum", "Survey weight"],
+          "restricted_only": ["Time of visit", "Medical procedures", "Laboratory tests", "Biometric/vitals", "Medication", "Medication status", "Pregnancy status"]
+        }
+      },
+      "narrative_text": "Researchers have two pathways to access NAMCS HC Component data. The restricted use datafile contains millions of complete records with the full set of data elements including procedures, lab tests, and medications—accessible through the NCHS Research Data Center with an application and fee. For broader accessibility, the public use datafile offers a 5% sample with survey weights for nationally representative estimates, available for free download with no programming knowledge required."
+    },
+    {
+      "scene_id": "SCENE_04",
+      "scene_title": "Maternal Health Insights",
+      "narrative_purpose": "Demonstrate the analytical power of the data through maternal health visit patterns across age groups.",
+      "base_visual": "matrix",
+      "source_sections": ["SEC04"],
+      "visual_data": {
+        "matrix": {
+          "title": "Maternal Health Visits to Health Centers by Age Group (2023)",
+          "rows": [
+            {"id": "age_12_19", "label": "Ages 12-19"},
+            {"id": "age_20_29", "label": "Ages 20-29"},
+            {"id": "age_30_39", "label": "Ages 30-39"},
+            {"id": "age_40_55", "label": "Ages 40-55"}
+          ],
+          "columns": [
+            {"id": "maternal_visits", "label": "Maternal Health Visit Rate (per 1,000)"},
+            {"id": "gest_diabetes", "label": "Gestational Diabetes Visit Rate (per 1,000)"}
+          ],
+          "cells": [
+            {"row": "age_12_19", "column": "maternal_visits", "value": 29.7, "ci": "(21.4-41.4)", "significance": "b,c"},
+            {"row": "age_12_19", "column": "gest_diabetes", "value": 0.1, "ci": "(<0.1-0.1)", "significance": "b,c,d"},
+            {"row": "age_20_29", "column": "maternal_visits", "value": 134.6, "ci": "(94.3-192.2)", "significance": "a,d", "highlight": true},
+            {"row": "age_20_29", "column": "gest_diabetes", "value": 2.6, "ci": "(1.8-3.7)", "significance": "a,d"},
+            {"row": "age_30_39", "column": "maternal_visits", "value": 101.0, "ci": "(74.1-137.8)", "significance": "a,d"},
+            {"row": "age_30_39", "column": "gest_diabetes", "value": 4.3, "ci": "(3.0-6.2)", "significance": "a,d", "highlight": true},
+            {"row": "age_40_55", "column": "maternal_visits", "value": 20.3, "ci": "(15.4-26.8)", "significance": "b,c"},
+            {"row": "age_40_55", "column": "gest_diabetes", "value": 0.8, "ci": "(0.5-1.3)", "significance": "a,b,c"}
+          ],
+          "legend": {
+            "a": "Significantly different from ages 12-19",
+            "b": "Significantly different from ages 20-29",
+            "c": "Significantly different from ages 30-39",
+            "d": "Significantly different from ages 40-55"
+          }
+        }
+      },
+      "narrative_text": "Analysis of 2023 NAMCS HC Component data reveals significant age-based patterns in maternal health care. Women aged 20-29 had the highest maternal health visit rate (134.6 per 1,000), followed by those aged 30-39 (101.0). Gestational diabetes visits showed a different pattern, with women 30-39 having the highest rate (4.3 per 1,000). These findings demonstrate the analytical depth possible with visit-level data, enabling research on age-related differences in maternal morbidity and complications."
+    },
+    {
+      "scene_id": "SCENE_05",
+      "scene_title": "Respiratory Health Disparities",
+      "narrative_purpose": "Reveal racial/ethnic disparities in respiratory disease visits over time, demonstrating the dashboard's analytical capabilities.",
+      "base_visual": "timeline",
+      "source_sections": ["SEC05"],
+      "visual_data": {
+        "timeline": {
+          "title": "Lung/Breathing-related Disease Visit Rates by Race/Ethnicity (per 1,000 people)",
+          "time_periods": [
+            {"id": "2022_h1", "label": "Jan-Jun 2022"},
+            {"id": "2022_h2", "label": "Jul-Dec 2022"},
+            {"id": "2023_h1", "label": "Jan-Jun 2023"},
+            {"id": "2023_h2", "label": "Jul-Dec 2023"},
+            {"id": "2024_h1", "label": "Jan-Jun 2024"}
+          ],
+          "series": [
+            {
+              "id": "white",
+              "label": "Non-Hispanic White",
+              "color": "#64748b",
+              "data": [
+                {"period": "2022_h1", "value": 13.1},
+                {"period": "2022_h2", "value": 12.2},
+                {"period": "2023_h1", "value": 12.9},
+                {"period": "2023_h2", "value": 10.3},
+                {"period": "2024_h1", "value": 14.3}
+              ]
+            },
+            {
+              "id": "hispanic",
+              "label": "Hispanic",
+              "color": "#f97316",
+              "data": [
+                {"period": "2022_h1", "value": 25.6},
+                {"period": "2022_h2", "value": 26.8},
+                {"period": "2023_h1", "value": 28.5},
+                {"period": "2023_h2", "value": 27.0},
+                {"period": "2024_h1", "value": 31.9}
+              ]
+            },
+            {
+              "id": "black",
+              "label": "Non-Hispanic Black",
+              "color": "#8b5cf6",
+              "data": [
+                {"period": "2022_h1", "value": 25.2},
+                {"period": "2022_h2", "value": 26.8},
+                {"period": "2023_h1", "value": 25.9},
+                {"period": "2023_h2", "value": 24.1},
+                {"period": "2024_h1", "value": 36.8}
+              ]
+            }
+          ]
+        }
+      },
+      "narrative_text": "The NAMCS HC Component dashboard reveals persistent racial/ethnic disparities in respiratory health. From 2022 through mid-2024, Hispanic and Non-Hispanic Black populations consistently showed significantly higher visit rates for lung/breathing-related diseases (25-37 per 1,000) compared to Non-Hispanic White populations (10-14 per 1,000). These disparities persisted across all measured time periods, highlighting the need for targeted respiratory health interventions in minority communities served by health centers."
+    },
+    {
+      "scene_id": "SCENE_06",
+      "scene_title": "The Power of Data Linkage",
+      "narrative_purpose": "Show how linking NAMCS HC data to external sources (HUD) creates new research possibilities for understanding social determinants of health.",
+      "base_visual": "sankey",
+      "source_sections": ["SEC06"],
+      "visual_data": {
+        "sankey": {
+          "title": "NAMCS HC Component to HUD Data Linkage Flow",
+          "nodes": [
+            {"id": "total", "label": "Total NAMCS HC Patients", "value": 727232, "level": 0},
+            {"id": "eligible", "label": "Linkage Eligible", "value": 726384, "level": 1},
+            {"id": "linked", "label": "Linked to HUD", "value": 26128, "level": 2}
+          ],
+          "links": [
+            {"source": "total", "target": "eligible", "value": 726384},
+            {"source": "eligible", "target": "linked", "value": 26128}
+          ]
+        },
+        "linkage_rates_by_demographic": {
+          "by_age": [
+            {"group": "0-17 years", "rate": 4.4},
+            {"group": "18-44 years", "rate": 3.0},
+            {"group": "45-64 years", "rate": 3.1},
+            {"group": "65+ years", "rate": 4.7}
+          ],
+          "by_sex": [
+            {"group": "Male", "rate": 2.9},
+            {"group": "Female", "rate": 4.1}
+          ]
+        }
+      },
+      "narrative_text": "Data linkage exponentially expands research possibilities. Of the 727,232 patients in the 2021 NAMCS HC Component, 99.9% were eligible for linkage with HUD housing assistance data using deterministic and probabilistic matching. The resulting 3.6% linkage rate (26,128 patients) enables unprecedented research into how housing stability affects health outcomes. Notably, linkage rates were highest among elderly patients (4.7%) and females (4.1%), suggesting these populations may benefit most from integrated housing-health research."
+    },
+    {
+      "scene_id": "SCENE_07",
+      "scene_title": "Remarkable Growth (2021-2023)",
+      "narrative_purpose": "Visualize the dramatic growth of the NAMCS HC Component in participating centers and visit records.",
+      "base_visual": "timeline",
+      "source_sections": ["SEC07"],
+      "visual_data": {
+        "timeline": {
+          "title": "NAMCS HC Component Growth (2021-2023)",
+          "years": [
+            {
+              "year": 2021,
+              "health_centers": {"total": 29, "new": 29, "returning": 0},
+              "visits": {"restricted": 3543927, "public": null}
+            },
+            {
+              "year": 2022,
+              "health_centers": {"total": 64, "new": 38, "returning": 26},
+              "visits": {"restricted": 5640370, "public": 282017}
+            },
+            {
+              "year": 2023,
+              "health_centers": {"total": 95, "new": 32, "returning": 63},
+              "visits": {"restricted": 9012885, "public": 450645}
+            }
+          ],
+          "metrics": {
+            "growth_centers_2021_2023": "228%",
+            "growth_visits_2021_2023": "154%",
+            "retention_rate_2023": "98.4%"
+          }
+        }
+      },
+      "narrative_text": "The NAMCS HC Component has experienced remarkable growth since its 2021 redesign. Participating health centers more than tripled from 29 to 95, while visit records grew from 3.5 million to over 9 million—a 154% increase. Perhaps most impressive is the 98.4% retention rate in 2023, demonstrating that once health centers join the program, they recognize its value and continue participating. This growing foundation ensures increasingly robust and representative data for health center research."
+    },
+    {
+      "scene_id": "SCENE_08",
+      "scene_title": "Acknowledging Limitations",
+      "narrative_purpose": "Present the survey's limitations transparently while showing mitigation strategies.",
+      "base_visual": "matrix",
+      "source_sections": ["SEC08"],
+      "visual_data": {
+        "matrix": {
+          "title": "NAMCS HC Component Limitations and Mitigations",
+          "rows": [
+            {
+              "id": "response_rate",
+              "limitation": "Response Rate",
+              "description": "42.2% year-specific, 30.2% overall (2023)",
+              "mitigation": "Primary/reserve sampling strategy, set-up fee incentive, 98.4% retention rate"
+            },
+            {
+              "id": "data_elements",
+              "limitation": "Limited Public Use Variables",
+              "description": "Not all EHR data elements available in public files",
+              "mitigation": "Restricted access available at RDC, exploration of adding elements to future public files"
+            },
+            {
+              "id": "missingness",
+              "limitation": "Data Missingness",
+              "description": "Some health centers have missing values for certain elements",
+              "mitigation": "Weight normalization technique: New weight = Original weight × (Sum all / Sum included)"
+            }
+          ]
+        }
+      },
+      "narrative_text": "Transparency about limitations strengthens research credibility. While the NAMCS HC Component's response rate (42.2% year-specific, 30.2% overall in 2023) is lower than ideal, the exceptional 98.4% retention rate and growing sample compensate for initial recruitment challenges. Data element availability in public files is limited for confidentiality, but researchers can access the full dataset through the Research Data Center. For data missingness, NCHS provides a weight normalization formula that ensures estimates remain nationally representative even when some centers have incomplete data."
+    },
+    {
+      "scene_id": "SCENE_09",
+      "scene_title": "Conclusion: The Road Ahead",
+      "narrative_purpose": "Summarize key achievements and outline future directions including planned data linkages and expanded capabilities.",
+      "base_visual": "tree",
+      "source_sections": ["SEC09"],
+      "visual_data": {
+        "tree": {
+          "root": {
+            "id": "namcs_future",
+            "label": "NAMCS HC Component: The Road Ahead",
+            "description": "A growing resource for patient-centered outcomes research",
+            "children": [
+              {
+                "id": "current_achievements",
+                "label": "Current Achievements",
+                "type": "category",
+                "color": "#16a34a",
+                "children": [
+                  {"id": "ach_centers", "label": "95 Health Centers", "description": "Participating in 2023", "type": "metric"},
+                  {"id": "ach_visits", "label": "9+ Million Visits", "description": "Collected in 2023", "type": "metric"},
+                  {"id": "ach_retention", "label": "98.4% Retention", "description": "Centers continue participating", "type": "metric"},
+                  {"id": "ach_timeliness", "label": "6-Month Timeliness", "description": "Preliminary estimates available within 6 months", "type": "metric"}
+                ]
+              },
+              {
+                "id": "data_linkages",
+                "label": "Data Linkages",
+                "type": "category",
+                "color": "#2563eb",
+                "children": [
+                  {"id": "link_ndi", "label": "National Death Index", "description": "2021-2022 NDI linkage complete", "status": "complete", "type": "linkage"},
+                  {"id": "link_hud", "label": "HUD Administrative Data", "description": "2020-2022 housing assistance data linked", "status": "complete", "type": "linkage"},
+                  {"id": "link_tmsis", "label": "T-MSIS Medicaid Data", "description": "2020-2021 Medicaid linkage underway", "status": "in_progress", "type": "linkage"}
+                ]
+              },
+              {
+                "id": "upcoming_releases",
+                "label": "Upcoming Releases",
+                "type": "category",
+                "color": "#9333ea",
+                "children": [
+                  {"id": "rel_2024", "label": "2024 Datafiles", "description": "Restricted and public use files forthcoming", "type": "release"},
+                  {"id": "rel_mental", "label": "Mental Health Module", "description": "Dashboard visualization recently added", "type": "feature"},
+                  {"id": "rel_respiratory", "label": "Respiratory Health Module", "description": "Dashboard visualization recently added", "type": "feature"}
+                ]
+              },
+              {
+                "id": "research_impact",
+                "label": "Research Impact",
+                "type": "category",
+                "color": "#ea580c",
+                "children": [
+                  {"id": "impact_maternal", "label": "Maternal Health Research", "description": "Age-based patterns in pregnancy care", "type": "outcome"},
+                  {"id": "impact_disparities", "label": "Health Disparities", "description": "Racial/ethnic differences in respiratory disease", "type": "outcome"},
+                  {"id": "impact_sdoh", "label": "Social Determinants", "description": "Housing-health relationship studies enabled", "type": "outcome"}
+                ]
+              }
+            ]
+          }
+        },
+        "key_takeaways": [
+          {"id": 1, "title": "Unprecedented Access", "description": "The NAMCS HC Component provides the first nationally representative EHR-based visit data from health centers."},
+          {"id": 2, "title": "Dual Access Model", "description": "Restricted datafiles for detailed research and public use files for broad accessibility."},
+          {"id": 3, "title": "Growing Infrastructure", "description": "From 29 to 95 centers in three years with 98.4% retention."},
+          {"id": 4, "title": "Linkage Power", "description": "Integration with NDI, HUD, and soon Medicaid data."},
+          {"id": 5, "title": "Actionable Insights", "description": "Interactive dashboards bring timely data to all stakeholders within 6 months."}
+        ]
+      },
+      "narrative_text": "The NAMCS HC Component has transformed from an ambitious redesign into a proven resource for understanding healthcare at federally qualified health centers. With 95 participating centers, over 9 million annual visits, and a 98.4% retention rate, the foundation is strong. Completed linkages to the National Death Index and HUD housing data, combined with the ongoing Medicaid linkage, create unprecedented opportunities to study how social determinants affect health outcomes for the 31.3 million patients served by health centers. As 2024 datafiles approach release and new dashboard modules expand analytical capabilities, the NAMCS HC Component stands ready to serve researchers, clinicians, patients, and policymakers in their shared mission to improve health outcomes for America's most vulnerable populations."
+    }
+  ]
+}

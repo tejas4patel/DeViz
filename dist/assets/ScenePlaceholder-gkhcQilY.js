@@ -1,0 +1,1 @@
+import{j as e}from"./index-CktA7uae.js";function l(i){return e.jsxs("div",{className:"kv",children:[e.jsx("div",{style:{fontWeight:700},children:"Placeholder"}),e.jsxs("div",{children:[e.jsx("div",{style:{fontWeight:700},children:i.title}),e.jsx("div",{className:"small",style:{marginTop:6},children:i.description})]})]})}export{l as S};
