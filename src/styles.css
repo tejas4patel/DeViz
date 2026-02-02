@@ -39,6 +39,7 @@ html,
 body {
   margin: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -55,7 +56,7 @@ body {
 #root {
   min-height: 100vh;
   height: auto;
-  overflow: visible;
+  overflow: hidden;
 }
 
 a {
@@ -212,18 +213,9 @@ a {
 }
 
 .slideScrollBody {
-  overflow: auto;
+  overflow: hidden;
   padding-right: 6px;
   min-width: 0;
-}
-
-.slideScrollBody::-webkit-scrollbar {
-  width: 10px;
-}
-
-.slideScrollBody::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.18);
-  border-radius: 6px;
 }
 
 .deckControls {
@@ -277,7 +269,7 @@ a {
 .helpCard {
   width: min(720px, 92vw);
   max-height: 86vh;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .helpGrid {
@@ -560,23 +552,23 @@ a {
 /* responsive */
 @media (max-width: 980px) {
   #root {
-    height: auto;
-    overflow: visible;
+    height: 100vh;
+    overflow: hidden;
   }
 
   .deckShell {
-    height: auto;
+    height: 100vh;
     display: block;
   }
 
   .deckStage {
-    height: auto;
-    overflow: visible;
+    height: 100%;
+    overflow: hidden;
     display: block;
   }
 
   .slideScrollBody {
-    overflow: visible;
+    overflow: hidden;
   }
 
   .deckControls {
@@ -663,7 +655,7 @@ a {
 .tilePane {
   width: 300px;
   height: 240px;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 6px;

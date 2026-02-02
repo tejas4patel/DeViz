@@ -80,7 +80,7 @@ namcs-data-sources/
 │       │   ├── chartAxes.ts         # D3 axis helpers
 │       │   └── useResizeObserver.ts # Responsive sizing hook
 │       └── scenes/                  # Individual scene components
-│           ├── Scene01Pillars.tsx   # Force graph visualization
+│           ├── Scene01Introduction.tsx   # Force graph visualization
 │           ├── Scene04Growth.tsx    # Bar chart visualization
 │           ├── Scene08Maternal.tsx  # Grouped bar chart
 │           └── ...                  # Additional scenes

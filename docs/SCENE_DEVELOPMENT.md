@@ -519,9 +519,9 @@ See [src/story/scenes/Scene08Maternal.tsx](../src/story/scenes/Scene08Maternal.t
 - Nested scales (outer for groups, inner for series)
 - Legend (inline text)
 
-### Example 3: Force-Directed Graph (Scene01Pillars)
+### Example 3: Force-Directed Graph (Scene01Introduction)
 
-See [src/story/scenes/Scene01Pillars.tsx](../src/story/scenes/Scene01Pillars.tsx) for:
+See [src/story/scenes/Scene01Introduction.tsx](../src/story/scenes/Scene01Introduction.tsx) for:
 - Force simulation with proper types
 - Interactive hover and click
 - Side panel for details

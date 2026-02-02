@@ -5,7 +5,7 @@ export const story: Story = {
   subtitle: 'Microdata, dashboards, and linkage for patient centered outcomes research',
   scenes: [
     {
-      id: 'scene01',
+      id: 'scene01_introduction',
       title: 'Introduction to NAMCS Health Center Data',
       subtitle: 'Microdata, dashboards, and linkage',
       component: 'scene01_pillars',

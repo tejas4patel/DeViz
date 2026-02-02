@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import type { Scene } from './storyTypes';
 
 const registry: Record<string, React.LazyExoticComponent<() => JSX.Element>> = {
-  scene01_pillars: lazy(() => import('./scenes/Scene01Pillars')),
+  scene01_pillars: lazy(() => import('./scenes/Scene01Introduction')),
   scene02_fqhc_map: lazy(() => import('./scenes/Scene02FqhcMap')),
   scene03_before_after: lazy(() => import('./scenes/Scene03BeforeAfter')),
   scene04_growth: lazy(() => import('./scenes/Scene04Growth')),

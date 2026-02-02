@@ -126,7 +126,7 @@ const [showHelp, setShowHelp] = useState(false);       // Help overlay
 ```typescript
 // Registry pattern for lazy loading
 const sceneRegistry: Record<string, React.LazyExoticComponent<...>> = {
-  scene01_pillars: lazy(() => import('./scenes/Scene01Pillars')),
+  scene01_pillars: lazy(() => import('./scenes/Scene01Introduction')),
   scene02_fqhc_map: lazy(() => import('./scenes/Scene02FqhcMap')),
   // ... etc
 };
@@ -229,7 +229,7 @@ useEffect(() => {
 Most state is local to components using React hooks:
 
 ```typescript
-// Scene01Pillars example
+// Scene01Introduction example
 const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
 const [pinnedNode, setPinnedNode] = useState<Node | null>(null);
 
@@ -408,7 +408,7 @@ describe('ScenePlaceholder', () => {
 Scenes are lazy-loaded using React.lazy() and Suspense:
 
 ```typescript
-const Scene01 = lazy(() => import('./scenes/Scene01Pillars'));
+const Scene01 = lazy(() => import('./scenes/Scene01Introduction'));
 
 <Suspense fallback={<div>Loading...</div>}>
   <Scene01 />
