@@ -1,0 +1,82 @@
+{
+  "before": {
+    "period": "Pre-2021",
+    "title": "Manual Abstraction",
+    "icon": "📋",
+    "features": [
+      {
+        "label": "Data Collection",
+        "value": "Manual chart abstraction",
+        "description": "Staff manually reviewed and extracted data from patient records"
+      },
+      {
+        "label": "Time Coverage",
+        "value": "4-week sample periods",
+        "description": "Data collected during randomly selected weeks throughout the year"
+      },
+      {
+        "label": "Centers Participating",
+        "value": "~25 centers",
+        "description": "Limited participation due to high burden"
+      },
+      {
+        "label": "Annual Visit Records",
+        "value": "~50,000 visits",
+        "description": "Sample-based estimates from selected weeks"
+      },
+      {
+        "label": "Data Quality",
+        "value": "Sample-based",
+        "description": "Projections from limited time windows"
+      },
+      {
+        "label": "Site Burden",
+        "value": "High manual effort",
+        "description": "Significant staff time for chart review"
+      }
+    ],
+    "summary": "Limited sample windows with high manual burden on participating centers"
+  },
+  "after": {
+    "period": "2021 Onwards",
+    "title": "Full Year EHR",
+    "icon": "🔄",
+    "features": [
+      {
+        "label": "Data Collection",
+        "value": "Automated EHR extraction",
+        "description": "HL7 feeds automatically transmit data from electronic health records"
+      },
+      {
+        "label": "Time Coverage",
+        "value": "Continuous 12-month data",
+        "description": "Complete year-round patient visit records"
+      },
+      {
+        "label": "Centers Participating",
+        "value": "29 → 95+ centers",
+        "description": "Rapid growth enabled by reduced burden"
+      },
+      {
+        "label": "Annual Visit Records",
+        "value": "~400,000+ visits",
+        "description": "Complete population of all patient encounters"
+      },
+      {
+        "label": "Data Quality",
+        "value": "Complete population",
+        "description": "No sampling - all visits captured"
+      },
+      {
+        "label": "Site Burden",
+        "value": "Minimal automated feeds",
+        "description": "One-time setup, then automatic data flow"
+      }
+    ],
+    "summary": "Continuous automated data capture with minimal site burden and complete population coverage"
+  },
+  "transition": {
+    "year": 2021,
+    "impact": "8x increase in visit records and 3x growth in participating centers"
+  }
+}

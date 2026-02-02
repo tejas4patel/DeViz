@@ -1,0 +1,93 @@
+/* Common Color Palette and Styles for Story Visualizations */
+
+:root {
+  /* Color Palette - Scene 01 Graph Colors */
+  --color-hub-primary: #244855;
+  --color-hub-secondary: #2d5a6b;
+  --color-hub-satellite: #5a7d8a;
+  --color-hub-stroke: #1a3540;
+
+  --color-pillar-primary: #E64833;
+  --color-pillar-secondary: #f05a42;
+  --color-pillar-satellite: #f28b7a;
+  --color-pillar-stroke: #b8361f;
+
+  --color-sub-primary: #90AEAD;
+  --color-sub-secondary: #a5c3c2;
+  --color-sub-satellite: #b8d4d3;
+  --color-sub-stroke: #6b8584;
+
+  /* Neutral Colors */
+  --color-bg-light: #f8f9fa;
+  --color-bg-white: #ffffff;
+  --color-border-light: #cbd5e0;
+  --color-border-dark: #2d3748;
+  --color-text-primary: #2d3748;
+  --color-text-secondary: #4a5568;
+  --color-text-light: #718096;
+
+  /* Tooltip/Popover Defaults */
+  --tooltip-bg: var(--color-hub-primary);
+  --tooltip-text: var(--color-bg-white);
+  --tooltip-border: var(--color-pillar-primary);
+  --tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  /* Common spacing and sizing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.2s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+}
+
+/* Common Tooltip Styles */
+.common-tooltip {
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  border: 2px solid var(--tooltip-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  box-shadow: var(--tooltip-shadow);
+}
+
+/* Common Button Styles */
+.common-button {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.common-button:hover {
+  background: var(--color-bg-white);
+  border-color: var(--color-hub-secondary);
+  color: var(--color-hub-secondary);
+}
+
+/* Common Legend Styles */
+.common-legend {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  padding: 12px 16px;
+  box-shadow: var(--tooltip-shadow);
+}
+
+.common-legend-title {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}

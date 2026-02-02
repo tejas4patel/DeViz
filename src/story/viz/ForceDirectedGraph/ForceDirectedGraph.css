@@ -1,0 +1,122 @@
+/* Force Directed Graph Container */
+.force-directed-graph {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.force-directed-graph__svg {
+  flex: 1;
+  min-height: 0;
+  cursor: move;
+  overflow: hidden;
+}
+
+/* Popover Styles */
+.force-directed-graph__popover {
+  position: absolute;
+  display: none;
+  background: linear-gradient(135deg, #ffffff 0%, #fef9f5 100%);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white), linear-gradient(135deg, #244855 0%, #E64833 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-size: 13px;
+  max-width: 320px;
+  pointer-events: none;
+  box-shadow: 0 10px 40px rgba(36, 72, 85, 0.25), 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 1001;
+}
+
+.force-directed-graph__popover-title {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+  background: linear-gradient(135deg, #244855 0%, #E64833 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.force-directed-graph__popover-content {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.7;
+  color: #244855;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+/* Tooltip Styles */
+.force-directed-graph__tooltip {
+  position: absolute;
+  display: none;
+  background: linear-gradient(135deg, #ffffff 0%, #fffcf8 100%);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white), linear-gradient(135deg, #FBE9D0 0%, #874F41 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12px;
+  max-width: 300px;
+  pointer-events: none;
+  box-shadow: 0 8px 32px rgba(251, 233, 208, 0.35), 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.force-directed-graph__tooltip-question {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 700;
+  color: #244855;
+  margin-bottom: 10px;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+.force-directed-graph__tooltip-answer {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.7;
+  color: #244855;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+/* Node and Link Classes */
+.force-directed-graph .zoom-container {
+  /* Container for zoomed content */
+}
+
+.force-directed-graph .node {
+  cursor: grab;
+}
+
+.force-directed-graph .node:active {
+  cursor: grabbing;
+}
+
+.force-directed-graph .link {
+  /* Link group */
+}
+
+.force-directed-graph .link-base {
+  /* Base layer of links */
+}
+
+.force-directed-graph .link-overlay {
+  /* Overlay layer of links */
+}
+
+.force-directed-graph .satellite {
+  cursor: pointer;
+}
+
+.force-directed-graph .satellite-connector {
+  /* Connecting lines to satellites */
+}

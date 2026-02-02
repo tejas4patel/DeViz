@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Vite: Run Dev Server",
+      "name": "Run Dev Server",
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
@@ -10,25 +10,12 @@
       "runtimeArgs": ["run", "dev"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"]
-    },
-    {
-      "name": "Vite: Debug in Edge",
-      "type": "msedge",
-      "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/src",
-      "sourceMaps": true,
-      "trace": true
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Vite: Run + Debug",
-      "configurations": [
-        "Vite: Run Dev Server",
-        "Vite: Debug in Edge"
-      ]
+      "skipFiles": ["<node_internals>/**"],
+      "serverReadyAction": {
+        "pattern": "Local:.*(https?://[^\\s]+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      }
     }
   ]
 }
