@@ -1,0 +1,123 @@
+{
+  "title": "NAMCS HC Data Coverage",
+  "children": [
+    {
+      "title": "Visit Information",
+      "category": "visit",
+      "description": "Temporal and visit-level identifiers",
+      "children": [
+        {
+          "title": "Day/month of visit",
+          "availability": "both",
+          "description": "Visit date information available in both restricted and public use files",
+          "details": "Enables temporal analysis of visit patterns and seasonal trends"
+        },
+        {
+          "title": "Time of visit",
+          "availability": "restricted",
+          "description": "Specific visit time - restricted file only",
+          "details": "Precise timing data for detailed workflow and capacity analysis"
+        }
+      ]
+    },
+    {
+      "title": "Patient Demographics",
+      "category": "demographics",
+      "description": "Patient characteristics and background",
+      "children": [
+        {
+          "title": "Patient's age",
+          "availability": "both",
+          "description": "Age information in both file types",
+          "details": "Critical for age-stratified health outcomes research"
+        },
+        {
+          "title": "Patient's sex",
+          "availability": "both",
+          "description": "Biological sex in both file types",
+          "details": "Essential for sex-disaggregated health analysis"
+        },
+        {
+          "title": "Patient's race/ethnicity",
+          "availability": "both",
+          "description": "Race and ethnicity data in both file types",
+          "details": "Enables health equity and disparity research"
+        },
+        {
+          "title": "Patient's marital status",
+          "availability": "both",
+          "description": "Marital status in both file types",
+          "details": "Social determinant affecting health outcomes"
+        }
+      ]
+    },
+    {
+      "title": "Clinical Data",
+      "category": "clinical",
+      "description": "Medical diagnoses, procedures, and tests",
+      "children": [
+        {
+          "title": "Diagnoses (ICD-10-CM)",
+          "availability": "both",
+          "description": "Diagnostic codes in both file types (30+ variables)",
+          "details": "Standardized disease classification for comprehensive health research"
+        },
+        {
+          "title": "Medical procedures",
+          "availability": "restricted",
+          "description": "Procedure codes - restricted file only",
+          "details": "Detailed procedural data for treatment pattern analysis"
+        },
+        {
+          "title": "Laboratory tests",
+          "availability": "restricted",
+          "description": "Lab test orders and results - restricted file only",
+          "details": "Laboratory data for clinical outcomes research"
+        },
+        {
+          "title": "Biometric/vitals",
+          "availability": "restricted",
+          "description": "Vital signs and measurements - restricted file only",
+          "details": "Blood pressure, BMI, temperature for health monitoring"
+        },
+        {
+          "title": "Medication",
+          "availability": "restricted",
+          "description": "Medication prescriptions - restricted file only",
+          "details": "Pharmaceutical treatment data for medication research"
+        },
+        {
+          "title": "Medication status",
+          "availability": "restricted",
+          "description": "Medication continuation status - restricted file only",
+          "details": "Tracks medication adherence and changes"
+        },
+        {
+          "title": "Pregnancy status",
+          "availability": "restricted",
+          "description": "Pregnancy indicator - restricted file only",
+          "details": "Critical for maternal health research"
+        }
+      ]
+    },
+    {
+      "title": "Survey Metadata",
+      "category": "metadata",
+      "description": "Survey design and weighting variables",
+      "children": [
+        {
+          "title": "Survey stratum",
+          "availability": "both",
+          "description": "Sampling stratum in both file types",
+          "details": "Enables proper variance estimation in analysis"
+        },
+        {
+          "title": "Survey weight",
+          "availability": "both",
+          "description": "Sample weights in both file types",
+          "details": "Required for nationally representative estimates"
+        }
+      ]
+    }
+  ]
+}
