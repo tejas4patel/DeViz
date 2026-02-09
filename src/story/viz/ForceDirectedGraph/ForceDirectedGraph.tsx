@@ -50,6 +50,7 @@ export default function ForceDirectedGraph({
   const svgRef = useRef<SVGSVGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const popoverRef = useRef<HTMLDivElement | null>(null);
+  const linkPopoverRef = useRef<HTMLDivElement | null>(null);
   const hoverTimeoutRef = useRef<number | null>(null);
 
   // Merge configurations with defaults
@@ -206,6 +207,122 @@ export default function ForceDirectedGraph({
       .attr('stroke-width', linkConfig.overlayWidth)
       .attr('opacity', linkConfig.overlayOpacity)
       .attr('stroke-linecap', 'round');
+
+    // Add invisible wider path for easier hover detection on links
+    linkData
+      .append('path')
+      .attr('class', 'link-hover-target')
+      .attr('fill', 'none')
+      .attr('stroke', 'transparent')
+      .attr('stroke-width', 20)
+      .style('cursor', 'pointer');
+
+    // Link hover handlers
+    linkData
+      .on('mouseenter', function (event, d) {
+        const linkPopover = linkPopoverRef.current;
+        const containerElement = ref.current;
+        if (!linkPopover || !containerElement) return;
+
+        // Hide other popovers
+        const nodePopover = popoverRef.current;
+        if (nodePopover) nodePopover.style.display = 'none';
+
+        const source = d.source as SimNode;
+        const target = d.target as SimNode;
+        const relationship = d.relationship || d.type || 'connects to';
+        const description = d.description || `${source.label} ${relationship.toLowerCase()} ${target.label}`;
+
+        linkPopover.innerHTML = `
+          <div class="force-directed-graph__link-popover-header">
+            <span class="force-directed-graph__link-popover-source">${source.label}</span>
+            <span class="force-directed-graph__link-popover-arrow">→</span>
+            <span class="force-directed-graph__link-popover-target">${target.label}</span>
+          </div>
+          <div class="force-directed-graph__link-popover-relationship">${relationship}</div>
+          <div class="force-directed-graph__link-popover-description">${description}</div>
+        `;
+        linkPopover.style.display = 'block';
+
+        // Position the popover near the mouse
+        const containerRect = containerElement.getBoundingClientRect();
+        const popoverRect = linkPopover.getBoundingClientRect();
+        const offset = 15;
+        const margin = 10;
+
+        let popoverLeft = event.pageX - containerRect.left + offset;
+        let popoverTop = event.pageY - containerRect.top + offset;
+
+        // Adjust if goes off screen
+        if (popoverLeft + popoverRect.width > containerRect.width - margin) {
+          popoverLeft = event.pageX - containerRect.left - popoverRect.width - offset;
+        }
+        if (popoverTop + popoverRect.height > containerRect.height - margin) {
+          popoverTop = event.pageY - containerRect.top - popoverRect.height - offset;
+        }
+        if (popoverLeft < margin) popoverLeft = margin;
+        if (popoverTop < margin) popoverTop = margin;
+
+        linkPopover.style.left = popoverLeft + 'px';
+        linkPopover.style.top = popoverTop + 'px';
+
+        // Highlight the link
+        d3.select(this)
+          .select('.link-overlay')
+          .transition()
+          .duration(200)
+          .attr('stroke-width', linkConfig.overlayWidth * 2)
+          .attr('opacity', 1);
+
+        d3.select(this)
+          .select('.link-base')
+          .transition()
+          .duration(200)
+          .attr('stroke-width', linkConfig.baseWidth * 1.5);
+      })
+      .on('mousemove', function (event) {
+        const linkPopover = linkPopoverRef.current;
+        const containerElement = ref.current;
+        if (!linkPopover || !containerElement) return;
+
+        const containerRect = containerElement.getBoundingClientRect();
+        const popoverRect = linkPopover.getBoundingClientRect();
+        const offset = 15;
+        const margin = 10;
+
+        let popoverLeft = event.pageX - containerRect.left + offset;
+        let popoverTop = event.pageY - containerRect.top + offset;
+
+        if (popoverLeft + popoverRect.width > containerRect.width - margin) {
+          popoverLeft = event.pageX - containerRect.left - popoverRect.width - offset;
+        }
+        if (popoverTop + popoverRect.height > containerRect.height - margin) {
+          popoverTop = event.pageY - containerRect.top - popoverRect.height - offset;
+        }
+        if (popoverLeft < margin) popoverLeft = margin;
+        if (popoverTop < margin) popoverTop = margin;
+
+        linkPopover.style.left = popoverLeft + 'px';
+        linkPopover.style.top = popoverTop + 'px';
+      })
+      .on('mouseleave', function () {
+        const linkPopover = linkPopoverRef.current;
+        if (linkPopover) linkPopover.style.display = 'none';
+
+        // Reset link style
+        d3.select(this)
+          .select('.link-overlay')
+          .transition()
+          .duration(200)
+          .attr('stroke-width', linkConfig.overlayWidth)
+          .attr('opacity', linkConfig.overlayOpacity);
+
+        d3.select(this)
+          .select('.link-base')
+          .transition()
+          .duration(200)
+          .attr('stroke-width', linkConfig.baseWidth);
+      });
 
     // Function to show satellites
     function showSatellites(nodeData: SimNode) {
@@ -627,6 +744,7 @@ export default function ForceDirectedGraph({
     <div ref={ref} className="force-directed-graph">
       <svg ref={svgRef} width="100%" height="100%" className="force-directed-graph__svg" />
       <div ref={popoverRef} className={popoverClass} />
+      <div ref={linkPopoverRef} className="force-directed-graph__link-popover" />
       <div ref={tooltipRef} className={tooltipClass} />
     </div>
   );

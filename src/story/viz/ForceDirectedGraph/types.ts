@@ -14,11 +14,17 @@ export interface GraphLink {
   source: string;
   target: string;
   type?: string;
+  relationship?: string;
+  description?: string;
 }
 
 // D3 Simulation types
 export type SimNode = GraphNode & d3.SimulationNodeDatum;
-export type SimLink = d3.SimulationLinkDatum<SimNode> & { type?: string };
+export type SimLink = d3.SimulationLinkDatum<SimNode> & {
+  type?: string;
+  relationship?: string;
+  description?: string;
+};
 
 // Graph data structure
 export interface GraphData {

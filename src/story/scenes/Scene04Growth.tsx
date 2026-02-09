@@ -1,99 +1,213 @@
-import { useEffect, useMemo, useRef } from 'react';
-import * as d3 from 'd3';
-import { useResizeObserver } from '../viz/useResizeObserver';
-import { axisBottom, axisLeft } from '../viz/chartAxes';
-import { Scene04Row } from '../storyTypes';
-import { scene04Rows } from '../sceneData';
+import { useState, useMemo } from 'react';
+import { USMap } from '../viz/USMap';
+import type { FQHCData, FQHCSite } from '../viz/USMap';
+import type { Topology } from 'topojson-specification';
+import usStatesRaw from '../data/us-states.json';
+import participatingCentersRaw from '../data/scene04-participating-centers.json';
+import './Scene04Growth.css';
+
+const usTopology = usStatesRaw as unknown as Topology;
+
+interface YearData {
+  centers: number;
+  visits_millions: number;
+  newCenters?: number;
+  sites: FQHCSite[];
+}
+
+interface ParticipatingCentersData {
+  metadata: {
+    source: string;
+    description: string;
+    totalCenters2021: number;
+    totalCenters2022: number;
+    totalCenters2023: number;
+  };
+  years: {
+    [key: string]: YearData;
+  };
+}
+
+const participatingCenters = participatingCentersRaw as unknown as ParticipatingCentersData;
+
+const YEARS = ['2021', '2022', '2023'] as const;
+type Year = typeof YEARS[number];
+
+const YEAR_COLORS: Record<Year, string> = {
+  '2021': '#244855',
+  '2022': '#90AEAD',
+  '2023': '#E64833',
+};
 
 export default function Scene04Growth() {
-  const { ref, rect } = useResizeObserver<HTMLDivElement>();
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  const [selectedYear, setSelectedYear] = useState<Year>('2023');
 
-  const rows = useMemo<Scene04Row[]>(() => {
-    return scene04Rows;
-  }, []);
+  // Get cumulative sites up to selected year
+  const cumulativeSites = useMemo(() => {
+    const allSites: FQHCSite[] = [];
+    for (const year of YEARS) {
+      const yearData = participatingCenters.years[year];
+      if (yearData) {
+        allSites.push(...yearData.sites);
+      }
+      if (year === selectedYear) break;
+    }
+    return allSites;
+  }, [selectedYear]);
 
-  useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg) return;
+  // Create FQHCData structure for USMap
+  const mapData: FQHCData = useMemo(() => ({
+    metadata: {
+      source: 'NAMCS HC Component',
+      generatedAt: new Date().toISOString(),
+      totalSites: cumulativeSites.length,
+    },
+    sites: cumulativeSites,
+  }), [cumulativeSites]);
 
-    const width = Math.max(620, rect.width);
-    const height = 380;
-    const margin = { top: 16, right: 18, bottom: 44, left: 56 };
-    const innerW = width - margin.left - margin.right;
-    const innerH = height - margin.top - margin.bottom;
+  const currentYearData = participatingCenters.years[selectedYear];
+  const previousYear = selectedYear === '2021' ? null : YEARS[YEARS.indexOf(selectedYear) - 1];
+  const previousYearData = previousYear ? participatingCenters.years[previousYear] : null;
 
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-    const root = d3.select(svg);
-    root.selectAll('*').remove();
-
-    const g = root.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
-
-    const x = d3
-      .scaleBand<number>()
-      .domain(rows.map(r => r.year))
-      .range([0, innerW])
-      .padding(0.25);
-
-    const y = d3
-      .scaleLinear()
-      .domain([0, d3.max(rows, r => r.visits_millions)! * 1.15])
-      .range([innerH, 0]);
-
-    const gx = g.append('g').attr('transform', `translate(0, ${innerH})`);
-    axisBottom(gx.node() as SVGGElement | null, x);
-
-    const gy = g.append('g');
-    axisLeft(gy.node() as SVGGElement | null, y);
-
-    g.append('text')
-      .attr('x', 0)
-      .attr('y', -2)
-      .attr('fontSize', 12)
-      .attr('fontWeight', 700)
-      .text('Visits in millions');
-
-    g.selectAll('rect')
-      .data(rows)
-      .join('rect')
-      .attr('x', d => x(d.year)!)
-      .attr('y', d => y(d.visits_millions))
-      .attr('width', x.bandwidth())
-      .attr('height', d => innerH - y(d.visits_millions))
-      .attr('rx', 10)
-      .attr('fill', 'rgba(20, 70, 160, 0.22)')
-      .attr('stroke', 'rgba(20, 70, 160, 0.55)');
-
-    g.selectAll('text.value')
-      .data(rows)
-      .join('text')
-      .attr('class', 'value')
-      .attr('x', d => x(d.year)! + x.bandwidth() / 2)
-      .attr('y', d => y(d.visits_millions) - 8)
-      .attr('textAnchor', 'middle')
-      .attr('fontSize', 12)
-      .attr('fontWeight', 700)
-      .text(d => `${d.visits_millions.toFixed(2)}M`);
-
-    g.selectAll('text.centers')
-      .data(rows)
-      .join('text')
-      .attr('class', 'centers')
-      .attr('x', d => x(d.year)! + x.bandwidth() / 2)
-      .attr('y', () => innerH + 34)
-      .attr('textAnchor', 'middle')
-      .attr('fontSize', 12)
-      .text(d => `Centers ${d.centers_total}`)
-      // use d if needed, otherwise ignore. removing unused var.
-
-
-  }, [rows, rect.width]);
+  // Calculate growth percentages
+  const centersGrowth = previousYearData
+    ? Math.round(((currentYearData.centers - previousYearData.centers) / previousYearData.centers) * 100)
+    : null;
+  const visitsGrowth = previousYearData
+    ? Math.round(((currentYearData.visits_millions - previousYearData.visits_millions) / previousYearData.visits_millions) * 100)
+    : null;
 
   return (
-    <div ref={ref}>
-      <svg ref={svgRef} width="100%" height="380" />
-      <div className="small" style={{ marginTop: 10 }}>
-        Starter values come from Table 1 totals for 2021 through 2023
+    <div className="scene04">
+      {/* Header with Year Tabs */}
+      <div className="scene04__header">
+        <div className="scene04__tabs">
+          {YEARS.map((year) => (
+            <button
+              key={year}
+              className={`scene04__tab ${selectedYear === year ? 'scene04__tab--active' : ''}`}
+              onClick={() => setSelectedYear(year)}
+              style={{
+                '--tab-color': YEAR_COLORS[year],
+              } as React.CSSProperties}
+            >
+              <span className="scene04__tab-year">{year}</span>
+              <span className="scene04__tab-centers">
+                {participatingCenters.years[year].centers} centers
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Main Content: Stats + Map */}
+      <div className="scene04__content">
+        {/* Statistics Panel */}
+        <div className="scene04__stats">
+          <div className="scene04__stat-card scene04__stat-card--primary">
+            <div className="scene04__stat-icon">🏥</div>
+            <div className="scene04__stat-value">{currentYearData.centers}</div>
+            <div className="scene04__stat-label">Participating Centers</div>
+            {centersGrowth !== null && (
+              <div className="scene04__stat-growth">
+                <span className="scene04__stat-arrow">↑</span>
+                {centersGrowth}% from {previousYear}
+              </div>
+            )}
+          </div>
+
+          <div className="scene04__stat-card scene04__stat-card--secondary">
+            <div className="scene04__stat-icon">📋</div>
+            <div className="scene04__stat-value">{currentYearData.visits_millions.toFixed(2)}M</div>
+            <div className="scene04__stat-label">Visit Records</div>
+            {visitsGrowth !== null && (
+              <div className="scene04__stat-growth">
+                <span className="scene04__stat-arrow">↑</span>
+                {visitsGrowth}% from {previousYear}
+              </div>
+            )}
+          </div>
+
+          {currentYearData.newCenters && (
+            <div className="scene04__stat-card scene04__stat-card--highlight">
+              <div className="scene04__stat-icon">✨</div>
+              <div className="scene04__stat-value">+{currentYearData.newCenters}</div>
+              <div className="scene04__stat-label">New Centers in {selectedYear}</div>
+            </div>
+          )}
+
+          {/* Legend */}
+          <div className="scene04__legend">
+            <div className="scene04__legend-title">Centers by Year Joined</div>
+            {YEARS.filter((y) => YEARS.indexOf(y) <= YEARS.indexOf(selectedYear)).map((year) => (
+              <div key={year} className="scene04__legend-item">
+                <span
+                  className="scene04__legend-dot"
+                  style={{ backgroundColor: YEAR_COLORS[year] }}
+                />
+                <span className="scene04__legend-text">
+                  {year} ({participatingCenters.years[year].sites.length} centers)
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Map */}
+        <div className="scene04__map">
+          <USMap
+            data={mapData}
+            topology={usTopology}
+            width={900}
+            height={550}
+            minWidth={700}
+            minHeight={450}
+            enableZoom={true}
+            enableTooltip={true}
+            projectionConfig={{
+              type: 'albersUsa',
+              scale: 1100,
+              translate: [450, 275],
+            }}
+            zoomConfig={{
+              enabled: true,
+              scaleExtent: [1, 6],
+              translateExtent: [
+                [-200, -100],
+                [1100, 650],
+              ],
+            }}
+            mapStyleConfig={{
+              backgroundColor: '#fafafa',
+              stateStroke: '#90AEAD',
+              stateFill: '#f0f4f4',
+              stateStrokeWidth: 0.75,
+              stateHoverFill: '#e8f0ef',
+              pointColor: YEAR_COLORS[selectedYear],
+              pointRadius: 5,
+              pointOpacity: 0.85,
+              pointHoverRadius: 8,
+              pointHoverOpacity: 1.0,
+            }}
+            tooltipConfig={{
+              enabled: true,
+              backgroundColor: '#244855',
+              textColor: '#ffffff',
+              borderColor: '#E64833',
+              borderRadius: '8px',
+              padding: '12px 16px',
+              fontSize: '13px',
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="scene04__footer">
+        <p>
+          Geographic distribution of health centers participating in the NAMCS HC EHR-based
+          encounter data submission program. Centers are shown cumulatively through the selected year.
+        </p>
       </div>
     </div>
   );

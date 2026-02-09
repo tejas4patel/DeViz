@@ -132,14 +132,68 @@
     }
   ],
   "links": [
-    { "source": "hub", "target": "microdata", "type": "partOf" },
-    { "source": "hub", "target": "dashboards", "type": "partOf" },
-    { "source": "hub", "target": "linkage", "type": "partOf" },
-    { "source": "microdata", "target": "public_file", "type": "contains" },
-    { "source": "microdata", "target": "restricted_file", "type": "contains" },
-    { "source": "dashboards", "target": "biannual_prelim", "type": "contains" },
-    { "source": "dashboards", "target": "download_tables", "type": "contains" },
-    { "source": "linkage", "target": "hud_link", "type": "contains" },
-    { "source": "linkage", "target": "ndi_link", "type": "contains" }
+    {
+      "source": "hub",
+      "target": "microdata",
+      "type": "partOf",
+      "relationship": "Produces",
+      "description": "The NAMCS HC Component processes EHR encounter data and produces visit-level microdata files. Raw encounter submissions undergo validation, cleaning, and statistical weighting to create analysis-ready datasets that serve as the foundation for custom research requiring record-level detail."
+    },
+    {
+      "source": "hub",
+      "target": "dashboards",
+      "type": "partOf",
+      "relationship": "Powers",
+      "description": "The NAMCS HC Component powers interactive dashboard visualizations by feeding pre-computed estimates into web-based platforms. This enables rapid exploration of ambulatory care statistics without programming, providing faster access to insights than traditional microdata releases."
+    },
+    {
+      "source": "hub",
+      "target": "linkage",
+      "type": "partOf",
+      "relationship": "Enables",
+      "description": "The NAMCS HC Component enables patient-level linkages by maintaining identifiers that can be probabilistically matched to external data sources. This extends the analytical value beyond point-of-care encounters to include long-term outcomes and social context information."
+    },
+    {
+      "source": "microdata",
+      "target": "public_file",
+      "type": "contains",
+      "relationship": "Releases as",
+      "description": "Microdata is released as public use files with disclosure protections applied. Variables are suppressed, categorized, or geographically aggregated to prevent re-identification while preserving analytical utility for the broadest possible research community without access restrictions."
+    },
+    {
+      "source": "microdata",
+      "target": "restricted_file",
+      "type": "contains",
+      "relationship": "Available as",
+      "description": "Microdata is also available as restricted detail files for approved researchers requiring greater granularity. These files contain finer geographic identifiers, additional clinical variables, and linkage keys, accessible only through secure Federal Statistical Research Data Centers."
+    },
+    {
+      "source": "dashboards",
+      "target": "biannual_prelim",
+      "type": "contains",
+      "relationship": "Publishes",
+      "description": "Dashboards publish biannual preliminary estimates that provide rapid-turnaround insights into recent ambulatory care patterns. These estimates are released 12-18 months faster than final microdata, enabling more timely evidence-based decision making despite slightly higher statistical uncertainty."
+    },
+    {
+      "source": "dashboards",
+      "target": "download_tables",
+      "type": "contains",
+      "relationship": "Offers",
+      "description": "Dashboards offer downloadable tables in multiple export formats including CSV, Excel, PDF, and image files. This functionality enables users to incorporate publication-ready statistics directly into reports, presentations, and communications without manual data entry or statistical programming."
+    },
+    {
+      "source": "linkage",
+      "target": "hud_link",
+      "type": "contains",
+      "relationship": "Connects to",
+      "description": "The linkage pillar connects NAMCS encounters to HUD housing assistance records, adding social determinants context. This enables research on how housing stability and affordability relate to healthcare access, utilization patterns, and health outcomes among economically vulnerable populations."
+    },
+    {
+      "source": "linkage",
+      "target": "ndi_link",
+      "type": "contains",
+      "relationship": "Links to",
+      "description": "The linkage pillar links encounters to National Death Index mortality records, enabling survival analysis and outcome research. This transforms cross-sectional encounter data into longitudinal cohorts with complete mortality follow-up, essential for evaluating care quality and treatment effectiveness."
+    }
   ]
 }
