@@ -1,3 +1,11 @@
+/**
+ * Scene 08: Maternal Health Analysis
+ *
+ * Demonstrates NAMCS HC analytical capabilities with maternal health visit
+ * patterns across age groups, including gestational diabetes rates.
+ * Uses real data from Table 2 in the source document.
+ */
+
 import { useEffect, useMemo, useRef } from 'react';
 import * as d3 from 'd3';
 import { useResizeObserver } from '../viz/useResizeObserver';
@@ -122,9 +130,25 @@ export default function Scene08Maternal() {
 
   return (
     <div ref={ref}>
+      <div className="scene08-maternal-header">
+        <h2>Maternal Health Visit Patterns</h2>
+        <p>Analysis of visit rates by age group demonstrates the analytical power of NAMCS Health Center data</p>
+      </div>
       <svg ref={svgRef} width="100%" height="420" />
-      <div className="small" style={{ marginTop: 10 }}>
-        Starter rates come from Table 2, maternal health visits and visits with gestational diabetes
+      <div className="scene08-maternal-insights">
+        <div className="insight-box">
+          <h3>Key Insights</h3>
+          <ul>
+            <li><strong>Peak maternal health visits occur in the 20-29 age group</strong> (134.6 per 1,000 women)</li>
+            <li><strong>Teen pregnancy rates</strong> are notably lower (29.7 per 1,000) but still represent important care needs</li>
+            <li><strong>Gestational diabetes peaks in older mothers</strong>, with highest rates in the 30-39 age group</li>
+            <li><strong>NAMCS HC captures these patterns</strong> with sufficient sample sizes for reliable estimates</li>
+          </ul>
+        </div>
+        <div className="data-note">
+          <small><strong>Data source:</strong> Table 2, maternal health visits and visits with gestational diabetes. 
+          Rates are weighted to represent the target population of women receiving care at participating health centers.</small>
+        </div>
       </div>
     </div>
   );
