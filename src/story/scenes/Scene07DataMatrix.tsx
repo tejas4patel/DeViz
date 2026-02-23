@@ -6,12 +6,16 @@
  */
 
 import { DataCoverageTree } from '../components/DataCoverageTree';
-import dataCoverage from '../data/scene07-data-coverage.json';
+import type { DataElement } from '../components/DataCoverageTree';
+import dataCoverageRaw from '../data/scene07-data-coverage.json';
 import './Scene07DataMatrix.css';
+
+const dataCoverage = dataCoverageRaw as DataElement;
 
 export default function Scene07DataMatrix() {
   return (
     <div className="scene07-data-matrix">
+      <h2 className="scene07-data-matrix__title">What data exists in each file type?</h2>
       <div className="scene07-data-matrix__container">
         <div className="scene07-data-matrix__main">
           {/* Tree Visualization */}

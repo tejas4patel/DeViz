@@ -1,2 +1,2 @@
 export { default as DataCoverageTree } from './DataCoverageTree';
-export type { DataElement, DataCoverageTreeProps } from './types';
+export type { DataElement, DataCoverageTreeProps, AvailabilityColorMap } from './types';

@@ -368,3 +368,19 @@
     display: none;
   }
 }
+
+/* Snake / curved-timeline flow animation */
+@keyframes snake-flow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -44; }
+}
+
+.snake-flow-anim {
+  animation: snake-flow 2.5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snake-flow-anim {
+    animation: none;
+  }
+}

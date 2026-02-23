@@ -1,17 +1,41 @@
+import { useEffect, useState } from 'react';
 import { USMap } from '../viz/USMap';
 import type { FQHCData, CountyData } from '../viz/USMap';
 import type { Topology } from 'topojson-specification';
-import fqhcDataRaw from '../data/scene02-fqhc-data.json';
-import usStatesRaw from '../data/us-states.json';
-import usCountiesRaw from '../data/us-counties.json';
-import countyPovertyDataRaw from '../data/county-poverty-data.json';
+import { SceneLoader } from '../components/SceneLoader';
 
-const fqhcData = fqhcDataRaw as FQHCData;
-const usTopology = usStatesRaw as unknown as Topology;
-const usCountyTopology = usCountiesRaw as unknown as Topology;
-const countyPovertyData = countyPovertyDataRaw as Record<string, CountyData>;
+interface MapData {
+  fqhcData: FQHCData;
+  usTopology: Topology;
+  usCountyTopology: Topology;
+  countyPovertyData: Record<string, CountyData>;
+}
 
 export default function Scene02FqhcMap() {
+  const [mapData, setMapData] = useState<MapData | null>(null);
+
+  useEffect(() => {
+    Promise.all([
+      import('../data/scene02-fqhc-data.json'),
+      import('../data/us-states.json'),
+      import('../data/us-counties.json'),
+      import('../data/county-poverty-data.json'),
+    ]).then(([fqhc, states, counties, poverty]) => {
+      setMapData({
+        fqhcData: fqhc.default as FQHCData,
+        usTopology: states.default as unknown as Topology,
+        usCountyTopology: counties.default as unknown as Topology,
+        countyPovertyData: poverty.default as Record<string, CountyData>,
+      });
+    });
+  }, []);
+
+  if (!mapData) {
+    return <SceneLoader title="Who FQHCs serve and why it matters" />;
+  }
+
+  const { fqhcData, usTopology, usCountyTopology, countyPovertyData } = mapData;
+
   return (
     <div
       style={{

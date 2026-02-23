@@ -1,17 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import type { DataCoverageTreeProps } from './types';
+import { useResizeObserver } from '../../viz/useResizeObserver';
 import './DataCoverageTree.css';
+
+const DEFAULT_AVAILABILITY_COLORS = {
+  root:       '#244855',
+  both:       '#874F41',
+  restricted: '#E64833',
+  public:     '#90AEAD',
+  category:   '#90AEAD',
+};
 
 export default function DataCoverageTree({
   data,
   width,
   height,
+  availabilityColors,
   className = '',
 }: DataCoverageTreeProps) {
+  // Merge caller overrides with defaults — open for extension (OCP)
+  const colors = { ...DEFAULT_AVAILABILITY_COLORS, ...availabilityColors };
   const svgRef = useRef<SVGSVGElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 1200, height: 700 });
+  const { ref: containerRef, rect } = useResizeObserver<HTMLDivElement>();
   const [tooltip, setTooltip] = useState<{ visible: boolean; content: any; x: number; y: number }>({
     visible: false,
     content: null,
@@ -19,30 +30,11 @@ export default function DataCoverageTree({
     y: 0,
   });
 
-  useEffect(() => {
-    const updateDimensions = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      setDimensions({
-        width: width || Math.max(800, rect.width - 40),
-        height: height || Math.max(600, rect.height - 40),
-      });
-    };
-
-    updateDimensions();
-    const timeoutId = setTimeout(updateDimensions, 100);
-    window.addEventListener('resize', updateDimensions);
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', updateDimensions);
-    };
-  }, [width, height]);
+  const containerWidth  = width  || Math.max(800, rect.width  - 40);
+  const containerHeight = height || Math.max(600, rect.height - 40);
 
   useEffect(() => {
-    if (!svgRef.current || !data) return;
-
-    const containerWidth = dimensions.width;
-    const containerHeight = dimensions.height;
+    if (!svgRef.current || !data || containerWidth <= 0 || containerHeight <= 0) return;
 
     // Responsive scaling
     const isMobile = containerWidth < 768;
@@ -76,13 +68,13 @@ export default function DataCoverageTree({
 
     svg.call(zoom);
 
-    const root = d3.hierarchy(data);
+    const root = d3.hierarchy(data) as any;
     root.x0 = 0;
     root.y0 = 0;
 
     // Start with root expanded, first level collapsed
     if (root.children) {
-      root.children.forEach((child) => {
+      root.children.forEach((child: any) => {
         if (child.children) {
           child._children = child.children;
           child.children = null;
@@ -116,7 +108,12 @@ export default function DataCoverageTree({
         .append('path')
         .attr('class', 'link-base')
         .attr('fill', 'none')
-        .attr('stroke', '#874F41')
+        .attr('stroke', (d: any) => {
+          const av = d.target.data.availability;
+          if (av === 'both') return colors.both;
+          if (av === 'restricted') return colors.restricted;
+          return colors.public;
+        })
         .attr('stroke-width', linkStrokeWidth)
         .attr('opacity', 0.3)
         .attr('stroke-linecap', 'round')
@@ -129,11 +126,11 @@ export default function DataCoverageTree({
         const linkGroup = d3.select(this);
         const availability = d.target.data.availability;
 
-        let overlayColor = '#90AEAD';
+        let overlayColor = colors.public;
         if (availability === 'both') {
-          overlayColor = '#874F41';
+          overlayColor = colors.both;
         } else if (availability === 'restricted') {
-          overlayColor = '#E64833';
+          overlayColor = colors.restricted;
         }
 
         linkGroup
@@ -183,8 +180,10 @@ export default function DataCoverageTree({
           event.stopPropagation();
 
           if (d.children || d._children) {
-            // Collapse siblings when expanding a node
-            if (d.parent) {
+            const isExpanding = !d.children && !!d._children;
+
+            // Only collapse siblings when we are expanding — not when collapsing
+            if (isExpanding && d.parent) {
               d.parent.children?.forEach((child: any) => {
                 if (child !== d && child.children) {
                   child._children = child.children;
@@ -231,16 +230,16 @@ export default function DataCoverageTree({
         const isCategory = d.data.category && d.depth > 0;
         const isRoot = d.depth === 0;
 
-        let fillColor = '#90AEAD'; // Light teal for default
+        let fillColor = colors.public;
 
         if (isRoot) {
-          fillColor = '#244855'; // Dark teal for root
+          fillColor = colors.root;
         } else if (availability === 'both') {
-          fillColor = '#874F41'; // Terracotta for both files
+          fillColor = colors.both;
         } else if (availability === 'restricted') {
-          fillColor = '#E64833'; // Coral for restricted only
+          fillColor = colors.restricted;
         } else if (isCategory) {
-          fillColor = '#90AEAD'; // Light teal for categories
+          fillColor = colors.category;
         }
 
         nodeGroup
@@ -327,33 +326,7 @@ export default function DataCoverageTree({
             .style('stroke-linejoin', 'round');
         });
 
-        // Add availability badge for leaf nodes
-        if (d.data.availability && !d.children && !d._children) {
-          const badgeY = labelY + lines.length * (currentFontSize + 2) + 8;
-          const badgeText = d.data.availability === 'both' ? 'Both Files' : 'Restricted Only';
-          const badgeColor = d.data.availability === 'both' ? '#874F41' : '#E64833';
-
-          nodeGroup
-            .append('rect')
-            .attr('x', -35)
-            .attr('y', badgeY - 10)
-            .attr('width', 70)
-            .attr('height', 18)
-            .attr('rx', 9)
-            .attr('fill', badgeColor)
-            .attr('opacity', 0.2);
-
-          nodeGroup
-            .append('text')
-            .attr('y', badgeY)
-            .attr('text-anchor', 'middle')
-            .attr('font-family', 'Montserrat, system-ui, sans-serif')
-            .attr('font-size', '10px')
-            .attr('font-weight', '700')
-            .attr('fill', badgeColor)
-            .style('pointer-events', 'none')
-            .text(badgeText);
-        }
+        // Availability is already encoded by node circle colour — no badge needed
       });
 
       const nodeUpdate = nodeEnter.merge(node as any);
@@ -388,7 +361,7 @@ export default function DataCoverageTree({
     svg.on('click', () => {
       setTooltip({ visible: false, content: null, x: 0, y: 0 });
     });
-  }, [data, dimensions.width, dimensions.height]);
+  }, [data, containerWidth, containerHeight]);
 
   return (
     <div ref={containerRef} className={`data-coverage-tree ${className}`}>

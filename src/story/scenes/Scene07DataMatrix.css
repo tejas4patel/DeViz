@@ -1,10 +1,25 @@
 .scene07-data-matrix {
-  height: 100%;
+  height: 100vh;
   background: #FBE9D0;
   padding: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.scene07-data-matrix__title {
+  margin: 0 0 12px 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #244855;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.3px;
+  text-align: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .scene07-data-matrix::before {

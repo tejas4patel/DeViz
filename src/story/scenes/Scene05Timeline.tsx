@@ -5,60 +5,11 @@
  * EHR-based data collection through a zigzag timeline visualization.
  */
 
-import { ZigzagTimeline, TimelineEvent } from '../components/ZigzagTimeline';
+import { ZigzagTimeline } from '../components/ZigzagTimeline';
+import type { TimelineEvent } from '../components/ZigzagTimeline';
+import timelineEventsRaw from '../data/scene05-timeline.json';
 
-// Timeline events showing the evolution of the NAMCS HC redesign
-const timelineEvents: TimelineEvent[] = [
-  {
-    date: 'Pre-2021',
-    label: 'Manual Abstraction',
-    description: 'Paper-based visit forms with manual data extraction and 3-week sample periods.',
-    type: 'milestone',
-    icon: '📋',
-  },
-  {
-    date: 'Q1 2021',
-    label: 'Planning Phase',
-    description: 'Development of EHR-based data collection methodology and center recruitment.',
-    type: 'change',
-    icon: '📐',
-  },
-  {
-    date: 'Q2 2021',
-    label: 'Pilot Testing',
-    description: 'Initial pilot with select health centers to validate EHR extraction process.',
-    type: 'feature',
-    icon: '🧪',
-  },
-  {
-    date: 'Q3 2021',
-    label: 'System Launch',
-    description: 'Official launch of automated EHR-based encounter data submission system.',
-    type: 'release',
-    icon: '🚀',
-  },
-  {
-    date: 'Q4 2021',
-    label: 'Expansion',
-    description: 'Rapid onboarding of participating health centers across multiple states.',
-    type: 'feature',
-    icon: '📈',
-  },
-  {
-    date: '2022',
-    label: 'Scale-up',
-    description: 'Significant growth in participating centers from 29 to 64 locations.',
-    type: 'milestone',
-    icon: '🏥',
-  },
-  {
-    date: '2023',
-    label: 'Full Operation',
-    description: '95 participating centers providing continuous year-round EHR data.',
-    type: 'milestone',
-    icon: '✨',
-  },
-];
+const timelineEvents = timelineEventsRaw as TimelineEvent[];
 
 export default function Scene05Timeline() {
   return (

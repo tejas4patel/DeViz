@@ -154,29 +154,31 @@ export default function USMap({
         // Render FQHC sites
         const pointsGroup = g.append('g').attr('class', 'us-map__points');
 
+        // Pre-compute projected coordinates once per site (avoids 4 projection calls per point)
+        const projectedSites = data.sites
+          .map(site => {
+            const proj = projection(site.coordinates);
+            return proj ? { site, px: proj[0], py: proj[1] } : null;
+          })
+          .filter((d): d is { site: FQHCSite; px: number; py: number } => d !== null);
+
         // Render invisible larger hit areas first
         const hitRadius = 8; // Larger hit area for better hover detection
         pointsGroup
           .selectAll('circle.us-map__point-hit')
-          .data(data.sites)
+          .data(projectedSites)
           .join('circle')
           .attr('class', 'us-map__point-hit')
-          .attr('cx', (d: FQHCSite) => {
-            const proj = projection(d.coordinates);
-            return proj ? proj[0] : 0;
-          })
-          .attr('cy', (d: FQHCSite) => {
-            const proj = projection(d.coordinates);
-            return proj ? proj[1] : 0;
-          })
+          .attr('cx', d => d.px)
+          .attr('cy', d => d.py)
           .attr('r', hitRadius)
           .attr('data-target-r', hitRadius)
           .attr('fill', 'transparent')
           .attr('opacity', 0)
           .style('cursor', 'pointer')
-          .on('mouseenter', function (event: MouseEvent, d: FQHCSite) {
+          .on('mouseenter', function (event: MouseEvent, d: { site: FQHCSite; px: number; py: number }) {
             const scale = currentZoomScale.current;
-            const index = data.sites.indexOf(d);
+            const index = projectedSites.indexOf(d);
             const visibleCircle = d3.select(pointsGroup.selectAll('circle.us-map__point').nodes()[index]);
 
             // Hover effect on visible point
@@ -198,9 +200,9 @@ export default function USMap({
                 .html(
                   `
                   <div class="us-map__tooltip-content">
-                    <div class="us-map__tooltip-name">${d.name}</div>
-                    <div class="us-map__tooltip-detail">${d.address}</div>
-                    <div class="us-map__tooltip-detail">${d.county}, ${d.state}</div>
+                    <div class="us-map__tooltip-name">${d.site.name}</div>
+                    <div class="us-map__tooltip-detail">${d.site.address}</div>
+                    <div class="us-map__tooltip-detail">${d.site.county}, ${d.site.state}</div>
                   </div>
                 `
                 );
@@ -208,7 +210,7 @@ export default function USMap({
 
             // Callback
             if (onSiteHover) {
-              onSiteHover(d);
+              onSiteHover(d.site);
             }
           })
           .on('mousemove', function (event: MouseEvent) {
@@ -220,9 +222,9 @@ export default function USMap({
                 .style('top', `${mouseY - 35}px`);
             }
           })
-          .on('mouseleave', function (event: MouseEvent, d: FQHCSite) {
+          .on('mouseleave', function (event: MouseEvent, d: { site: FQHCSite; px: number; py: number }) {
             const scale = currentZoomScale.current;
-            const index = data.sites.indexOf(d);
+            const index = projectedSites.indexOf(d);
             const visibleCircle = d3.select(pointsGroup.selectAll('circle.us-map__point').nodes()[index]);
 
             // Reset visible point
@@ -243,26 +245,20 @@ export default function USMap({
               onSiteHover(null);
             }
           })
-          .on('click', function (event: MouseEvent, d: FQHCSite) {
+          .on('click', function (event: MouseEvent, d: { site: FQHCSite; px: number; py: number }) {
             if (onSiteClick) {
-              onSiteClick(d);
+              onSiteClick(d.site);
             }
           });
 
         // Render visible styled circles (no events - handled by hit areas above)
         pointsGroup
           .selectAll('circle.us-map__point')
-          .data(data.sites)
+          .data(projectedSites)
           .join('circle')
           .attr('class', 'us-map__point')
-          .attr('cx', (d: FQHCSite) => {
-            const proj = projection(d.coordinates);
-            return proj ? proj[0] : 0;
-          })
-          .attr('cy', (d: FQHCSite) => {
-            const proj = projection(d.coordinates);
-            return proj ? proj[1] : 0;
-          })
+          .attr('cx', d => d.px)
+          .attr('cy', d => d.py)
           .attr('r', styleConfig.pointRadius)
           .attr('data-target-r', styleConfig.pointRadius)
           .attr('fill', styleConfig.pointColor)

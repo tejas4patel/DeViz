@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import type { Scene } from './storyTypes';
+import { SceneLoader } from './components/SceneLoader';
 
 const registry: Record<string, React.LazyExoticComponent<() => JSX.Element>> = {
   scene01_pillars: lazy(() => import('./scenes/Scene01Introduction')),
@@ -28,7 +29,7 @@ export default function SceneRenderer(props: { scene: Scene }) {
   if (!Comp) return <div>Scene component not found</div>;
 
   return (
-    <Suspense fallback={<div className="small">Loading scene</div>}>
+    <Suspense fallback={<SceneLoader title={scene.title} />}>
       <Comp />
     </Suspense>
   );

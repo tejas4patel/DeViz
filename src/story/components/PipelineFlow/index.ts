@@ -1,2 +1,2 @@
 export { default as PipelineFlow } from './PipelineFlow';
-export type { PipelineStage, PipelineFlowProps } from './types';
+export type { PipelineStage, PipelineFlowProps, StageStatusColors, StatusColorMap } from './types';

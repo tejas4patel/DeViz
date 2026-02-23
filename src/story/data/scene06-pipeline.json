@@ -1,0 +1,57 @@
+[
+  {
+    "id": "recruit",
+    "title": "Recruitment",
+    "description": "NAMCS field representatives identify and contact health centers that meet eligibility criteria for EHR-based electronic data submission.",
+    "icon": "👥",
+    "status": "completed",
+    "metrics": [
+      { "value": "150+", "label": "Centers Contacted" },
+      { "value": "~95%", "label": "Response Rate" }
+    ]
+  },
+  {
+    "id": "questionnaire",
+    "title": "Site Assessment",
+    "description": "Health centers complete a structured questionnaire covering their EHR system type, patient visit volume, and technical infrastructure.",
+    "icon": "📋",
+    "status": "completed",
+    "metrics": [
+      { "value": "25+", "label": "Data Points" },
+      { "value": "24 hrs", "label": "Avg Completion" }
+    ]
+  },
+  {
+    "id": "install",
+    "title": "HL7 Integration",
+    "description": "NAMCS technical staff deploy HL7 FHIR-compatible extraction scripts configured for the center's specific EHR system.",
+    "icon": "⚙️",
+    "status": "active",
+    "metrics": [
+      { "value": "12", "label": "EHR Systems" },
+      { "value": "~48 hrs", "label": "Setup Time" }
+    ]
+  },
+  {
+    "id": "test",
+    "title": "Quality Validation",
+    "description": "Extracted records undergo automated and manual review for completeness, coding accuracy, and compliance with NAMCS data specifications.",
+    "icon": "🧪",
+    "status": "pending",
+    "metrics": [
+      { "value": "99%+", "label": "Accuracy Target" },
+      { "value": "2–3 days", "label": "Validation Window" }
+    ]
+  },
+  {
+    "id": "submit",
+    "title": "Production",
+    "description": "Validated health centers submit encounter data monthly to NCHS through automated, secure data pipelines.",
+    "icon": "📤",
+    "status": "pending",
+    "metrics": [
+      { "value": "Monthly", "label": "Reporting Cycle" },
+      { "value": "Automated", "label": "Data Flow" }
+    ]
+  }
+]

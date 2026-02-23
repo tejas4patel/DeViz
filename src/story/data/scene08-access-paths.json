@@ -1,0 +1,95 @@
+[
+  {
+    "id": "public",
+    "title": "Public Use Data File",
+    "color": "#874F41",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Visit NCHS Website",
+        "description": "Navigate to NCHS data and documentation portal",
+        "timeframe": "5 minutes",
+        "cost": "Free",
+        "complexity": "low"
+      },
+      {
+        "step": 2,
+        "title": "Register Account",
+        "description": "Create user account for download access",
+        "timeframe": "5 minutes",
+        "cost": "Free",
+        "complexity": "low"
+      },
+      {
+        "step": 3,
+        "title": "Download Dataset",
+        "description": "Download 5% sample public use file directly",
+        "timeframe": "10 minutes",
+        "complexity": "low"
+      }
+    ],
+    "benefits": [
+      "Immediate access",
+      "No approval process",
+      "Free access",
+      "Full analysis flexibility"
+    ],
+    "limitations": [
+      "Only 5% sample",
+      "Limited variables",
+      "No geographic identifiers",
+      "No linkage capability"
+    ]
+  },
+  {
+    "id": "restricted",
+    "title": "Restricted Use Data (RDC)",
+    "color": "#E64833",
+    "steps": [
+      {
+        "step": 1,
+        "title": "IRB Approval",
+        "description": "Obtain Institutional Review Board approval for research",
+        "timeframe": "4–8 weeks",
+        "cost": "Institution fees",
+        "complexity": "high"
+      },
+      {
+        "step": 2,
+        "title": "Prepare Proposal",
+        "description": "Develop detailed research proposal and justification",
+        "timeframe": "2–4 weeks",
+        "cost": "Time investment",
+        "complexity": "high"
+      },
+      {
+        "step": 3,
+        "title": "NCHS Review",
+        "description": "Proposal undergoes scientific and disclosure review",
+        "timeframe": "8–12 weeks",
+        "complexity": "medium"
+      },
+      {
+        "step": 4,
+        "title": "RDC Analysis",
+        "description": "Conduct analysis in secure Research Data Center",
+        "timeframe": "Days to months",
+        "cost": "Hourly RDC fees",
+        "complexity": "high"
+      }
+    ],
+    "benefits": [
+      "Full dataset (100% sample)",
+      "Complete variable set",
+      "Geographic identifiers",
+      "Linkage opportunities",
+      "Enhanced analytic power"
+    ],
+    "limitations": [
+      "Lengthy approval process",
+      "Significant costs",
+      "Restricted analysis environment",
+      "Output review required"
+    ]
+  }
+]
