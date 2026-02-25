@@ -1,0 +1,151 @@
+/* Layout and Navigation Styles */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg-app);
+}
+
+.layout-nav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.layout-content {
+  flex: 1;
+  overflow: auto;
+}
+
+.layout-footer {
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Navigation Styles */
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 64px;
+}
+
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--brand-secondary);
+}
+
+.nav-link.active {
+  color: var(--brand-secondary);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--brand-secondary);
+}
+
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-button {
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background: none;
+}
+
+.nav-button.primary {
+  background: var(--brand-secondary);
+  color: #ffffff;
+  border-color: var(--brand-secondary);
+}
+
+.nav-button.primary:hover {
+  background: #1d5fd6;
+  border-color: #1d5fd6;
+}
+
+.nav-button.secondary {
+  color: var(--text-secondary);
+  border-color: var(--border-default);
+}
+
+.nav-button.secondary:hover {
+  background: var(--bg-surface);
+  border-color: var(--text-secondary);
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0 1rem;
+  }
+  
+  .nav-links {
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  
+  .nav-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
