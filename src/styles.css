@@ -54,8 +54,7 @@ body {
 }
 
 #root {
-  min-height: 100vh;
-  height: auto;
+  height: 100%;
   overflow: hidden;
 }
 
