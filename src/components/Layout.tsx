@@ -12,9 +12,8 @@ type Props = {
 
 export default function Layout({ authenticated = false }: Props) {
   const location = useLocation();
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // TODO: Replace with real auth state
-  
-  // Redirect to login if accessing protected routes without authentication
+  const [isAuthenticated] = useState(false); // TODO: Replace with real auth state
+
   if (authenticated && !isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
@@ -23,22 +22,24 @@ export default function Layout({ authenticated = false }: Props) {
     <div className="layout">
       <nav className="layout-nav">
         {!authenticated ? (
-          // Public navigation
           <PublicNav currentPath={location.pathname} />
         ) : (
-          // Authenticated dashboard navigation
           <DashboardNav currentPath={location.pathname} />
         )}
       </nav>
-      
+
       <main className="layout-content">
         <Outlet />
       </main>
-      
+
       {!authenticated && location.pathname !== '/demo' && (
         <footer className="layout-footer">
           <div className="footer-content">
             <p>&copy; 2026 DeViz. Transform documents into engaging stories.</p>
+            <div style={{ marginTop: 8, display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <Link to="/terms">Terms</Link>
+              <Link to="/privacy">Privacy</Link>
+            </div>
           </div>
         </footer>
       )}
@@ -52,7 +53,7 @@ function PublicNav({ currentPath }: { currentPath: string }) {
       <Link to="/" className="nav-brand">
         <DeVizLogo size={28} variant="wordmark" onDark />
       </Link>
-      
+
       <div className="nav-links">
         <Link to="/" className={currentPath === '/' ? 'nav-link active' : 'nav-link'}>
           Home
@@ -63,14 +64,30 @@ function PublicNav({ currentPath }: { currentPath: string }) {
         <Link to="/solution" className={currentPath === '/solution' ? 'nav-link active' : 'nav-link'}>
           Solution
         </Link>
-        <Link to="/how-it-works" className={currentPath === '/how-it-works' ? 'nav-link active' : 'nav-link'}>
+        <Link
+          to="/how-it-works"
+          className={currentPath === '/how-it-works' ? 'nav-link active' : 'nav-link'}
+        >
           How It Works
         </Link>
         <Link to="/demo" className={currentPath === '/demo' ? 'nav-link active' : 'nav-link'}>
           Demo
         </Link>
+
+        <Link to="/pricing" className={currentPath === '/pricing' ? 'nav-link active' : 'nav-link'}>
+          Pricing
+        </Link>
+        <Link
+          to="/examples"
+          className={currentPath === '/examples' ? 'nav-link active' : 'nav-link'}
+        >
+          Examples
+        </Link>
+        <Link to="/contact" className={currentPath === '/contact' ? 'nav-link active' : 'nav-link'}>
+          Contact
+        </Link>
       </div>
-      
+
       <div className="nav-auth">
         <Link to="/login" className="nav-link">
           Login
@@ -89,20 +106,35 @@ function DashboardNav({ currentPath }: { currentPath: string }) {
       <Link to="/dashboard" className="nav-brand">
         <DeVizLogo size={28} variant="wordmark" onDark />
       </Link>
-      
+
       <div className="nav-links">
         <Link to="/dashboard" className={currentPath === '/dashboard' ? 'nav-link active' : 'nav-link'}>
           Dashboard
         </Link>
-        <Link to="/dashboard/upload" className={currentPath === '/dashboard/upload' ? 'nav-link active' : 'nav-link'}>
+        <Link
+          to="/dashboard/upload"
+          className={currentPath === '/dashboard/upload' ? 'nav-link active' : 'nav-link'}
+        >
           Upload
         </Link>
+        <Link
+          to="/dashboard/runs"
+          className={currentPath.startsWith('/dashboard/runs') ? 'nav-link active' : 'nav-link'}
+        >
+          Runs
+        </Link>
+        <Link
+          to="/dashboard/settings"
+          className={currentPath === '/dashboard/settings' ? 'nav-link active' : 'nav-link'}
+        >
+          Settings
+        </Link>
       </div>
-      
+
       <div className="nav-auth">
-        <button className="nav-button secondary">
+        <Link to="/logout" className="nav-button secondary">
           Sign Out
-        </button>
+        </Link>
       </div>
     </div>
   );

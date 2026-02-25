@@ -3,6 +3,42 @@
  */
 
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+
+const scenes = [
+  {
+    title: "Raw Information Is Cognitively Expensive",
+    description: "Dense documents overload working memory. Without structure, readers must mentally organize ideas themselves, increasing cognitive friction and reducing retention."
+  },
+  {
+    title: "Structure Reduces Extraneous Load",
+    description: "When ideas are sequenced and grouped intentionally, the brain processes them more efficiently. Story-driven visuals externalize structure and lower comprehension cost."
+  },
+  {
+    title: "Visual Stories Accelerate Understanding",
+    description: "Humans recognize patterns faster than they parse paragraphs. Visual sequencing transforms complex relationships into immediately graspable schemas."
+  },
+  {
+    title: "Narrative Creates Retention",
+    description: "Information attached to a narrative arc is remembered longer. Structured story progression converts isolated facts into meaningful mental models."
+  },
+  {
+    title: "Progressive Disclosure Controls Density",
+    description: "Introducing complexity step by step prevents overload. Each scene stabilizes a concept before layering additional relationships."
+  },
+  {
+    title: "Engagement Follows Perceived Reward",
+    description: "Modern platforms favor fast feedback loops. Story segmentation provides early cognitive payoff, keeping users engaged without sacrificing depth."
+  },
+  {
+    title: "Semantic Clarity Improves AI Retrieval",
+    description: "Well-structured content creates stable conceptual boundaries. This improves embedding precision and strengthens retrieval in AI-driven systems."
+  },
+  {
+    title: "Structure Determines Which Ideas Travel",
+    description: "In high-velocity ecosystems, ideas compete for attention. Structured, visualized knowledge is more durable, portable, and shareable than unengineered text."
+  }
+];
 
 function IconBrain() {
   return (
@@ -36,25 +72,40 @@ function IconLayers() {
 }
 
 function StoryPreviewCard() {
+  const [idx, setIdx] = useState(0);
+  const scene = scenes[idx];
+  const progress = ((idx + 1) / scenes.length) * 100;
+
   return (
     <div className="story-preview-card">
       <div className="story-preview-header">
         <div className="story-preview-dot coral" />
         <div className="story-preview-dot muted" />
         <div className="story-preview-dot muted" />
-        <span className="story-preview-label">Scene 1 of 8</span>
+        <span className="story-preview-label">{idx + 1} of {scenes.length}</span>
       </div>
-      <div className="story-preview-title">Market Expansion Report</div>
-      <div className="story-preview-body">
-        Remote work adoption grew by <strong>42%</strong> over two years, fundamentally
-        reshaping how organizations structure operations and acquire talent.
-      </div>
+      <div className="story-preview-title">{scene.title}</div>
+      <div className="story-preview-body">{scene.description}</div>
       <div className="story-preview-progress">
-        <div className="story-preview-bar" style={{ width: '12.5%' }} />
+        <div className="story-preview-bar" style={{ width: `${progress}%` }} />
       </div>
       <div className="story-preview-nav">
-        <div className="story-preview-btn">Previous</div>
-        <div className="story-preview-btn primary">Next Scene</div>
+        <button
+          className="story-preview-btn"
+          onClick={() => setIdx(i => Math.max(0, i - 1))}
+          disabled={idx === 0}
+          style={{ opacity: idx === 0 ? 0.35 : 1 }}
+        >
+          Previous
+        </button>
+        <button
+          className="story-preview-btn primary"
+          onClick={() => setIdx(i => Math.min(scenes.length - 1, i + 1))}
+          disabled={idx === scenes.length - 1}
+          style={{ opacity: idx === scenes.length - 1 ? 0.35 : 1 }}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

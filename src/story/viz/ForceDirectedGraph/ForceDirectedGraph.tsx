@@ -148,11 +148,9 @@ export default function ForceDirectedGraph({
           .strength(forces.collisionStrength)
           .iterations(forces.collisionIterations)
       )
-      .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('x', d3.forceX(width / 2).strength(forces.centerStrength.x))
-      .force('y', d3.forceY(height / 2).strength(forces.centerStrength.y))
-      .alphaDecay(0.02)
-      .velocityDecay(0.4);
+      .force('center', d3.forceCenter(width * 0.5, height * 0.5))
+      .force('x', d3.forceX(width * 0.5).strength(forces.centerStrength.x))
+      .force('y', d3.forceY(height * 0.5).strength(forces.centerStrength.y));
 
     // Setup zoom if enabled
     if (enableZoom) {

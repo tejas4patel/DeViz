@@ -1,3 +1,5 @@
+import { FileText } from 'lucide-react';
+
 export default function ScenePlaceholder(props: { title: string; description: string }) {
   return (
     <div
@@ -13,19 +15,14 @@ export default function ScenePlaceholder(props: { title: string; description: st
       }}
     >
       {/* Decorative lines icon */}
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <rect width="48" height="48" rx="12" fill="#EEF1F5" />
-        <rect x="12" y="20" width="24" height="3" rx="1.5" fill="#CBD5E1" />
-        <rect x="16" y="26" width="16" height="3" rx="1.5" fill="#CBD5E1" />
-        <rect x="19" y="32" width="10" height="3" rx="1.5" fill="#CBD5E1" />
-      </svg>
+      <div style={{
+        background: '#EEF1F5',
+        borderRadius: '12px',
+        padding: '12px',
+        display: 'inline-flex'
+      }}>
+        <FileText size={24} color="#CBD5E1" strokeWidth={2} />
+      </div>
 
       {/* Description */}
       <p
