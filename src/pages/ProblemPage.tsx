@@ -99,10 +99,11 @@ export default function ProblemPage() {
             </div>
             <div className="problem-card">
               <div className="problem-icon"><IconCpu /></div>
-              <h3>AI Retrieval Fragility</h3>
+              <h3>Insights That Never Surface</h3>
               <p>
-                Unstructured documents produce weak embeddings, ambiguous retrieval,
-                and contextual drift in RAG based systems.
+                Once filed, dense documents go dark. Colleagues skip them, search
+                tools miss what matters, and the knowledge inside never reaches
+                the decisions it was meant to inform.
               </p>
             </div>
           </div>

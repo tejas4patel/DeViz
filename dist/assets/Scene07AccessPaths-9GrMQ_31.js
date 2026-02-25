@@ -1,1 +1,0 @@
-import{j as e}from"./index-CktA7uae.js";import{S as t}from"./ScenePlaceholder-gkhcQilY.js";function n(){return e.jsx(t,{title:"Scene 07",description:"Journey map placeholder. Replace with two lanes comparing public download path and RDC path."})}export{n as default};

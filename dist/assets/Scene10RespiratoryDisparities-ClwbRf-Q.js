@@ -1,1 +1,0 @@
-import{j as e}from"./index-CktA7uae.js";import{S as i}from"./ScenePlaceholder-gkhcQilY.js";function a(){return e.jsx(i,{title:"Scene 10",description:"Line chart placeholder. Replace with biannual time series rates by race and ethnicity plus confidence intervals."})}export{a as default};

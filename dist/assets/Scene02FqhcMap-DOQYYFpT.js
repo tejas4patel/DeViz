@@ -1,1 +1,0 @@
-import{j as e}from"./index-CktA7uae.js";import{S as a}from"./ScenePlaceholder-gkhcQilY.js";function o(){return e.jsx(a,{title:"Scene 02",description:"Map view placeholder. Replace with a US map and shortage area overlays or a stylized geographic narrative."})}export{o as default};

@@ -153,36 +153,7 @@ export default function Scene00CognitiveMap() {
           ))}
         </div>
 
-        <div style={{
-          background: '#f8f9fa',
-          borderRadius: '12px',
-          padding: '24px',
-          border: '1px solid #e2e8f0'
-        }}>
-          <h4 style={{
-            fontSize: '16px',
-            fontWeight: '600',
-            color: '#374151',
-            marginBottom: '12px'
-          }}>
-            Navigation Tips
-          </h4>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '16px',
-            fontSize: '13px',
-            color: '#64748B',
-            lineHeight: 1.5
-          }}>
-            <div>• Use arrow keys or space to navigate between scenes</div>
-            <div>• Essential mode shows 7 core scenes, Complete shows all 12</div>
-            <div>• Hover over elements for additional context and definitions</div>
-            <div>• Related concepts are cross-referenced with clickable links</div>
-          </div>
-        </div>
-
-        {hoveredScene && (
+{hoveredScene && (
           <div style={{
             position: 'fixed',
             bottom: '20px',

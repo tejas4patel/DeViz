@@ -1,1 +1,0 @@
-import{j as e}from"./index-CktA7uae.js";import{S as r}from"./ScenePlaceholder-gkhcQilY.js";function l(){return e.jsx(r,{title:"Scene 03",description:"Before and after placeholder. Replace with a split panel showing pre 2021 collection and post 2021 full year EHR pipeline."})}export{l as default};

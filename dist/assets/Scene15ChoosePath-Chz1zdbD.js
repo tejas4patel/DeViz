@@ -1,1 +1,0 @@
-import{j as e}from"./index-CktA7uae.js";import{S as t}from"./ScenePlaceholder-gkhcQilY.js";function a(){return e.jsx(t,{title:"Scene 15",description:"Decision tree placeholder. Replace with a choose your path UI that routes to dashboard, public microdata, restricted microdata, linkage."})}export{a as default};

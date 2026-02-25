@@ -1,1 +1,0 @@
-import{j as e}from"./index-CktA7uae.js";import{S as t}from"./ScenePlaceholder-gkhcQilY.js";function r(){return e.jsx(t,{title:"Scene 09",description:"Dashboard mock placeholder. Replace with a simulated UI and lightweight chart updates on selection."})}export{r as default};

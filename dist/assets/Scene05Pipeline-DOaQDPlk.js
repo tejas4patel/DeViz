@@ -1,1 +1,0 @@
-import{j as e}from"./index-CktA7uae.js";import{S as i}from"./ScenePlaceholder-gkhcQilY.js";function o(){return e.jsx(i,{title:"Scene 05",description:"Flow diagram placeholder. Replace with a sankey or node flow for recruitment, questionnaire, HL7 install, testing, submission."})}export{o as default};

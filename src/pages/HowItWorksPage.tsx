@@ -4,27 +4,18 @@ export default function HowItWorksPage() {
   const steps = [
     {
       number: '01',
-      title: 'Upload Your Document',
-      description:
-        'Upload a PDF, Word document, or dataset. We support research papers, technical reports, annual reviews, policy documents, and data exports.',
+      title: 'Upload',
+      description: 'Drop in any PDF, Word doc, or dataset.',
     },
     {
       number: '02',
-      title: 'AI Analysis',
-      description:
-        'Our engine parses content structure, identifies conceptual units, maps terminology, and builds a dependency graph of ideas.',
+      title: 'We Transform It',
+      description: 'Our engine reads your content and rebuilds it as a structured, scene-based story.',
     },
     {
       number: '03',
-      title: 'Story Generation',
-      description:
-        'We apply content engineering principles to scaffold complexity progressively, calibrate density, and encode semantic relationships.',
-    },
-    {
-      number: '04',
-      title: 'Interactive Story',
-      description:
-        'Your document becomes a navigable, scene-based story with adaptive detail levels, cross-references, and keyboard navigation.',
+      title: 'Share and Explore',
+      description: 'Readers navigate at their own pace and surface detail on demand.',
     },
   ];
 
@@ -34,7 +25,7 @@ export default function HowItWorksPage() {
         <div className="container">
           <h1>How It Works</h1>
           <p className="page-lead">
-            From raw document to structured story in four steps.
+            Three steps. No technical knowledge required.
           </p>
         </div>
       </section>
