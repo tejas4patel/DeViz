@@ -1,6 +1,6 @@
 import type { Scene, DetailLevel } from './storyTypes';
 import DeckSlideRailFlowLine from './DeckSlideRailFlowline';
-import { TalezLogo } from './components/TalezLogo';
+import { DeVizLogo } from './components/DeVizLogo';
 
 type Props = {
   title: string;
@@ -21,7 +21,7 @@ export default function DeckBrand(props: Props) {
       <div className="deckBrandText">
         <div className="deckBrandSubtitle">{subtitle}</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-          <TalezLogo size={32} style={{ flexShrink: 0 }} />
+          <DeVizLogo size={32} style={{ flexShrink: 0 }} />
           <div className="deckBrandTitle" style={{ flex: 1, minWidth: 0 }}>
             {title}
           </div>

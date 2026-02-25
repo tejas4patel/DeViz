@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { DeVizLogo } from '../../story/components/DeVizLogo';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ export default function LoginPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-brand">
-          <Link to="/">📚 Storybook AI</Link>
+          <Link to="/"><DeVizLogo size={32} variant="wordmark" /></Link>
         </div>
         <h1 className="auth-title">Sign in</h1>
 

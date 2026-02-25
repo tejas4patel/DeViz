@@ -29,7 +29,7 @@ export default function LandingPage() {
       
       <section className="features">
         <div className="container">
-          <h2>Why Choose Storybook AI?</h2>
+          <h2>Why Choose DeViz?</h2>
           <div className="feature-grid">
             <div className="feature-card">
               <div className="feature-icon">🧠</div>

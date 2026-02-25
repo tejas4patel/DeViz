@@ -3,6 +3,7 @@
  */
 
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
+import { DeVizLogo } from '../story/components/DeVizLogo';
 import { useState } from 'react';
 
 type Props = {
@@ -37,7 +38,7 @@ export default function Layout({ authenticated = false }: Props) {
       {!authenticated && (
         <footer className="layout-footer">
           <div className="footer-content">
-            <p>&copy; 2026 Storybook AI. Transform documents into engaging stories.</p>
+            <p>&copy; 2026 DeViz. Transform documents into engaging stories.</p>
           </div>
         </footer>
       )}
@@ -49,7 +50,7 @@ function PublicNav({ currentPath }: { currentPath: string }) {
   return (
     <div className="nav-container">
       <Link to="/" className="nav-brand">
-        📚 Storybook AI
+        <DeVizLogo size={28} variant="wordmark" />
       </Link>
       
       <div className="nav-links">
@@ -86,7 +87,7 @@ function DashboardNav({ currentPath }: { currentPath: string }) {
   return (
     <div className="nav-container">
       <Link to="/dashboard" className="nav-brand">
-        📚 Storybook AI
+        <DeVizLogo size={28} variant="wordmark" />
       </Link>
       
       <div className="nav-links">
