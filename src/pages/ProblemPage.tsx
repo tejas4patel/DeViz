@@ -37,8 +37,8 @@ export default function ProblemPage() {
         <div className="container">
           <h1>The Problem</h1>
           <p className="page-lead">
-            Healthcare data is rich, complex, and critically important. But most people
-            cannot access it — not because it is hidden, but because it is incomprehensible.
+            Complex data is rich with insight, but most organizations cannot access its value —
+            not because it is hidden, but because it is incomprehensible.
           </p>
         </div>
       </section>
@@ -49,9 +49,9 @@ export default function ProblemPage() {
             <div>
               <h2>Data Without Structure Is Noise</h2>
               <p>
-                Reports, surveys, and clinical datasets contain insights that could
-                transform policy, improve care, and save lives. But dense tables and
-                technical language lock that value behind a wall of cognitive friction.
+                Reports, surveys, and research datasets contain insights that could transform
+                strategy, improve decisions, and create real competitive advantage. But dense
+                tables and technical language lock that value behind a wall of cognitive friction.
               </p>
               <p>
                 Human working memory has strict limits. When content is not structured
@@ -62,7 +62,7 @@ export default function ProblemPage() {
             <div className="stat-stack">
               <div className="stat-card">
                 <div className="stat-number">80%</div>
-                <div className="stat-label">of healthcare reports are never read past the executive summary</div>
+                <div className="stat-label">of complex reports are never read past the executive summary</div>
               </div>
               <div className="stat-card">
                 <div className="stat-number">3 to 7</div>

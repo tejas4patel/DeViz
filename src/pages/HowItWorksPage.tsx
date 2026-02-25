@@ -6,7 +6,7 @@ export default function HowItWorksPage() {
       number: '01',
       title: 'Upload Your Document',
       description:
-        'Upload a PDF, Word document, or dataset. We support clinical reports, research papers, policy documents, and structured data exports.',
+        'Upload a PDF, Word document, or dataset. We support research papers, technical reports, annual reviews, policy documents, and data exports.',
     },
     {
       number: '02',

@@ -44,10 +44,10 @@ function StoryPreviewCard() {
         <div className="story-preview-dot muted" />
         <span className="story-preview-label">Scene 1 of 8</span>
       </div>
-      <div className="story-preview-title">Ambulatory Care Trends</div>
+      <div className="story-preview-title">Market Expansion Report</div>
       <div className="story-preview-body">
-        Office visits declined by <strong>12%</strong> post-pandemic while telehealth
-        expanded to fill the gap, reshaping how Americans access routine care.
+        Remote work adoption grew by <strong>42%</strong> over two years, fundamentally
+        reshaping how organizations structure operations and acquire talent.
       </div>
       <div className="story-preview-progress">
         <div className="story-preview-bar" style={{ width: '12.5%' }} />

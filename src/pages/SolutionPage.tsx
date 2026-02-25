@@ -60,7 +60,7 @@ export default function SolutionPage() {
       <section className="content-section alt">
         <div className="container cta-section">
           <h2>See It in Action</h2>
-          <p>View a live example using NAMCS healthcare survey data.</p>
+          <p>See DeViz transform a real research report into an interactive structured story.</p>
           <Link to="/demo" className="btn-primary large">View Demo</Link>
         </div>
       </section>
