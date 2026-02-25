@@ -1,8 +1,8 @@
-# NAMCS Health Center Data
+# DeViz
 
-> Microdata, dashboards, and linkage for patient centered outcomes research
+> Interactive data storytelling visualization platform
 
-An interactive data storytelling visualization project that communicates the architecture and capabilities of the NAMCS (National Association of Community Health Centers) Health Center data ecosystem.
+An interactive data storytelling visualization project that transforms complex data into engaging, narrative-driven presentations for decision makers and researchers.
 
 ## Overview
 

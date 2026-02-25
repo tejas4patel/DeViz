@@ -1,8 +1,8 @@
 import type { Story } from './storyTypes';
 
 export const story: Story = {
-  title: 'NAMCS Health Center Data',
-  subtitle: 'Microdata, dashboards, and linkage for patient centered outcomes research',
+  title: 'DeViz Data Story',
+  subtitle: 'Interactive Health Center Data Visualization',
   scenes: [
     {
       id: 'scene00_cognitive_map',
