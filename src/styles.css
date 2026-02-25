@@ -39,7 +39,7 @@ html,
 body {
   margin: 0;
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 
 body {
@@ -54,7 +54,7 @@ body {
 
 #root {
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 a {
@@ -1465,5 +1465,6 @@ a {
 
   .page-hero h1 { font-size: 1.75rem; }
 }
- 
+
+ 
  

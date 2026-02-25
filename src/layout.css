@@ -2,8 +2,9 @@
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
   background: var(--bg-app);
+  overflow: visible;
 }
 
 .layout-nav {
@@ -31,8 +32,11 @@
 .layout-footer {
   background: var(--brand-primary);
   color: var(--text-inverse);
-  padding: 2rem 0;
+  padding: 0.75rem 0;
   text-align: center;
+  font-size: 0.875rem;
+  position: static;
+  margin-top: auto;
 }
 
 .footer-content {
