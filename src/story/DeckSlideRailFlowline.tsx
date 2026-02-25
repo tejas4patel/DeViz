@@ -77,7 +77,7 @@ const IconLast = () => (
 );
 
 export default function DeckSlideRailFlowLine(props: Props) {
-  const { scenes, activeIdx, onSelectSlide } = props;
+  const { scenes, activeIdx, onSelectSlide, viewMode = 'story' } = props;
 
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -203,14 +203,14 @@ export default function DeckSlideRailFlowLine(props: Props) {
     }
   }, [lastIdx, ensureVisible, onSelectSlide])
 
-  const canPrev = activeIdx > 0;
+  const canPrev = activeIdx > 0 && viewMode === 'story';
 
-  const canNext = activeIdx < lastIdx;
+  const canNext = activeIdx < lastIdx && viewMode === 'story';
 
-  const onPrev = () => selectIdx(activeIdx - 1);
-  const onNext = () => selectIdx(activeIdx + 1);
-  const onFirst = () => selectIdx(0);
-  const onLast = () => selectIdx(lastIdx);
+  const onPrev = () => viewMode === 'story' && selectIdx(activeIdx - 1);
+  const onNext = () => viewMode === 'story' && selectIdx(activeIdx + 1);
+  const onFirst = () => viewMode === 'story' && selectIdx(0);
+  const onLast = () => viewMode === 'story' && selectIdx(lastIdx);
 
   useEffect(() => {
     const svgEl = svgRef.current;
@@ -440,46 +440,107 @@ export default function DeckSlideRailFlowLine(props: Props) {
 
   return (
     <div className="deckRailLayout" ref={containerRef}>
-      <div className="deckRailBtnGroupLeft">
+      <div style={{
+        display: 'flex',
+        gap: '6px',
+        alignItems: 'center'
+      }}>
         <button
-          className="deckRailBtn"
           disabled={!canPrev}
           onClick={onFirst}
           aria-label="First Slide"
+          style={{
+            fontSize: '11px',
+            padding: '6px 8px',
+            border: `2px solid #d1d5db`,
+            borderRadius: '20px',
+            background: '#ffffff',
+            color: '#374151',
+            cursor: viewMode === 'source' ? 'not-allowed' : 'pointer',
+            transition: 'all 0.2s ease',
+            fontWeight: '600',
+            opacity: viewMode === 'source' ? 0.3 : (canPrev ? 1 : 0.5),
+            minWidth: '36px',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
         >
           <IconFirst />
         </button>
 
         <button
-          className="deckRailBtn"
           disabled={!canPrev}
           onClick={onPrev}
           aria-label="Previous Slide"
+          style={{
+            fontSize: '11px',
+            padding: '6px 8px',
+            border: `2px solid #d1d5db`,
+            borderRadius: '20px',
+            background: '#ffffff',
+            color: '#374151',
+            cursor: viewMode === 'source' ? 'not-allowed' : 'pointer',
+            transition: 'all 0.2s ease',
+            fontWeight: '600',
+            opacity: viewMode === 'source' ? 0.3 : (canPrev ? 1 : 0.5),
+            minWidth: '36px',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
         >
           <IconPrev />
         </button>
-      </div>
 
-      {/* <div className="deckRailSvgHost" ref={hostRef} style={{ display: 'flex', justifyContent: 'center' }}>
-        <svg ref={svgRef} />
-      </div> */}
-
-
-      <div className="deckRailBtnGroupRight">
         <button
-          className="deckRailBtn"
           disabled={!canNext}
           onClick={onNext}
           aria-label="Next Slide"
+          style={{
+            fontSize: '11px',
+            padding: '6px 8px',
+            border: `2px solid #d1d5db`,
+            borderRadius: '20px',
+            background: '#ffffff',
+            color: '#374151',
+            cursor: viewMode === 'source' ? 'not-allowed' : 'pointer',
+            transition: 'all 0.2s ease',
+            fontWeight: '600',
+            opacity: viewMode === 'source' ? 0.3 : (canNext ? 1 : 0.5),
+            minWidth: '36px',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
         >
           <IconNext />
         </button>
 
         <button
-          className="deckRailBtn"
           disabled={!canNext}
           onClick={onLast}
           aria-label="Last Slide"
+          style={{
+            fontSize: '11px',
+            padding: '6px 8px',
+            border: `2px solid #d1d5db`,
+            borderRadius: '20px',
+            background: '#ffffff',
+            color: '#374151',
+            cursor: viewMode === 'source' ? 'not-allowed' : 'pointer',
+            transition: 'all 0.2s ease',
+            fontWeight: '600',
+            opacity: viewMode === 'source' ? 0.3 : (canNext ? 1 : 0.5),
+            minWidth: '36px',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
         >
           <IconLast />
         </button>

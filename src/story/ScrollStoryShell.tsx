@@ -5,6 +5,8 @@ import DeckBrand from './DeckBrand';
 import CrossReferences from './CrossReferences';
 import type { DetailLevel } from './storyTypes';
 
+type ViewMode = 'source' | 'story';
+
 function isTypingTarget(el: Element | null) {
   if (!el) return false;
   const tag = el.tagName.toLowerCase();
@@ -19,7 +21,12 @@ function isTypingTarget(el: Element | null) {
 export default function ScrollStoryShell() {
   const [detailLevel, setDetailLevel] = useState<DetailLevel>(() => {
     const saved = sessionStorage.getItem('deckDetailLevel');
-    return (saved === 'beginner' || saved === 'expert') ? saved : 'beginner';
+    return 'expert';
+  });
+  
+  const [viewMode, setViewMode] = useState<ViewMode>(() => {
+    const saved = sessionStorage.getItem('deckViewMode');
+    return (saved === 'source' || saved === 'story') ? saved : 'source';
   });
   
   const filteredScenes = useMemo(() => {
@@ -68,6 +75,10 @@ export default function ScrollStoryShell() {
   }, [detailLevel]);
 
   useEffect(() => {
+    sessionStorage.setItem('deckViewMode', viewMode);
+  }, [viewMode]);
+
+  useEffect(() => {
     titleRef.current?.focus?.();
   }, [activeIdx]);
 
@@ -75,6 +86,9 @@ export default function ScrollStoryShell() {
     const onKeyDown = (e: KeyboardEvent) => {
       const ae = document.activeElement;
       if (isTypingTarget(ae)) return;
+      
+      // Disable keyboard navigation in Source mode
+      if (viewMode === 'source') return;
 
       if (e.key === 'Escape') {
         e.preventDefault();
@@ -131,6 +145,9 @@ export default function ScrollStoryShell() {
   }, []);
 
   const onWheelCapture = (e: React.WheelEvent) => {
+    // Disable wheel navigation in Source mode
+    if (viewMode === 'source') return;
+    
     if (e.ctrlKey) return;
 
     const target = e.target as HTMLElement | null;
@@ -181,6 +198,8 @@ export default function ScrollStoryShell() {
           onSelectSlide={idx => setActiveIdx(idx)}
           detailLevel={detailLevel}
           onDetailLevelChange={setDetailLevel}
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
           totalScenes={story.scenes.length}
         />
       </header>
@@ -192,39 +211,56 @@ export default function ScrollStoryShell() {
                 ref={titleRef}
                 tabIndex={0}
                 className="deckSceneTitle"
-                style={{ fontSize: 20, fontWeight: 800, outline: 'none' }}
+                style={{
+                  fontSize: 20, 
+                  fontWeight: 800, 
+                  outline: 'none',
+                  color: viewMode === 'source' ? '#9CA3AF' : 'inherit'
+                }}
               >
-                {activeScene.title}
+                {viewMode === 'source' ? 'Source Document' : activeScene.title}
               </div>
-              <div className="small" style={{ marginTop: 4 }}>
-                {activeScene.subtitle}
+              <div className="small" style={{ marginTop: 4, color: viewMode === 'source' ? '#9CA3AF' : 'inherit' }}>
+                {viewMode === 'source' ? 'PDF Document View' : activeScene.subtitle}
               </div>
             </div>
           </div>
 
           <div className="slideScrollBody">
-            <SceneRenderer scene={activeScene} />
-            {activeScene.notes ? (
-              <div className="small" style={{ marginTop: 12 }}>
-                Notes: {activeScene.notes}
+            {viewMode === 'source' ? (
+              <div style={{ width: '100%', height: '70vh', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+                <iframe 
+                  src="nihms-2127800.pdf"
+                  style={{ width: '100%', height: '100%', border: 'none' }}
+                  title="Source Document"
+                />
               </div>
-            ) : null}
-            
-            <CrossReferences
-              currentScene={activeScene}
-              onNavigate={(sceneIdx) => {
-                // Map filtered scene index back to original story index
-                const targetScene = scenes[sceneIdx];
-                const originalIdx = story.scenes.findIndex(s => s.id === targetScene.id);
-                if (originalIdx !== -1) {
-                  // Check if target scene is visible in current detail level
-                  const filteredIdx = scenes.findIndex(s => s.id === targetScene.id);
-                  if (filteredIdx !== -1) {
-                    setActiveIdx(filteredIdx);
-                  }
-                }
-              }}
-            />
+            ) : (
+              <>
+                <SceneRenderer scene={activeScene} />
+                {activeScene.notes ? (
+                  <div className="small" style={{ marginTop: 12 }}>
+                    Notes: {activeScene.notes}
+                  </div>
+                ) : null}
+                
+                <CrossReferences
+                  currentScene={activeScene}
+                  onNavigate={(sceneIdx) => {
+                    // Map filtered scene index back to original story index
+                    const targetScene = scenes[sceneIdx];
+                    const originalIdx = story.scenes.findIndex(s => s.id === targetScene.id);
+                    if (originalIdx !== -1) {
+                      // Check if target scene is visible in current detail level
+                      const filteredIdx = scenes.findIndex(s => s.id === targetScene.id);
+                      if (filteredIdx !== -1) {
+                        setActiveIdx(filteredIdx);
+                      }
+                    }
+                  }}
+                />
+              </>
+            )}
           </div>
 
           {/* DeckControls removed per design request; controls moved to header */}

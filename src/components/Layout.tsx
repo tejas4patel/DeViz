@@ -35,7 +35,7 @@ export default function Layout({ authenticated = false }: Props) {
         <Outlet />
       </main>
       
-      {!authenticated && (
+      {!authenticated && location.pathname !== '/demo' && (
         <footer className="layout-footer">
           <div className="footer-content">
             <p>&copy; 2026 DeViz. Transform documents into engaging stories.</p>

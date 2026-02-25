@@ -29,7 +29,7 @@ export const defaultForceConfig: ForceConfig = {
   chargeStrength: -520,
   collisionStrength: 1.0,
   collisionIterations: 3,
-  centerStrength: { x: 0.05, y: 0.05 },
+  centerStrength: { x: 0.1, y: 0.1 },
 };
 
 // Default satellite configuration

@@ -71,8 +71,8 @@ export default function LandingPage() {
             <span className="hero-accent"> Interactive Stories</span>
           </h1>
           <p className="hero-description">
-            Upload any PDF or Word document and our AI transforms it into an engaging,
-            digestible story experience that respects how the human mind processes information.
+            Upload a PDF or Word file and DeViz reorganizes it into engaging, structured 
+            narratives built for understanding and retention.
           </p>
           <div className="hero-actions">
             <Link to="/demo" className="btn-primary large">See Live Demo</Link>

@@ -27,7 +27,11 @@ const sceneCategories = {
   'scene08': 'insights',
   'scene09': 'insights',
   'scene10': 'insights',
-  'scene11': 'insights'
+  'scene11': 'insights',
+  'scene12': 'insights',
+  'scene13': 'methodology',
+  'scene14': 'insights',
+  'scene15': 'foundation'
 } as const;
 
 export default function Scene00CognitiveMap() {
@@ -84,7 +88,7 @@ export default function Scene00CognitiveMap() {
             margin: '0 auto',
             lineHeight: 1.6
           }}>
-            Navigate through 12 focused scenes exploring NAMCS Health Center data.
+            Navigate through 16 comprehensive scenes exploring NAMCS Health Center data.
             From foundational concepts to real-world research applications.
           </p>
         </div>
@@ -134,17 +138,9 @@ export default function Scene00CognitiveMap() {
                     <div style={{
                       fontSize: '13px',
                       fontWeight: '600',
-                      color: '#374151',
-                      marginBottom: '4px'
+                      color: '#374151'
                     }}>
-                      Scene {String(scenes.indexOf(scene) + 1).padStart(2, '0')}
-                    </div>
-                    <div style={{
-                      fontSize: '12px',
-                      color: '#64748B',
-                      lineHeight: 1.4
-                    }}>
-                      {scene.title}
+                      {String(scenes.indexOf(scene) + 1).padStart(2, '0')} {scene.title.toLowerCase()}
                     </div>
                   </div>
                 ))}
