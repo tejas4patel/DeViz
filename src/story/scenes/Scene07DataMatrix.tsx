@@ -16,6 +16,11 @@ export default function Scene07DataMatrix() {
   return (
     <div className="scene07-data-matrix">
       <h2 className="scene07-data-matrix__title">What data exists in each file type?</h2>
+      <p style={{ margin: '0 0 12px', fontSize: '13px', color: '#64748B', lineHeight: 1.6 }}>
+        NAMCS HC releases two data products with different variable coverage. Public Use Files
+        are downloadable immediately with no application required; Restricted Use Files require
+        RDC approval but include sensitive clinical and geographic detail. Click any category to expand its variables.
+      </p>
       <div className="scene07-data-matrix__container">
         <div className="scene07-data-matrix__main">
           {/* Tree Visualization */}

@@ -46,6 +46,19 @@ export default function Scene06Pipeline() {
       }}>
         Data Collection Pipeline
       </h2>
+      <p style={{
+        margin: 0,
+        fontSize: '14px',
+        color: '#475569',
+        textAlign: 'center',
+        maxWidth: '680px',
+        lineHeight: 1.65,
+        flexShrink: 0,
+      }}>
+        Health centers join NAMCS through a five-stage process that ensures data quality
+        before electronic records enter the research pipeline—from initial recruitment through
+        HL7 software installation, validation testing, and final submission.
+      </p>
       <PipelineFlow
         stages={pipelineStages}
         width={width}

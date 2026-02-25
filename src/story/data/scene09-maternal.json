@@ -1,0 +1,15 @@
+{
+  "byAge": [
+    { "age": "12–19", "maternalVisits": 29.7, "gdm": 0.1, "hypertension": 1.4, "prenatalCare": 22.1 },
+    { "age": "20–29", "maternalVisits": 134.6, "gdm": 2.6, "hypertension": 7.2, "prenatalCare": 110.8 },
+    { "age": "30–39", "maternalVisits": 101.0, "gdm": 4.3, "hypertension": 13.8, "prenatalCare": 84.2 },
+    { "age": "40–55", "maternalVisits": 20.3, "gdm": 0.8, "hypertension": 4.1, "prenatalCare": 15.6 }
+  ],
+  "byRace": [
+    { "group": "NH White",  "maternalVisits": 76.4, "gdm": 1.8, "hypertension": 5.4  },
+    { "group": "NH Black",  "maternalVisits": 94.2, "gdm": 3.2, "hypertension": 16.1 },
+    { "group": "Hispanic",  "maternalVisits": 113.6, "gdm": 4.6, "hypertension": 9.3  },
+    { "group": "Asian",     "maternalVisits": 61.7,  "gdm": 4.1, "hypertension": 5.9  },
+    { "group": "Other",     "maternalVisits": 68.3,  "gdm": 2.5, "hypertension": 7.8  }
+  ]
+}

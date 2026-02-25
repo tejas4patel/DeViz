@@ -1,4 +1,4 @@
-import type { Scene } from './storyTypes';
+import type { Scene, DetailLevel } from './storyTypes';
 import DeckSlideRailFlowLine from './DeckSlideRailFlowline';
 import { TalezLogo } from './components/TalezLogo';
 
@@ -8,10 +8,13 @@ type Props = {
   scenes: Scene[];
   activeIdx: number;
   onSelectSlide: (idx: number) => void;
+  detailLevel: DetailLevel;
+  onDetailLevelChange: (level: DetailLevel) => void;
+  totalScenes: number;
 };
 
 export default function DeckBrand(props: Props) {
-  const { title, subtitle, scenes, activeIdx, onSelectSlide } = props;
+  const { title, subtitle, scenes, activeIdx, onSelectSlide, detailLevel, onDetailLevelChange, totalScenes } = props;
 
   return (
     <div className="deckBrand">
@@ -26,11 +29,36 @@ export default function DeckBrand(props: Props) {
       </div>
 
       <div className="deckBrandRail" aria-label="Story progress">
-        <DeckSlideRailFlowLine
-          scenes={scenes}
-          activeIdx={activeIdx}
-          onSelectSlide={onSelectSlide}
-        />
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '20px'
+        }}>
+          <button
+            onClick={() => onDetailLevelChange(detailLevel === 'beginner' ? 'expert' : 'beginner')}
+            style={{
+              fontSize: '11px',
+              padding: '6px 12px',
+              border: `2px solid ${detailLevel === 'expert' ? '#244855' : '#d1d5db'}`,
+              borderRadius: '20px',
+              background: detailLevel === 'expert' ? '#244855' : '#ffffff',
+              color: detailLevel === 'expert' ? '#ffffff' : '#374151',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              fontWeight: '600',
+              minWidth: '70px'
+            }}
+          >
+            {detailLevel === 'beginner' ? 'Essential' : 'Complete'}
+          </button>
+        
+          <DeckSlideRailFlowLine
+            scenes={scenes}
+            activeIdx={activeIdx}
+            onSelectSlide={onSelectSlide}
+          />
+        </div>
       </div>
     </div>
   );

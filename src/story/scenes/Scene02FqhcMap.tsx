@@ -37,69 +37,83 @@ export default function Scene02FqhcMap() {
   const { fqhcData, usTopology, usCountyTopology, countyPovertyData } = mapData;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        minHeight: '600px',
-      }}
-    >
-      <USMap
-        data={fqhcData}
-        topology={usTopology}
-        countyTopology={usCountyTopology}
-        countyData={countyPovertyData}
-        width={1200}
-        height={700}
-        minWidth={1000}
-        minHeight={600}
-        enableZoom={true}
-        enableTooltip={true}
-        projectionConfig={{
-          type: 'albersUsa',
-          scale: 1300,
-          translate: [600, 350],
-        }}
-        zoomConfig={{
-          enabled: true,
-          scaleExtent: [1, 8],
-          translateExtent: [
-            [-500, -200],
-            [1700, 900],
-          ],
-        }}
-        choroplethConfig={{
-          enabled: true,
-          colorScheme: ['#ffffd9', '#edf8b1', '#c7e9b4', '#7fcdbb', '#41b6c4', '#1d91c0', '#225ea8', '#253494', '#081d58'],
-          minValue: 5,
-          maxValue: 25,
-          opacity: 0.75,
-        }}
-        mapStyleConfig={{
-          backgroundColor: '#f8f9fa',
-          stateStroke: '#2d3748',
-          stateFill: '#e2e8f0',
-          stateStrokeWidth: 0.5,
-          stateHoverFill: '#cbd5e0',
-          pointColor: 'none',
-          pointRadius: 1.5,
-          pointOpacity: 0.8,
-          pointHoverRadius: 5,
-          pointHoverOpacity: 1.0,
-        }}
-        tooltipConfig={{
-          enabled: true,
-          backgroundColor: '#244855',
-          textColor: '#ffffff',
-          borderColor: '#E64833',
-          borderRadius: '6px',
-          padding: '10px 14px',
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+      <p
+        style={{
+          margin: '0 24px 6px',
           fontSize: '13px',
+          color: '#64748B',
+          lineHeight: 1.6,
+          flexShrink: 0,
         }}
-      />
+      >
+        Over 1,400 Federally Qualified Health Centers serve 30+ million patients in medically
+        underserved communities across the U.S. County shading reflects poverty rates, revealing
+        how FQHCs cluster where need is greatest. Hover a center dot to see site-level detail.
+      </p>
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '540px',
+        }}
+      >
+        <USMap
+          data={fqhcData}
+          topology={usTopology}
+          countyTopology={usCountyTopology}
+          countyData={countyPovertyData}
+          width={1200}
+          height={700}
+          minWidth={1000}
+          minHeight={540}
+          enableZoom={true}
+          enableTooltip={true}
+          projectionConfig={{
+            type: 'albersUsa',
+            scale: 1300,
+            translate: [600, 350],
+          }}
+          zoomConfig={{
+            enabled: true,
+            scaleExtent: [1, 8],
+            translateExtent: [
+              [-500, -200],
+              [1700, 900],
+            ],
+          }}
+          choroplethConfig={{
+            enabled: true,
+            colorScheme: ['#ffffd9', '#edf8b1', '#c7e9b4', '#7fcdbb', '#41b6c4', '#1d91c0', '#225ea8', '#253494', '#081d58'],
+            minValue: 5,
+            maxValue: 25,
+            opacity: 0.75,
+          }}
+          mapStyleConfig={{
+            backgroundColor: '#f8f9fa',
+            stateStroke: '#2d3748',
+            stateFill: '#e2e8f0',
+            stateStrokeWidth: 0.5,
+            stateHoverFill: '#cbd5e0',
+            pointColor: 'none',
+            pointRadius: 1.5,
+            pointOpacity: 0.8,
+            pointHoverRadius: 5,
+            pointHoverOpacity: 1.0,
+          }}
+          tooltipConfig={{
+            enabled: true,
+            backgroundColor: '#244855',
+            textColor: '#ffffff',
+            borderColor: '#E64833',
+            borderRadius: '6px',
+            padding: '10px 14px',
+            fontSize: '13px',
+          }}
+        />
+      </div>
     </div>
   );
 }

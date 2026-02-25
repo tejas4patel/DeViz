@@ -1,155 +1,87 @@
 /**
- * Scene 08: Maternal Health Analysis
+ * Scene 09: Maternal Health Analysis
  *
- * Demonstrates NAMCS HC analytical capabilities with maternal health visit
- * patterns across age groups, including gestational diabetes rates.
- * Uses real data from Table 2 in the source document.
+ * Interactive tree showing visit rates and health indicators
+ * by age group. Click any age group to expand its indicators.
+ *
+ * Data: NAMCS HC Component, Table 2 (age rates).
  */
 
-import { useEffect, useMemo, useRef } from 'react';
-import * as d3 from 'd3';
-import { useResizeObserver } from '../viz/useResizeObserver';
-import { axisBottom, axisLeft } from '../viz/chartAxes';
-import { Scene08Row } from '../storyTypes';
-import { scene08Rows } from '../sceneData';
+import { DataCoverageTree } from '../components/DataCoverageTree';
+import type { DataElement } from '../components/DataCoverageTree';
+import treeRaw from '../data/scene09-maternal-tree.json';
 
-export default function Scene08Maternal() {
-  const { ref, rect } = useResizeObserver<HTMLDivElement>();
-  const svgRef = useRef<SVGSVGElement | null>(null);
+const treeData = treeRaw as DataElement;
 
-  const rows = useMemo<Scene08Row[]>(() => {
-    return scene08Rows;
-  }, []);
+// Repurpose availability color slots to encode indicator type
+const MATERNAL_COLORS = {
+  root:       '#1F2A44', // dark navy  — root node
+  category:   '#2F6FED', // blue       — age group nodes
+  both:       '#2F6FED', // blue       — visit volume metrics
+  restricted: '#E64833', // red        — gestational diabetes (GDM)
+  public:     '#2BB0A6', // teal       — hypertension
+};
 
-  useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg) return;
+const LEGEND = [
+  { color: '#2F6FED', label: 'Visit volume',         sub: 'Maternal visits & prenatal care' },
+  { color: '#E64833', label: 'Gestational diabetes', sub: 'GDM rate per 1,000 women'        },
+  { color: '#2BB0A6', label: 'Hypertension',         sub: 'HTN disorders per 1,000 women'   },
+];
 
-    const width = Math.max(720, rect.width);
-    const height = 420;
-    const margin = { top: 18, right: 18, bottom: 58, left: 64 };
-    const innerW = width - margin.left - margin.right;
-    const innerH = height - margin.top - margin.bottom;
-
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-    const root = d3.select(svg);
-    root.selectAll('*').remove();
-
-    const g = root.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
-
-    const x0 = d3
-      .scaleBand<string>()
-      .domain(rows.map(r => r.age))
-      .range([0, innerW])
-      .padding(0.22);
-
-    const x1 = d3
-      .scaleBand<string>()
-      .domain(['maternal', 'gdm'])
-      .range([0, x0.bandwidth()])
-      .padding(0.2);
-
-    const y = d3
-      .scaleLinear()
-      .domain([0, d3.max(rows, r => Math.max(r.maternal_rate, r.gdm_rate))! * 1.18])
-      .range([innerH, 0]);
-
-    const gx = g.append('g').attr('transform', `translate(0, ${innerH})`);
-    axisBottom(gx.node() as SVGGElement | null, x0);
-
-    const gy = g.append('g');
-    axisLeft(gy.node() as SVGGElement | null, y);
-
-    g.append('text')
-      .attr('x', 0)
-      .attr('y', -4)
-      .attr('fontSize', 12)
-      .attr('fontWeight', 700)
-      .text('Rate per 1,000 women');
-
-    const groups = g
-      .selectAll('g.group')
-      .data(rows)
-      .join('g')
-      .attr('class', 'group')
-      .attr('transform', d => `translate(${x0(d.age)}, 0)`);
-
-    groups
-      .selectAll('rect')
-      .data(d => [
-        { key: 'maternal', value: d.maternal_rate },
-        { key: 'gdm', value: d.gdm_rate },
-      ])
-      .join('rect')
-      .attr('x', d => x1(d.key)!)
-      .attr('y', d => y(d.value))
-      .attr('width', x1.bandwidth())
-      .attr('height', d => innerH - y(d.value))
-      .attr('rx', 10)
-      .attr('fill', d =>
-        d.key === 'maternal' ? 'rgba(20, 70, 160, 0.22)' : 'rgba(160, 70, 20, 0.22)',
-      )
-      .attr('stroke', d =>
-        d.key === 'maternal' ? 'rgba(20, 70, 160, 0.55)' : 'rgba(160, 70, 20, 0.55)',
-      );
-
-    const legend = g.append('g').attr('transform', `translate(${innerW - 240}, 8)`);
-
-    legend
-      .append('rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('width', 16)
-      .attr('height', 16)
-      .attr('fill', 'rgba(20, 70, 160, 0.22)')
-      .attr('stroke', 'rgba(20, 70, 160, 0.55)');
-
-    legend
-      .append('text')
-      .attr('x', 24)
-      .attr('y', 12)
-      .attr('fontSize', 12)
-      .text('Maternal health visits');
-
-    legend
-      .append('rect')
-      .attr('x', 0)
-      .attr('y', 24)
-      .attr('width', 16)
-      .attr('height', 16)
-      .attr('fill', 'rgba(160, 70, 20, 0.22)')
-      .attr('stroke', 'rgba(160, 70, 20, 0.55)');
-
-    legend
-      .append('text')
-      .attr('x', 24)
-      .attr('y', 36)
-      .attr('fontSize', 12)
-      .text('Gestational diabetes visits');
-  }, [rows, rect.width]);
-
+export default function Scene09Maternal() {
   return (
-    <div ref={ref}>
-      <div className="scene08-maternal-header">
-        <h2>Maternal Health Visit Patterns</h2>
-        <p>Analysis of visit rates by age group demonstrates the analytical power of NAMCS Health Center data</p>
-      </div>
-      <svg ref={svgRef} width="100%" height="420" />
-      <div className="scene08-maternal-insights">
-        <div className="insight-box">
-          <h3>Key Insights</h3>
-          <ul>
-            <li><strong>Peak maternal health visits occur in the 20-29 age group</strong> (134.6 per 1,000 women)</li>
-            <li><strong>Teen pregnancy rates</strong> are notably lower (29.7 per 1,000) but still represent important care needs</li>
-            <li><strong>Gestational diabetes peaks in older mothers</strong>, with highest rates in the 30-39 age group</li>
-            <li><strong>NAMCS HC captures these patterns</strong> with sufficient sample sizes for reliable estimates</li>
-          </ul>
+    <div style={{ padding: '0 2px 12px', fontFamily: 'var(--font-sans,system-ui)' }}>
+
+      {/* ── Header ── */}
+      <div style={{ marginBottom: 10 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: '#1F2A44' }}>
+          Maternal health indicators by age group
         </div>
-        <div className="data-note">
-          <small><strong>Data source:</strong> Table 2, maternal health visits and visits with gestational diabetes. 
-          Rates are weighted to represent the target population of women receiving care at participating health centers.</small>
+        <div style={{ fontSize: 11, color: '#9CA3AF', marginTop: 2 }}>
+          Click any age group to expand its four health indicators · rates per 1,000 women at FQHCs
         </div>
       </div>
+
+      {/* ── Legend ── */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 20px', marginBottom: 10 }}>
+        {LEGEND.map(l => (
+          <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: l.color }} />
+            <div>
+              <span style={{ fontSize: 11, fontWeight: 600, color: '#374151' }}>{l.label}</span>
+              <span style={{ fontSize: 10, color: '#9CA3AF', marginLeft: 4 }}>{l.sub}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Tree ── */}
+      <div style={{ border: '1px solid #E5E7EB', borderRadius: 10, overflow: 'hidden' }}>
+        <DataCoverageTree
+          data={treeData}
+          availabilityColors={MATERNAL_COLORS}
+          height={480}
+        />
+      </div>
+
+      {/* ── Key insight ── */}
+      <div style={{
+        marginTop: 10, fontSize: 11, color: '#374151', lineHeight: 1.6,
+        background: 'rgba(230,72,51,.06)', borderRadius: 6,
+        borderLeft: '3px solid #E64833', padding: '8px 12px',
+      }}>
+        <strong>Risk–volume mismatch:</strong> Ages 20–29 have the <strong>highest visit volume</strong> (134.6/1k),
+        but ages 30–39 carry the <strong>peak GDM risk</strong> (4.3/1k) — 65% higher than the previous decade.
+        Expand each age group to compare all four indicators.
+      </div>
+
+      {/* ── Data note ── */}
+      <div style={{ marginTop: 8, fontSize: 10, color: '#9CA3AF', borderTop: '1px solid #F3F4F6', paddingTop: 7 }}>
+        <strong style={{ color: '#6B7280' }}>Data:</strong>{' '}
+        NAMCS HC Component, Table 2. Rates weighted to represent women at participating FQHCs.
+        HTN includes preeclampsia and gestational hypertension.
+      </div>
+
     </div>
   );
 }

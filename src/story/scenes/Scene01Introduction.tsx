@@ -37,14 +37,32 @@ const nodeGroupConfigs: Record<string, NodeGroupConfig> = {
 
 export default function Scene01Introduction() {
   return (
-    <ForceDirectedGraph
-      data={graphData}
-      nodeGroupConfigs={nodeGroupConfigs}
-      minWidth={860}
-      minHeight={400}
-      enableDrag={true}
-      enableZoom={true}
-      enableSatellites={true}
-    />
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <p
+        style={{
+          margin: '0 24px 8px',
+          fontSize: '13px',
+          color: '#64748B',
+          lineHeight: 1.6,
+          flexShrink: 0,
+        }}
+      >
+        Three data pillars—<strong>Microdata</strong>, <strong>Dashboards</strong>, and{' '}
+        <strong>External Linkage</strong>—anchor the NAMCS Health Center research ecosystem.
+        Each pillar connects to specific data products and access routes. Hover nodes to
+        explore definitions; drag to rearrange the network.
+      </p>
+      <div style={{ flex: 1, minHeight: 0 }}>
+        <ForceDirectedGraph
+          data={graphData}
+          nodeGroupConfigs={nodeGroupConfigs}
+          minWidth={860}
+          minHeight={380}
+          enableDrag={true}
+          enableZoom={true}
+          enableSatellites={true}
+        />
+      </div>
+    </div>
   );
 }

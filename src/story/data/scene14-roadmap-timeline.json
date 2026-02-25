@@ -1,0 +1,44 @@
+[
+  {
+    "date": "2021",
+    "label": "Program Launch",
+    "description": "EHR-based data collection begins. 29 participating FQHCs submit 3.5M visit records — replacing the legacy paper abstraction model.",
+    "type": "milestone",
+    "icon": "🚀"
+  },
+  {
+    "date": "2022",
+    "label": "Rapid Scale-up",
+    "description": "Centers grow from 29 to 64. First public dashboard released with preliminary estimates for visit volume and top diagnoses.",
+    "type": "release",
+    "icon": "📊"
+  },
+  {
+    "date": "2023",
+    "label": "Full Operation",
+    "description": "95+ FQHCs contributing 9M+ visit records annually. Maternal health and chronic disease modules added to the dashboard.",
+    "type": "milestone",
+    "icon": "🏥"
+  },
+  {
+    "date": "2024",
+    "label": "Outcome Linkages Live",
+    "description": "National Death Index (NDI) mortality linkage released for approved projects. Respiratory disparities dashboard module launched.",
+    "type": "release",
+    "icon": "🔗"
+  },
+  {
+    "date": "2025",
+    "label": "Social Context Linkages",
+    "description": "HUD housing assistance linkage and Medicaid enrollment linkage become available through FSRDC. Expanded race/ethnicity subgroups added to dashboard.",
+    "type": "feature",
+    "icon": "🏘️"
+  },
+  {
+    "date": "2026",
+    "label": "Next Generation Files",
+    "description": "New longitudinal analytic files, near-real-time dashboard updates, and combined multi-linkage datasets planned for approved research.",
+    "type": "change",
+    "icon": "✨"
+  }
+]

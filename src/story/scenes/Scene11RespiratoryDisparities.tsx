@@ -3,8 +3,8 @@ import ScenePlaceholder from './ScenePlaceholder';
 export default function Scene10RespiratoryDisparities() {
   return (
     <ScenePlaceholder
-      title="Scene 10"
-      description="Line chart placeholder. Replace with biannual time series rates by race and ethnicity plus confidence intervals."
+      title="Respiratory Disparities"
+      description="Respiratory illness visit rates at FQHCs—including asthma, COPD, and influenza—differ significantly by race and ethnicity and have shifted across biannual survey periods. These time series reveal persistent inequities in respiratory health and the influence of external disruptions like the COVID-19 pandemic on care utilization."
     />
   );
 }

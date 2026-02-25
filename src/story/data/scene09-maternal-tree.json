@@ -1,0 +1,54 @@
+{
+  "title": "Maternal Health at FQHCs",
+  "description": "Rates per 1,000 women · NAMCS HC Component",
+  "children": [
+    {
+      "title": "Ages 12–19",
+      "category": "age",
+      "description": "29.7 maternal visits per 1,000 women",
+      "details": "Lowest visit volume — teen mothers",
+      "children": [
+        { "title": "Visits · 29.7",   "availability": "both",       "description": "29.7 per 1,000 women", "details": "Maternal office visits" },
+        { "title": "Prenatal · 22.1", "availability": "both",       "description": "22.1 per 1,000 women", "details": "Prenatal care visits" },
+        { "title": "GDM · 0.1",       "availability": "restricted", "description": "0.1 per 1,000 women",  "details": "Gestational diabetes — very low in this group" },
+        { "title": "HTN · 1.4",       "availability": "public",     "description": "1.4 per 1,000 women",  "details": "Hypertensive disorders including preeclampsia" }
+      ]
+    },
+    {
+      "title": "Ages 20–29",
+      "category": "age",
+      "description": "134.6 maternal visits per 1,000 women",
+      "details": "PEAK visit volume — highest of all age groups",
+      "children": [
+        { "title": "Visits · 134.6",  "availability": "both",       "description": "134.6 per 1,000 women", "details": "Peak maternal visit volume" },
+        { "title": "Prenatal · 110.8","availability": "both",       "description": "110.8 per 1,000 women", "details": "Prenatal care visits" },
+        { "title": "GDM · 2.6",       "availability": "restricted", "description": "2.6 per 1,000 women",  "details": "Gestational diabetes — moderate risk" },
+        { "title": "HTN · 7.2",       "availability": "public",     "description": "7.2 per 1,000 women",  "details": "Hypertensive disorders" }
+      ]
+    },
+    {
+      "title": "Ages 30–39",
+      "category": "age",
+      "description": "101.0 maternal visits per 1,000 women",
+      "details": "PEAK GDM & hypertension risk — highest rates of all age groups",
+      "children": [
+        { "title": "Visits · 101.0",  "availability": "both",       "description": "101.0 per 1,000 women", "details": "Lower volume than 20–29 but still high" },
+        { "title": "Prenatal · 84.2", "availability": "both",       "description": "84.2 per 1,000 women",  "details": "Prenatal care visits" },
+        { "title": "GDM · 4.3",       "availability": "restricted", "description": "4.3 per 1,000 women",  "details": "Peak GDM rate — 65% higher than ages 20–29" },
+        { "title": "HTN · 13.8",      "availability": "public",     "description": "13.8 per 1,000 women", "details": "Peak hypertension rate — nearly 2× the 20–29 rate" }
+      ]
+    },
+    {
+      "title": "Ages 40–55",
+      "category": "age",
+      "description": "20.3 maternal visits per 1,000 women",
+      "details": "Lowest visit volume — older mothers",
+      "children": [
+        { "title": "Visits · 20.3",  "availability": "both",       "description": "20.3 per 1,000 women", "details": "Maternal office visits" },
+        { "title": "Prenatal · 15.6","availability": "both",       "description": "15.6 per 1,000 women", "details": "Prenatal care visits" },
+        { "title": "GDM · 0.8",      "availability": "restricted", "description": "0.8 per 1,000 women",  "details": "Gestational diabetes" },
+        { "title": "HTN · 4.1",      "availability": "public",     "description": "4.1 per 1,000 women",  "details": "Hypertensive disorders" }
+      ]
+    }
+  ]
+}

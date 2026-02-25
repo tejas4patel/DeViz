@@ -3,8 +3,8 @@ import ScenePlaceholder from './ScenePlaceholder';
 export default function Scene12LinkageRates() {
   return (
     <ScenePlaceholder
-      title="Scene 12"
-      description="Small multiples placeholder. Replace with age and sex linkage rate visuals and counts."
+      title="Linkage Rates and Who Links"
+      description="Linkage success rates vary by patient age and sex: older adults match at higher rates due to more complete administrative histories, while younger patients and women of childbearing age can be harder to match. Understanding who links—and who doesn't—is essential for interpreting any linked cohort analysis."
     />
   );
 }

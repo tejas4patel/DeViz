@@ -1,0 +1,53 @@
+{
+  "title": "Known Limitations",
+  "description": "Every data product has constraints — understanding them protects study validity",
+  "children": [
+    {
+      "title": "Coverage & Response",
+      "category": "limitation",
+      "description": "Not all FQHCs participate; response patterns may introduce bias",
+      "details": "Center-level non-response can affect geographic and urban/rural representativeness",
+      "children": [
+        { "title": "Center non-response",      "availability": "restricted", "description": "Some FQHCs decline or withdraw mid-year", "details": "High-impact: non-response can bias regional estimates if concentrated in specific geographies" },
+        { "title": "Sampling variation",       "availability": "both",       "description": "Estimates carry confidence intervals", "details": "Moderate: standard errors are published and must be accounted for in analysis" },
+        { "title": "Urban concentration",      "availability": "both",       "description": "Participating centers skew toward urban areas", "details": "Moderate: rural FQHCs under-represented in early years" },
+        { "title": "Voluntary participation",  "availability": "public",     "description": "Centers opt in — not a probability sample of all FQHCs", "details": "Well-documented: weights adjust but cannot fully correct for non-random selection" }
+      ]
+    },
+    {
+      "title": "Variable Restrictions",
+      "category": "limitation",
+      "description": "Some variables are suppressed or categorized in public files",
+      "details": "State, MSA, and rare diagnosis codes require restricted file access",
+      "children": [
+        { "title": "Geography capped at region", "availability": "restricted", "description": "State and MSA identifiers are restricted-only", "details": "High-impact for geographic disparity studies — RDC access required" },
+        { "title": "Rare dx suppressed",         "availability": "restricted", "description": "Small cell sizes lead to suppression in PUF", "details": "High-impact for rare condition research — restricted file needed" },
+        { "title": "Continuous vars binned",     "availability": "both",       "description": "Age and income grouped into categories in PUF", "details": "Moderate: granularity is lost; exact values available in restricted files" },
+        { "title": "EHR field completeness",     "availability": "public",     "description": "Not all EHR fields are populated across centers", "details": "Manageable: missingness rates are published per variable" }
+      ]
+    },
+    {
+      "title": "Linkage Constraints",
+      "category": "limitation",
+      "description": "Record linkage introduces uncertainty and population-specific match rates",
+      "details": "Younger patients and women of childbearing age have lower match rates",
+      "children": [
+        { "title": "Match rate variation",       "availability": "restricted", "description": "62–84% match depending on age and sex", "details": "High-impact: unlinked records may differ systematically from linked records" },
+        { "title": "Probabilistic uncertainty",  "availability": "both",       "description": "False positives and false negatives in matching", "details": "Moderate: match weight variables support sensitivity analysis" },
+        { "title": "Reference year dependency",  "availability": "both",       "description": "Linkage availability lags 2–3 years after encounter", "details": "Moderate: limits near-real-time linkage analysis" },
+        { "title": "SSN completeness",           "availability": "public",     "description": "Incomplete SSNs reduce match quality", "details": "Manageable: deterministic + probabilistic hybrid mitigates this" }
+      ]
+    },
+    {
+      "title": "Temporal Scope",
+      "category": "limitation",
+      "description": "Data begins in 2021 with no continuity to pre-redesign years",
+      "details": "Pre-2021 NAMCS HC used different methods — pooling across the break is not valid",
+      "children": [
+        { "title": "No pre-2021 continuity",     "availability": "restricted", "description": "Cannot trend with pre-2021 NAMCS HC data", "details": "High-impact for long-term trend studies — methodological break in 2021" },
+        { "title": "Dashboard prelim status",    "availability": "both",       "description": "Biannual estimates may be revised in final files", "details": "Moderate: clearly labeled; final microdata supersedes preliminary" },
+        { "title": "18–24 month publication lag","availability": "public",     "description": "Final microdata files released well after collection year", "details": "Manageable: dashboard provides faster preliminary estimates" }
+      ]
+    }
+  ]
+}

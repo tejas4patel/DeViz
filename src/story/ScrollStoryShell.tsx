@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { story } from './storyData';
 import SceneRenderer from './SceneRenderer';
 import DeckBrand from './DeckBrand';
+import CrossReferences from './CrossReferences';
+import type { DetailLevel } from './storyTypes';
 
 function isTypingTarget(el: Element | null) {
   if (!el) return false;
@@ -15,13 +17,27 @@ function isTypingTarget(el: Element | null) {
 }
 
 export default function ScrollStoryShell() {
-  const scenes = story.scenes;
+  const [detailLevel, setDetailLevel] = useState<DetailLevel>(() => {
+    const saved = sessionStorage.getItem('deckDetailLevel');
+    return (saved === 'beginner' || saved === 'expert') ? saved : 'beginner';
+  });
+  
+  const filteredScenes = useMemo(() => {
+    return story.scenes.filter(scene => {
+      if (!scene.detailLevel || scene.detailLevel === 'both') return true;
+      if (detailLevel === 'beginner' && scene.detailLevel === 'beginner') return true;
+      if (detailLevel === 'expert') return true;
+      return false;
+    });
+  }, [detailLevel]);
+  
+  const scenes = filteredScenes;
   const [activeIdx, setActiveIdx] = useState(() => {
     const saved = sessionStorage.getItem('deckActiveIdx');
     if (saved) {
       const n = Number(saved);
-      if (Number.isFinite(n) && n >= 0 && n < scenes.length) {
-        return n;
+      if (Number.isFinite(n) && n >= 0) {
+        return Math.min(n, filteredScenes.length - 1);
       }
     }
     return 0;
@@ -46,6 +62,10 @@ export default function ScrollStoryShell() {
   useEffect(() => {
     sessionStorage.setItem('deckActiveIdx', String(activeIdx));
   }, [activeIdx]);
+
+  useEffect(() => {
+    sessionStorage.setItem('deckDetailLevel', detailLevel);
+  }, [detailLevel]);
 
   useEffect(() => {
     titleRef.current?.focus?.();
@@ -97,6 +117,19 @@ export default function ScrollStoryShell() {
     return () => window.removeEventListener('keydown', onKeyDown as EventListener);
   }, [canNext, canPrev, scenes.length]);
 
+  // Listen for navigation events from cognitive map
+  useEffect(() => {
+    const handleNavigateToScene = (event: CustomEvent<{ sceneIndex: number }>) => {
+      const { sceneIndex } = event.detail;
+      setActiveIdx(sceneIndex);
+    };
+
+    window.addEventListener('navigateToScene', handleNavigateToScene as EventListener);
+    return () => {
+      window.removeEventListener('navigateToScene', handleNavigateToScene as EventListener);
+    };
+  }, []);
+
   const onWheelCapture = (e: React.WheelEvent) => {
     if (e.ctrlKey) return;
 
@@ -146,6 +179,9 @@ export default function ScrollStoryShell() {
           scenes={scenes}
           activeIdx={activeIdx}
           onSelectSlide={idx => setActiveIdx(idx)}
+          detailLevel={detailLevel}
+          onDetailLevelChange={setDetailLevel}
+          totalScenes={story.scenes.length}
         />
       </header>
       <main className="deckBody">
@@ -173,6 +209,22 @@ export default function ScrollStoryShell() {
                 Notes: {activeScene.notes}
               </div>
             ) : null}
+            
+            <CrossReferences
+              currentScene={activeScene}
+              onNavigate={(sceneIdx) => {
+                // Map filtered scene index back to original story index
+                const targetScene = scenes[sceneIdx];
+                const originalIdx = story.scenes.findIndex(s => s.id === targetScene.id);
+                if (originalIdx !== -1) {
+                  // Check if target scene is visible in current detail level
+                  const filteredIdx = scenes.findIndex(s => s.id === targetScene.id);
+                  if (filteredIdx !== -1) {
+                    setActiveIdx(filteredIdx);
+                  }
+                }
+              }}
+            />
           </div>
 
           {/* DeckControls removed per design request; controls moved to header */}
