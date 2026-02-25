@@ -50,7 +50,7 @@ function PublicNav({ currentPath }: { currentPath: string }) {
   return (
     <div className="nav-container">
       <Link to="/" className="nav-brand">
-        <DeVizLogo size={28} variant="wordmark" />
+        <DeVizLogo size={28} variant="wordmark" onDark />
       </Link>
       
       <div className="nav-links">
@@ -87,7 +87,7 @@ function DashboardNav({ currentPath }: { currentPath: string }) {
   return (
     <div className="nav-container">
       <Link to="/dashboard" className="nav-brand">
-        <DeVizLogo size={28} variant="wordmark" />
+        <DeVizLogo size={28} variant="wordmark" onDark />
       </Link>
       
       <div className="nav-links">

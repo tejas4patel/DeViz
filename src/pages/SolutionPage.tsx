@@ -43,11 +43,11 @@ export default function SolutionPage() {
               <h3>Semantic Encoding</h3>
               <p>
                 Terminology is controlled and consistent, producing strong embeddings
-                and reliable retrieval in AI-mediated knowledge environments.
+                and reliable retrieval in AI mediated knowledge environments.
               </p>
             </div>
             <div className="solution-card">
-              <h3>Cross-Referencing</h3>
+              <h3>Cross Referencing</h3>
               <p>
                 Related concepts are explicitly linked, enabling readers to build
                 schema connections across the full knowledge graph of a document.

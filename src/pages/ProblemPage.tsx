@@ -1,3 +1,35 @@
+function IconBrain() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="18" cy="18" r="8" stroke="#244855" strokeWidth="1.8" fill="none" />
+      <path d="M12 18c0-3.31 2.69-6 6-6M24 18c0 3.31-2.69 6-6 6" stroke="#244855" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="18" cy="18" r="2.5" fill="#E64833" />
+    </svg>
+  );
+}
+
+function IconPhone() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="11" y="5" width="14" height="26" rx="3" stroke="#244855" strokeWidth="1.8" fill="none" />
+      <circle cx="18" cy="28" r="1.5" fill="#244855" />
+      <rect x="15" y="9" width="6" height="1.5" rx="0.75" fill="#244855" opacity="0.5" />
+    </svg>
+  );
+}
+
+function IconCpu() {
+  return (
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="10" y="10" width="16" height="16" rx="3" stroke="#244855" strokeWidth="1.8" fill="none" />
+      <circle cx="14" cy="18" r="1.5" fill="#E64833" />
+      <circle cx="18" cy="18" r="1.5" fill="#E64833" />
+      <circle cx="22" cy="18" r="1.5" fill="#E64833" />
+      <path d="M14 10 v-4M18 10 v-4M22 10 v-4M14 26 v4M18 26 v4M22 26 v4M10 14 h-4M10 22 h-4M26 14 h4M26 22 h4" stroke="#244855" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default function ProblemPage() {
   return (
     <div className="page-content">
@@ -6,7 +38,7 @@ export default function ProblemPage() {
           <h1>The Problem</h1>
           <p className="page-lead">
             Healthcare data is rich, complex, and critically important. But most people
-            can't access it — not because it's hidden, but because it's incomprehensible.
+            cannot access it — not because it is hidden, but because it is incomprehensible.
           </p>
         </div>
       </section>
@@ -22,7 +54,7 @@ export default function ProblemPage() {
                 technical language lock that value behind a wall of cognitive friction.
               </p>
               <p>
-                Human working memory has strict limits. When content isn't structured
+                Human working memory has strict limits. When content is not structured
                 to respect those limits, comprehension fails — not because readers lack
                 intelligence, but because the content lacks engineering.
               </p>
@@ -33,12 +65,12 @@ export default function ProblemPage() {
                 <div className="stat-label">of healthcare reports are never read past the executive summary</div>
               </div>
               <div className="stat-card">
-                <div className="stat-number">3–7</div>
+                <div className="stat-number">3 to 7</div>
                 <div className="stat-label">cognitive elements working memory can hold simultaneously</div>
               </div>
               <div className="stat-card">
                 <div className="stat-number">∞</div>
-                <div className="stat-label">data generated annually — with no corresponding increase in human capacity</div>
+                <div className="stat-label">data generated annually, with no corresponding increase in human capacity</div>
               </div>
             </div>
           </div>
@@ -50,7 +82,7 @@ export default function ProblemPage() {
           <h2>Three Forces Working Against You</h2>
           <div className="three-column">
             <div className="problem-card">
-              <div className="problem-icon">🧠</div>
+              <div className="problem-icon"><IconBrain /></div>
               <h3>Cognitive Limits</h3>
               <p>
                 Working memory capacity is fixed. Dense, unstructured content
@@ -58,19 +90,19 @@ export default function ProblemPage() {
               </p>
             </div>
             <div className="problem-card">
-              <div className="problem-icon">📱</div>
+              <div className="problem-icon"><IconPhone /></div>
               <h3>Attention Economics</h3>
               <p>
                 Digital platforms optimize for engagement velocity. Serious content
-                with delayed payoff curves loses visibility by design.
+                with delayed payoff loses visibility by design.
               </p>
             </div>
             <div className="problem-card">
-              <div className="problem-icon">🤖</div>
+              <div className="problem-icon"><IconCpu /></div>
               <h3>AI Retrieval Fragility</h3>
               <p>
                 Unstructured documents produce weak embeddings, ambiguous retrieval,
-                and contextual drift in RAG-based systems.
+                and contextual drift in RAG based systems.
               </p>
             </div>
           </div>
