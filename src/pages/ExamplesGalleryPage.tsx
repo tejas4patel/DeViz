@@ -3,8 +3,7 @@
  */
 
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { MoveRight } from 'lucide-react';
 
 const P = '#244855';
 const S = '#E64833';
@@ -130,7 +129,6 @@ const examples = [
       after: 'Scrollable story: animated temperature charts, region maps, and a timeline of key findings',
     },
     features: ['Chart generation', 'Insight extraction', 'Citation tracking', 'Interactive elements'],
-    time: '8 min',
     vizType: 'line',
     color: '#2F6FED',
   },
@@ -146,7 +144,6 @@ const examples = [
       after: 'Interactive decision tree, budget breakdowns, and a stakeholder impact matrix',
     },
     features: ['Decision tree mapping', 'Impact visualization', 'Stakeholder analysis', 'Budget breakdowns'],
-    time: '12 min',
     vizType: 'flowchart',
     color: P,
   },
@@ -162,7 +159,6 @@ const examples = [
       after: 'Interactive architecture diagrams, API flow visualizations, and data relationship maps',
     },
     features: ['Architecture mapping', 'Flow diagrams', 'Dependency tracking', 'Interactive navigation'],
-    time: '6 min',
     vizType: 'system',
     color: S,
   },
@@ -178,13 +174,10 @@ const examples = [
       after: 'Dynamic dashboard: animated trend charts, competitive landscape maps, and forecast visualizations',
     },
     features: ['Financial charts', 'Trend visualization', 'Competitive analysis', 'Forecast modeling'],
-    time: '10 min',
     vizType: 'bar',
     color: '#059669',
   },
 ];
-
-const categories = ['All', 'Academic', 'Government', 'Engineering', 'Business'];
 
 function VizPreview({ vizType, color }: { vizType: string; color: string }) {
   return (
@@ -201,12 +194,6 @@ function VizPreview({ vizType, color }: { vizType: string; color: string }) {
 }
 
 export default function ExamplesGalleryPage() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-
-  const filtered = selectedCategory === 'All'
-    ? examples
-    : examples.filter(ex => ex.category === selectedCategory);
-
   return (
     <div className="min-h-screen bg-slate-50">
 
@@ -250,7 +237,6 @@ export default function ExamplesGalleryPage() {
           <div className="flex flex-wrap justify-center gap-10 mt-12">
             {[
               { num: '4 industries', label: 'covered' },
-              { num: '< 12 min', label: 'average processing' },
               { num: '50+', label: 'visualization types' },
             ].map(({ num, label }) => (
               <div key={label} className="text-center">
@@ -262,40 +248,17 @@ export default function ExamplesGalleryPage() {
         </div>
       </div>
 
-      {/* ── Category Filter ───────────────────────────────────────────────── */}
-      <div className="container mx-auto px-6 pt-10 pb-4">
-        <div className="flex flex-wrap justify-center gap-3">
-          {categories.map(cat => {
-            const active = selectedCategory === cat;
-            const color = cat === 'All' ? P : (categoryColors[cat] ?? P);
-            return (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200"
-                style={
-                  active
-                    ? { background: color, color: '#fff', boxShadow: `0 4px 12px ${color}40` }
-                    : { background: '#fff', color: '#64748b', border: '1.5px solid #e2e8f0' }
-                }
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
       {/* ── Examples Grid ────────────────────────────────────────────────── */}
       <div className="container mx-auto px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          {filtered.map(example => (
-            <div
+          {examples.map(example => (
+            <Link
               key={example.id}
-              className="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden flex flex-col transition-shadow duration-200"
-              style={{ ['--hover-shadow' as string]: '0 20px 40px -12px rgba(0,0,0,0.12)' }}
-              onMouseEnter={e => ((e.currentTarget as HTMLDivElement).style.boxShadow = '0 20px 40px -12px rgba(0,0,0,0.12)')}
-              onMouseLeave={e => ((e.currentTarget as HTMLDivElement).style.boxShadow = '')}
+              to="/story/demo-job-001"
+              className="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden flex flex-col transition-shadow duration-200 no-underline"
+              style={{ color: 'inherit' }}
+              onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 20px 40px -12px rgba(0,0,0,0.12)')}
+              onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.boxShadow = '')}
             >
               {/* Viz preview area */}
               <div className="p-6 pb-0">
@@ -305,7 +268,7 @@ export default function ExamplesGalleryPage() {
               {/* Card content */}
               <div className="p-6 flex flex-col flex-1">
                 {/* Header */}
-                <div className="flex items-start justify-between mb-3">
+                <div className="flex items-start mb-3">
                   <div>
                     <h3 className="text-xl font-bold mb-2" style={{ color: P }}>{example.title}</h3>
                     <span
@@ -314,10 +277,6 @@ export default function ExamplesGalleryPage() {
                     >
                       {example.category}
                     </span>
-                  </div>
-                  <div className="text-right flex-shrink-0 ml-4">
-                    <div className="text-xs text-slate-400 uppercase tracking-wide">Process time</div>
-                    <div className="font-bold text-sm" style={{ color: example.color }}>{example.time}</div>
                   </div>
                 </div>
 
@@ -331,7 +290,7 @@ export default function ExamplesGalleryPage() {
                   >
                     {example.inputType}
                   </div>
-                  <ChevronRight size={20} className="flex-shrink-0 text-slate-400" strokeWidth={2} />
+                  <MoveRight size={18} className="flex-shrink-0 text-slate-400" strokeWidth={1.75} />
                   <div
                     className="flex-1 text-center text-xs font-semibold py-2 rounded-lg"
                     style={{ background: `${example.color}15`, color: example.color }}
@@ -385,7 +344,7 @@ export default function ExamplesGalleryPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -406,7 +365,7 @@ export default function ExamplesGalleryPage() {
           </p>
           <div className="relative flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/demo"
+              to="/story/demo-job-001"
               className="py-4 px-8 rounded-xl font-bold text-lg transition-opacity hover:opacity-90 shadow-lg"
               style={{ background: `linear-gradient(135deg, ${S}, #c23a26)`, color: '#fff' }}
             >

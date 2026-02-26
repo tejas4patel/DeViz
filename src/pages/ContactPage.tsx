@@ -232,7 +232,7 @@ export default function ContactPage() {
                 {
                   icon: <MapPin size={20} />,
                   label: 'Office',
-                  value: 'San Francisco, CA',
+                  value: 'Atlanta, GA',
                   bg: `${P}12`,
                   fg: P,
                 },

@@ -12,7 +12,7 @@ type Props = {
 
 export default function Layout({ authenticated = false }: Props) {
   const location = useLocation();
-  const [isAuthenticated] = useState(false); // TODO: Replace with real auth state
+  const [isAuthenticated] = useState(() => localStorage.getItem('demo-auth') === 'true');
 
   if (authenticated && !isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
@@ -70,10 +70,6 @@ function PublicNav({ currentPath }: { currentPath: string }) {
         >
           How It Works
         </Link>
-        <Link to="/demo" className={currentPath === '/demo' ? 'nav-link active' : 'nav-link'}>
-          Demo
-        </Link>
-
         <Link to="/pricing" className={currentPath === '/pricing' ? 'nav-link active' : 'nav-link'}>
           Pricing
         </Link>

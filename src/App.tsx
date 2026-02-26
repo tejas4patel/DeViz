@@ -19,6 +19,7 @@ import NotFoundPage from './pages/NotFoundPage';
 
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
+import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
 import AuthCallbackPage from './pages/auth/AuthCallbackPage';
 import LogoutPage from './pages/auth/LogoutPage';
 import SignedOutPage from './pages/auth/SignedOutPage';
@@ -50,9 +51,13 @@ export default function App() {
         <Route path="privacy" element={<PrivacyPage />} />
       </Route>
 
+      {/* Public story viewer (no auth required) */}
+      <Route path="/story/:storyId" element={<StoryViewer />} />
+
       {/* Authentication routes */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
       {/* Azure auth integration placeholders */}
       <Route path="/auth/callback" element={<AuthCallbackPage />} />

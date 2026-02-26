@@ -4,6 +4,7 @@
 
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight, CircleArrowRight } from 'lucide-react';
 
 const scenes = [
   {
@@ -31,8 +32,8 @@ const scenes = [
     description: "Modern platforms favor fast feedback loops. Story segmentation provides early cognitive payoff, keeping users engaged without sacrificing depth."
   },
   {
-    title: "Semantic Clarity Improves AI Retrieval",
-    description: "Well-structured content creates stable conceptual boundaries. This improves embedding precision and strengthens retrieval in AI-driven systems."
+    title: "Semantic Clarity Improves Agentic Workflow Retrieval",
+    description: "Well-structured content creates stable conceptual boundaries. This improves embedding precision and strengthens retrieval in agentic workflow-driven systems."
   },
   {
     title: "Structure Determines Which Ideas Travel",
@@ -84,8 +85,8 @@ function StoryPreviewCard() {
         <div className="story-preview-dot muted" />
         <span className="story-preview-label">{idx + 1} of {scenes.length}</span>
       </div>
-      <div className="story-preview-title">{scene.title}</div>
-      <div className="story-preview-body">{scene.description}</div>
+      <div className="story-preview-title" style={{ height: '3.5rem', display: 'flex', alignItems: 'flex-start' }}>{scene.title}</div>
+      <div className="story-preview-body" style={{ height: '5rem', display: 'flex', alignItems: 'flex-start' }}>{scene.description}</div>
       <div className="story-preview-progress">
         <div className="story-preview-bar" style={{ width: `${progress}%` }} />
       </div>
@@ -96,7 +97,7 @@ function StoryPreviewCard() {
           disabled={idx === 0}
           style={{ opacity: idx === 0 ? 0.35 : 1 }}
         >
-          Previous
+          <ChevronLeft size={20} strokeWidth={2} />
         </button>
         <button
           className="story-preview-btn primary"
@@ -104,7 +105,7 @@ function StoryPreviewCard() {
           disabled={idx === scenes.length - 1}
           style={{ opacity: idx === scenes.length - 1 ? 0.35 : 1 }}
         >
-          Next
+          <ChevronRight size={20} strokeWidth={2} />
         </button>
       </div>
     </div>
@@ -114,6 +115,8 @@ function StoryPreviewCard() {
 export default function LandingPage() {
   return (
     <div className="landing-page">
+
+      {/* ── Hero ── */}
       <section className="hero">
         <div className="hero-content">
           <div className="hero-eyebrow">Cognitive Information Design</div>
@@ -122,7 +125,7 @@ export default function LandingPage() {
             <span className="hero-accent"> Interactive Stories</span>
           </h1>
           <p className="hero-description">
-            Upload a PDF or Word file and DeViz reorganizes it into engaging, structured 
+            Upload a PDF or Word file and DeViz reorganizes it into engaging, structured
             narratives built for understanding and retention.
           </p>
           <div className="hero-actions">
@@ -135,11 +138,37 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── Stats teaser ── */}
+      <section className="landing-stats">
+        <div className="container">
+          <div className="landing-stats-row">
+            <div className="landing-stat">
+              <div className="landing-stat-num">80%</div>
+              <div className="landing-stat-label">of complex reports never read past the executive summary</div>
+            </div>
+            <div className="landing-stat-divider" />
+            <div className="landing-stat">
+              <div className="landing-stat-num">3–7</div>
+              <div className="landing-stat-label">cognitive elements working memory can hold at once</div>
+            </div>
+            <div className="landing-stat-divider" />
+            <div className="landing-stat">
+              <div className="landing-stat-num">∞</div>
+              <div className="landing-stat-label">content produced annually — zero increase in human processing capacity</div>
+            </div>
+          </div>
+          <div className="landing-stats-link">
+            <Link to="/problem" className="landing-learn-link">Understand why this matters <ChevronRight size={15} strokeWidth={2.5} style={{ display: 'inline', verticalAlign: 'middle' }} /></Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features ── */}
       <section className="features">
         <div className="container">
           <h2 className="section-title">Why DeViz?</h2>
           <p className="section-lead">
-            Built on decades of cognitive science research to make complex information genuinely digestible.
+            Built on cognitive science research to make complex information genuinely digestible — for human readers and agentic workflow systems alike.
           </p>
           <div className="feature-grid">
             <div className="feature-card">
@@ -149,7 +178,7 @@ export default function LandingPage() {
             </div>
             <div className="feature-card">
               <div className="feature-icon-wrap"><IconZap /></div>
-              <h3>AI Powered</h3>
+              <h3>Agentic Workflow Powered</h3>
               <p>Advanced algorithms automatically structure content for optimal comprehension and retention.</p>
             </div>
             <div className="feature-card">
@@ -160,6 +189,31 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ── CTA ── */}
+      <section className="landing-cta">
+        <div className="container">
+          <h2>Ready to see it in action?</h2>
+          <div className="landing-cta-links">
+            <Link to="/problem" className="landing-cta-card">
+              <span className="landing-cta-label">The Problem</span>
+              <span className="landing-cta-desc">Why raw information fails readers and agentic workflow systems</span>
+              <CircleArrowRight size={20} strokeWidth={1.5} className="landing-cta-arrow" />
+            </Link>
+            <Link to="/solution" className="landing-cta-card">
+              <span className="landing-cta-label">The Solution</span>
+              <span className="landing-cta-desc">Five engineering practices that fix it</span>
+              <CircleArrowRight size={20} strokeWidth={1.5} className="landing-cta-arrow" />
+            </Link>
+            <Link to="/demo" className="landing-cta-card accent">
+              <span className="landing-cta-label">Live Demo</span>
+              <span className="landing-cta-desc">See a real document transformed in seconds</span>
+              <CircleArrowRight size={20} strokeWidth={1.5} className="landing-cta-arrow" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

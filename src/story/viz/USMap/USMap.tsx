@@ -214,12 +214,33 @@ export default function USMap({
             }
           })
           .on('mousemove', function (event: MouseEvent) {
-            // Position tooltip
-            if (enableTooltip && tooltip) {
-              const [mouseX, mouseY] = d3.pointer(event, svgRef.current);
-              tooltip
-                .style('left', `${mouseX + 15}px`)
-                .style('top', `${mouseY - 35}px`);
+            // Position tooltip near cursor
+            if (enableTooltip && tooltip && svgRef.current?.parentElement) {
+              const containerElement = svgRef.current.parentElement;
+              const containerRect = containerElement.getBoundingClientRect();
+              const tooltipNode = tooltip.node() as HTMLDivElement;
+              
+              if (tooltipNode) {
+                const tooltipRect = tooltipNode.getBoundingClientRect();
+                const offset = 15;
+                const margin = 10;
+
+                let tooltipLeft = event.pageX - containerRect.left + offset;
+                let tooltipTop = event.pageY - containerRect.top - offset;
+
+                // Adjust if goes off screen
+                if (tooltipLeft + tooltipRect.width > containerRect.width - margin) {
+                  tooltipLeft = event.pageX - containerRect.left - tooltipRect.width - offset;
+                }
+                if (tooltipTop < margin) {
+                  tooltipTop = event.pageY - containerRect.top + offset;
+                }
+                if (tooltipLeft < margin) tooltipLeft = margin;
+
+                tooltip
+                  .style('left', `${tooltipLeft}px`)
+                  .style('top', `${tooltipTop}px`);
+              }
             }
           })
           .on('mouseleave', function (event: MouseEvent, d: { site: FQHCSite; px: number; py: number }) {

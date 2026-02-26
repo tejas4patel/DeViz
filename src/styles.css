@@ -62,9 +62,7 @@ body {
 
   margin: 0;
 
-  height: 100%;
-
-  overflow: hidden;
+  min-height: 100%;
 
 }
 
@@ -118,7 +116,7 @@ a {
 
   border-radius: 12px;
 
-  padding: 16px;
+  padding: 12px;
 
   box-shadow: 
 
@@ -186,17 +184,17 @@ a {
 
   height: 100vh;
 
-  /* slightly smaller outer padding to free vertical space */
+  /* much smaller outer padding to maximize content space */
 
-  padding: 12px;
+  padding: 6px;
 
   display: grid;
 
-  /* Target a smaller header: approximately 8% of viewport height (clamped) */
+  /* Target a smaller header: approximately 6% of viewport height (clamped) */
 
-  grid-template-rows: clamp(48px, 8vh, 120px) 1fr;
+  grid-template-rows: clamp(40px, 6vh, 80px) 1fr;
 
-  gap: 10px;
+  gap: 6px;
 
 }
 
@@ -216,11 +214,11 @@ a {
 
   justify-content: space-between;
 
-  gap: 12px;
+  gap: 8px;
 
-  /* slightly reduced vertical padding compared to .card default for a tighter header */
+  /* much reduced vertical padding for compact ribbon */
 
-  padding-block: 10px;
+  padding-block: 3px;
 
   /* keep modest horizontal padding so content doesn't rely on negative margins;
 
@@ -232,23 +230,23 @@ a {
 
   overflow: visible;
 
-  /* Mesmerizing Glass/Gradient Upgrade */
+  /* #90AEAD gradient with fade effect */
 
-  background: linear-gradient(135deg, rgba(255,255,255,0.94) 0%, rgba(245, 250, 255, 0.90) 100%);
+  background: linear-gradient(135deg, rgba(144, 174, 173, 0.95) 0%, rgba(144, 174, 173, 0.7) 50%, rgba(144, 174, 173, 0.4) 100%);
 
-  border-top: 1px solid rgba(255,255,255,1.0);
+  border-top: 1px solid rgba(144, 174, 173, 0.3);
 
-  border-bottom: 1px solid rgba(47, 111, 237, 0.15); 
+  border-bottom: 1px solid rgba(144, 174, 173, 0.15); 
 
   box-shadow: 
 
-    0 4px 20px -5px rgba(31, 42, 68, 0.06),
+    0 2px 12px -3px rgba(144, 174, 173, 0.15),
 
-    0 10px 15px -5px rgba(43, 176, 166, 0.04), /* Teal ambient glow */
+    0 6px 10px -3px rgba(144, 174, 173, 0.08), /* Sage green ambient glow */
 
-    inset 0 1px 0 rgba(255,255,255,1.0),
+    inset 0 1px 0 rgba(255,255,255,0.6),
 
-    inset 0 0 20px rgba(255,255,255,0.5);
+    inset 0 0 15px rgba(144, 174, 173, 0.1);
 
   position: relative;
 
@@ -266,7 +264,7 @@ a {
 
   height: 1px;
 
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  background: linear-gradient(90deg, transparent, rgba(144, 174, 173, 0.4), transparent);
 
   z-index: 11;
 
@@ -1798,6 +1796,26 @@ a {
 
 }
 
+.auth-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: -0.5rem 0 1.25rem;
+  text-align: center;
+}
+
+.auth-field-link {
+  float: right;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--brand-secondary);
+  text-decoration: none;
+}
+
+.auth-field-link:hover {
+  text-decoration: underline;
+}
+
 /* ============================================================
 
    DASHBOARD PAGES
@@ -1984,7 +2002,7 @@ a {
 
   justify-content: center;
 
-  min-height: 60vh;
+  height: calc(100vh - 64px);
 
   padding: 2rem;
 
@@ -2582,7 +2600,7 @@ a {
 
 .prob-hero-sub {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   max-width: 800px;
@@ -2719,7 +2737,7 @@ a {
 }
 
 .force-card h3 {
-  font-size: 1.6rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: #244855;
   margin: 0 0 1rem;
@@ -2727,11 +2745,11 @@ a {
 }
 
 .force-card-intro {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #874F41;
   margin-bottom: 2rem;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .force-card-detail {
@@ -2801,24 +2819,25 @@ a {
 }
 
 .sol-hero h1 {
-  font-size: 3rem;
+  font-size: 2.75rem;
   font-weight: 800;
+  font-family: var(--font-serif);
   text-align: center;
   color: #244855;
-  line-height: 1.1;
+  line-height: 1.2;
   margin: 0 0 2rem;
   position: relative;
   z-index: 2;
 }
 
 .sol-hero-thesis {
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-style: italic;
   text-align: center;
   color: #E64833;
-  line-height: 1.4;
-  max-width: 900px;
-  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 2rem;
   font-weight: 400;
   position: relative;
   z-index: 2;
@@ -2826,10 +2845,10 @@ a {
 
 .sol-hero-sub {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   color: #244855;
   line-height: 1.6;
-  max-width: 800px;
+  max-width: 760px;
   margin: 0 auto;
   opacity: 0.8;
   position: relative;
@@ -2984,7 +3003,7 @@ a {
 }
 
 .practice-content h3 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #244855;
   margin: 0 0 0.5rem;
@@ -3063,6 +3082,47 @@ a {
   object-fit: cover;
 }
 
+.video-poster {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.video-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-poster-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+  transition: background 0.2s ease;
+}
+
+.video-poster:hover .video-poster-overlay {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.video-play-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
+}
+
+.video-poster:hover .video-play-btn {
+  transform: scale(1.1);
+}
+
 .video-overlay {
   position: absolute;
   top: 0;
@@ -3117,32 +3177,32 @@ a {
   display: flex;
   justify-content: center;
   gap: 3rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 1.5rem 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 1.25rem 2rem;
+  border: 1px solid #e2e8f0;
+  margin-top: 1.5rem;
 }
 
 .stat {
   text-align: center;
-  color: white;
+  color: #244855;
 }
 
 .stat-number {
   display: block;
   font-size: 1.5rem;
   font-weight: 800;
-  color: #FBE9D0;
+  color: #E64833;
   line-height: 1;
   margin-bottom: 0.25rem;
 }
 
 .stat-label {
-  font-size: 0.85rem;
-  opacity: 0.8;
+  font-size: 0.75rem;
+  color: #64748b;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   font-weight: 600;
 }
 
@@ -3380,9 +3440,9 @@ a {
   }
   
   .sol-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
-  
+
   .practice-item {
     gap: 2rem;
   }
@@ -3424,12 +3484,478 @@ a {
     font-size: 2rem;
   }
   
-  .sol-hero-thesis {
-    font-size: 1.2rem;
-  }
-  
   .force-card-inner,
   .sol-concept-card {
     padding: 2rem;
+  }
+}
+
+
+/* ===== LANDING PAGE ===== */
+
+/* Stats teaser */
+.landing-stats {
+  background: #f5f7f8;
+  padding: 3rem 0;
+  border-top: 1px solid #e8ecee;
+  border-bottom: 1px solid #e8ecee;
+}
+
+.landing-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.landing-stat {
+  text-align: center;
+  padding: 0 2.5rem;
+}
+
+.landing-stat-num {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #244855;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.landing-stat-label {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+  max-width: 180px;
+  margin: 0 auto;
+}
+
+.landing-stat-divider {
+  width: 1px;
+  height: 3rem;
+  background: #dde2e4;
+  flex-shrink: 0;
+}
+
+.landing-stats-link {
+  text-align: center;
+  margin-top: 1.75rem;
+}
+
+.landing-learn-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #E64833;
+  text-decoration: none;
+}
+
+.landing-learn-link:hover {
+  text-decoration: underline;
+}
+
+/* CTA section */
+.landing-cta {
+  background: #244855;
+  padding: 4rem 0;
+}
+
+.landing-cta h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #FBE9D0;
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.landing-cta-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.landing-cta-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.landing-cta-card:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.landing-cta-card.accent {
+  background: #E64833;
+  border-color: #E64833;
+}
+
+.landing-cta-card.accent:hover {
+  background: #cc3b28;
+}
+
+.landing-cta-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(251,233,208,0.7);
+}
+
+.landing-cta-card.accent .landing-cta-label {
+  color: rgba(255,255,255,0.85);
+}
+
+.landing-cta-desc {
+  font-size: 0.9rem;
+  color: #FBE9D0;
+  line-height: 1.4;
+}
+
+.landing-cta-card.accent .landing-cta-desc {
+  color: white;
+}
+
+.landing-cta-arrow {
+  display: block;
+  color: rgba(251,233,208,0.5);
+  margin-top: 0.5rem;
+}
+
+.landing-cta-card.accent .landing-cta-arrow {
+  color: rgba(255,255,255,0.7);
+}
+
+/* Landing page responsive */
+@media (max-width: 768px) {
+  .landing-stats-row {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .landing-stat-divider {
+    width: 3rem;
+    height: 1px;
+  }
+
+  .landing-cta-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== SHARED SECTION UTILITIES (Problem / Solution pages) ===== */
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #E64833;
+  margin-bottom: 0.6rem;
+}
+
+.section-intro-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 760px;
+  margin: 0 0 2.5rem;
+}
+
+.cta-section {
+  text-align: center;
+}
+
+.cta-section h2 {
+  margin-bottom: 1rem;
+}
+
+.cta-section > p {
+  max-width: 640px;
+  margin: 0 auto 2rem;
+}
+
+/* ===== RAG / Retrieval section (Solution page) ===== */
+
+.rag-section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #244855;
+  margin: 0 0 1rem;
+}
+
+.rag-intro {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 760px;
+  margin: 0 0 2rem;
+}
+
+.rag-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.rag-card {
+  background: white;
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.rag-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #244855;
+  margin: 0 0 0.6rem;
+}
+
+.rag-card p {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #555;
+  margin: 0;
+}
+
+.rag-warning {
+  background: rgba(230, 72, 51, 0.07);
+  border: 1px solid rgba(230, 72, 51, 0.25);
+  border-left: 3px solid #E64833;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #444;
+}
+
+/* ===== Resolution grid (Solution page) ===== */
+
+.resolution-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.resolution-item {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+}
+
+.resolution-force-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #E64833;
+  margin-bottom: 0.4rem;
+}
+
+.resolution-force {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #555;
+}
+
+.resolution-arrow {
+  color: var(--brand-accent);
+  flex-shrink: 0;
+}
+
+.resolution-solution {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #244855;
+}
+
+.resolution-solution strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #244855;
+  margin-bottom: 0.4rem;
+}
+
+/* ===== Attention callout (Problem page) ===== */
+
+.attention-callout {
+  display: flex;
+  gap: 1.5rem;
+  background: white;
+  border: 1px solid var(--border-default);
+  border-left: 4px solid #E64833;
+  border-radius: 0 12px 12px 0;
+  padding: 2rem;
+}
+
+.attention-callout-icon {
+  flex-shrink: 0;
+  padding-top: 0.25rem;
+}
+
+.attention-callout-body h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #244855;
+  margin: 0 0 0.75rem;
+}
+
+.attention-callout-body p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.attention-patterns {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.pattern-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #444;
+}
+
+.pattern-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.pattern-dot.red {
+  background: #E64833;
+}
+
+/* ===== Domain gap visual (Problem page) ===== */
+
+.domain-gap-visual {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.domain-gap-card {
+  flex: 1;
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  background: white;
+}
+
+.domain-gap-card.expert {
+  border-top: 3px solid #90AEAD;
+}
+
+.domain-gap-card.novice {
+  border-top: 3px solid #E64833;
+}
+
+.dgv-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.dgv-schema {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.dgv-chunk {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  background: rgba(144, 174, 173, 0.2);
+  border: 1px solid #90AEAD;
+  border-radius: 6px;
+  color: #244855;
+}
+
+.dgv-chunk.overload {
+  background: rgba(230, 72, 51, 0.1);
+  border-color: #E64833;
+  color: #E64833;
+}
+
+.dgv-result {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.dgv-result.success {
+  background: rgba(144, 174, 173, 0.2);
+  color: #244855;
+}
+
+.dgv-result.failure {
+  background: rgba(230, 72, 51, 0.1);
+  color: #E64833;
+}
+
+.domain-gap-arrow {
+  flex-shrink: 0;
+  color: #90AEAD;
+}
+
+/* ===== Responsive: problem/solution missing-CSS components ===== */
+@media (max-width: 768px) {
+  .resolution-item {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .resolution-arrow {
+    display: none;
+  }
+
+  .domain-gap-visual {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .domain-gap-arrow {
+    transform: rotate(90deg);
+    align-self: center;
+  }
+
+  .attention-callout {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rag-grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Clock, Cpu, Share2, RotateCcw, Play } from 'lucide-react';
+import { Cpu, Share2, RotateCcw, Zap } from 'lucide-react';
+import YouTubeCard from '../components/YouTubeCard';
+
+const VIDEO_ID = 'fx_0RVWlSmU';
 
 export default function HowItWorksPage() {
   const steps = [
@@ -11,7 +14,7 @@ export default function HowItWorksPage() {
     },
     {
       number: '02',
-      title: 'AI Transforms & Structures',
+      title: 'Agentic Workflow Transforms & Structures',
       description: 'Our engine reads your content, identifies key insights, and rebuilds it as an interactive, scene-based story.',
       details: ['Content analysis', 'Scene generation', 'Visual mapping', 'Narrative flow'],
     },
@@ -38,36 +41,11 @@ export default function HowItWorksPage() {
       <section className="demo-video-section">
         <div className="container">
           <div className="video-container">
-            <div className="video-placeholder">
-              <div className="video-overlay">
-                <div className="play-button">
-                  <Play size={60} color="#244855" fill="#244855" />
-                </div>
-                <h3>Watch: PDF to Interactive Story</h3>
-                <p>See a real transformation from complex report to engaging visual narrative</p>
-              </div>
-              {/* Replace this div with actual video component */}
-              <div className="video-bg">
-                <img src="/api/placeholder/800/450" alt="Video thumbnail showing document transformation" />
-              </div>
-            </div>
-            
-            <div className="video-details">
-              <div className="video-stats">
-                <div className="stat">
-                  <span className="stat-number">2:30</span>
-                  <span className="stat-label">Demo Length</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-number">Real</span>
-                  <span className="stat-label">Live System</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-number">60s</span>
-                  <span className="stat-label">Processing Time</span>
-                </div>
-              </div>
-            </div>
+            <YouTubeCard
+              videoId={VIDEO_ID}
+              title="Watch DeViz"
+              customPosterUrl="/assets/deviz-demo-poster.jpg"
+            />
           </div>
         </div>
       </section>
@@ -106,16 +84,16 @@ export default function HowItWorksPage() {
           <div className="benefits-grid">
             <div className="benefit">
               <div className="benefit-icon">
-                <Clock size={32} color="#244855" strokeWidth={2.5} />
+                <Zap size={32} color="#244855" strokeWidth={2.5} />
               </div>
-              <h3>Lightning Fast</h3>
-              <p>Transform documents in under 60 seconds</p>
+              <h3>Instant Results</h3>
+              <p>Go from raw document to interactive story in seconds</p>
             </div>
             <div className="benefit">
               <div className="benefit-icon">
                 <Cpu size={32} color="#244855" strokeWidth={2.5} />
               </div>
-              <h3>Precision AI</h3>
+              <h3>Precision Agentic Workflow</h3>
               <p>Maintains accuracy while creating engaging narratives</p>
             </div>
             <div className="benefit">

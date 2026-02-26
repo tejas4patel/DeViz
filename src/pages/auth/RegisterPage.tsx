@@ -10,8 +10,8 @@ export default function RegisterPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: wire up real registration
-    navigate('/dashboard', { replace: true });
+    localStorage.setItem('demo-auth', 'true');
+    navigate('/dashboard/upload', { replace: true });
   }
 
   return (

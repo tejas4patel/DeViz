@@ -5,7 +5,8 @@ export default function LogoutPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => navigate('/signed-out', { replace: true }), 300);
+    localStorage.removeItem('demo-auth');
+    const timer = setTimeout(() => navigate('/login', { replace: true }), 300);
     return () => clearTimeout(timer);
   }, [navigate]);
 

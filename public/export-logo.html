@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DeViz Logo Exporter</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f5f5f5; padding: 40px; color: #333; }
+    h1 { font-size: 1.25rem; margin-bottom: 8px; }
+    p  { font-size: 0.9rem; color: #666; margin-bottom: 32px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 24px; }
+    .card { background: white; border: 1px solid #e2e2e2; border-radius: 12px; padding: 24px; text-align: center; }
+    .card.dark { background: #244855; }
+    canvas { display: block; margin: 0 auto 12px; }
+    button { font-size: 0.8rem; padding: 6px 16px; border: none; border-radius: 6px;
+             background: #E64833; color: white; cursor: pointer; font-weight: 600; }
+    button:hover { background: #c23a26; }
+    .label { font-size: 0.75rem; color: #888; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h1>DeViz Logo Exporter</h1>
+  <p>Canvases below are rendered at 2× for crisp exports. Click any Download button to save as PNG.</p>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const ICON_SVG = `<svg width="256" height="256" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="t" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E64833"/><stop offset="100%" stop-color="#B82C1A"/>
+    </linearGradient>
+    <linearGradient id="l" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B82C1A"/><stop offset="100%" stop-color="#8B1F12"/>
+    </linearGradient>
+    <linearGradient id="r" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A6221A"/><stop offset="100%" stop-color="#6B1710"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 18 L22 12 L32 18 L22 24 Z" fill="url(#t)"/>
+  <path d="M12 18 L22 24 L22 34 L12 28 Z" fill="url(#l)"/>
+  <path d="M22 24 L32 18 L32 28 L22 34 Z" fill="url(#r)"/>
+  <path d="M12 18 L22 12 L32 18 M22 12 L22 24 M12 18 L12 28 M32 18 L32 28 M22 24 L22 34 M12 28 L22 34 L32 28"
+        stroke="rgba(0,0,0,0.2)" stroke-width="1" stroke-linejoin="round" fill="none"/>
+</svg>`;
+
+    const WORDMARK_SVG = `<svg width="576" height="144" viewBox="0 0 144 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="t2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E64833"/><stop offset="100%" stop-color="#B82C1A"/>
+    </linearGradient>
+    <linearGradient id="l2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B82C1A"/><stop offset="100%" stop-color="#8B1F12"/>
+    </linearGradient>
+    <linearGradient id="r2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A6221A"/><stop offset="100%" stop-color="#6B1710"/>
+    </linearGradient>
+  </defs>
+  <path d="M12 18 L22 12 L32 18 L22 24 Z" fill="url(#t2)"/>
+  <path d="M12 18 L22 24 L22 34 L12 28 Z" fill="url(#l2)"/>
+  <path d="M22 24 L32 18 L32 28 L22 34 Z" fill="url(#r2)"/>
+  <path d="M12 18 L22 12 L32 18 M22 12 L22 24 M12 18 L12 28 M32 18 L32 28 M22 24 L22 34 M12 28 L22 34 L32 28"
+        stroke="rgba(0,0,0,0.2)" stroke-width="1" stroke-linejoin="round" fill="none"/>
+  <text x="54" y="31" font-family="Inter,system-ui,-apple-system,sans-serif"
+        font-size="23" font-weight="800" letter-spacing="-0.69">
+    <tspan fill="#244855">De</tspan><tspan fill="#E64833">Viz</tspan>
+  </text>
+</svg>`;
+
+    const WORDMARK_DARK_SVG = WORDMARK_SVG.replace('fill="#244855"', 'fill="#FBE9D0"');
+
+    const exports = [
+      { label: 'Icon — 512×512 (light bg)',  svg: ICON_SVG,          w: 512, h: 512,  bg: '#ffffff', file: 'deviz-icon-512.png' },
+      { label: 'Icon — 512×512 (dark bg)',   svg: ICON_SVG,          w: 512, h: 512,  bg: '#244855', file: 'deviz-icon-512-dark.png' },
+      { label: 'Icon — 192×192 (light bg)',  svg: ICON_SVG,          w: 192, h: 192,  bg: '#ffffff', file: 'deviz-icon-192.png' },
+      { label: 'Wordmark — light bg',        svg: WORDMARK_SVG,      w: 576, h: 144, bg: '#ffffff', file: 'deviz-wordmark-light.png' },
+      { label: 'Wordmark — dark bg',         svg: WORDMARK_DARK_SVG, w: 576, h: 144, bg: '#244855', file: 'deviz-wordmark-dark.png' },
+      { label: 'Wordmark — transparent',     svg: WORDMARK_SVG,      w: 576, h: 144, bg: null,      file: 'deviz-wordmark-transparent.png' },
+    ];
+
+    function renderCard(item) {
+      const card = document.createElement('div');
+      card.className = 'card' + (item.bg === '#244855' ? ' dark' : '');
+
+      const lbl = document.createElement('div');
+      lbl.className = 'label';
+      lbl.textContent = item.label;
+      card.appendChild(lbl);
+
+      const canvas = document.createElement('canvas');
+      canvas.width  = item.w;
+      canvas.height = item.h;
+      canvas.style.width  = (item.w / 2) + 'px';
+      canvas.style.height = (item.h / 2) + 'px';
+      card.appendChild(canvas);
+
+      const btn = document.createElement('button');
+      btn.textContent = 'Download PNG';
+      card.appendChild(btn);
+
+      document.getElementById('grid').appendChild(card);
+
+      const ctx = canvas.getContext('2d');
+      if (item.bg) {
+        ctx.fillStyle = item.bg;
+        ctx.fillRect(0, 0, item.w, item.h);
+      }
+
+      const img = new Image();
+      const blob = new Blob([item.svg], { type: 'image/svg+xml' });
+      const url  = URL.createObjectURL(blob);
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, item.w, item.h);
+        URL.revokeObjectURL(url);
+        btn.onclick = () => {
+          canvas.toBlob(b => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(b);
+            a.download = item.file;
+            a.click();
+          });
+        };
+      };
+      img.src = url;
+    }
+
+    exports.forEach(renderCard);
+  </script>
+</body>
+</html>

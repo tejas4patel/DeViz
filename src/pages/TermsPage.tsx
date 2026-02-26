@@ -156,10 +156,10 @@ export default function TermsPage() {
 
             <Section id="service" n={2} title="Description of Service">
               <p>
-                DeViz is an AI-powered platform that transforms documents — including PDFs, Word files, PowerPoint presentations, and spreadsheets — into interactive visual stories, dashboards, and narratives designed for comprehension and engagement.
+                DeViz is an agentic workflow-powered platform that transforms documents — including PDFs, Word files, PowerPoint presentations, and spreadsheets — into interactive visual stories, dashboards, and narratives designed for comprehension and engagement.
               </p>
               <p>
-                The Service includes document upload and processing, AI-driven insight extraction, visualization generation, export capabilities, and collaboration tools. Features available to you depend on your subscription plan.
+                The Service includes document upload and processing, agentic workflow-driven insight extraction, visualization generation, export capabilities, and collaboration tools. Features available to you depend on your subscription plan.
               </p>
               <p>
                 We reserve the right to modify, suspend, or discontinue any aspect of the Service at any time, with reasonable notice where practicable.

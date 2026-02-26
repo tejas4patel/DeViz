@@ -1,0 +1,212 @@
+/* ── YouTubeCard ──────────────────────────────────────────────────────────── */
+
+.yt-card {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+
+  /* Dark base so there's never a flash of white/gray while the thumb loads */
+  background: #0b1220;
+
+  /* Subtle glass edge */
+  border: 1px solid rgba(255, 255, 255, 0.10);
+
+  /* Three-layer shadow for depth */
+  box-shadow:
+    0 2px 4px  rgba(0, 0, 0, 0.30),
+    0 8px 24px rgba(0, 0, 0, 0.40),
+    0 24px 64px rgba(11, 18, 32, 0.55);
+}
+
+/* ── Poster (click-to-play state) ─────────────────────────────────────────── */
+
+.yt-card__poster {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  outline: none;   /* suppress default; we handle focus-visible ourselves */
+}
+
+/* ── Thumbnail ────────────────────────────────────────────────────────────── */
+
+.yt-card__thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* scale(1.06) ensures all letterbox bars (sddefault/hqdefault are 4:3)
+     are pushed out of view by the overflow:hidden on the container */
+  transform: scale(1.06);
+  transition: transform 0.50s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.yt-card__poster:hover .yt-card__thumb {
+  transform: scale(1.10);
+}
+
+/* ── Cinematic vignette + bottom gradient ─────────────────────────────────── */
+
+.yt-card__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    /* bottom-to-top gradient — keeps chip & label legible */
+    linear-gradient(
+      to bottom,
+      rgba(11, 18, 32, 0.00) 25%,
+      rgba(11, 18, 32, 0.55) 78%,
+      rgba(11, 18, 32, 0.80) 100%
+    ),
+    /* edge vignette — cinematic, draws eye to centre */
+    radial-gradient(
+      ellipse at 50% 40%,
+      transparent 38%,
+      rgba(11, 18, 32, 0.52) 100%
+    );
+  transition: opacity 0.30s ease;
+}
+
+.yt-card__poster:hover .yt-card__vignette {
+  opacity: 0.88;
+}
+
+/* ── Top-left branded chip ────────────────────────────────────────────────── */
+
+.yt-card__chip {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 9px;
+  border-radius: 999px;
+
+  /* Frosted glass pill */
+  background: rgba(11, 18, 32, 0.52);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.70rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(251, 233, 208, 0.92);   /* --text-inverse */
+
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Live coral dot — signals this is a demo, not static */
+.yt-card__chip-dot {
+  display: block;
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #E64833;                /* --brand-secondary */
+  box-shadow: 0 0 7px rgba(230, 72, 51, 0.85);
+}
+
+/* ── Play button ──────────────────────────────────────────────────────────── */
+
+.yt-card__play-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.yt-card__play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+
+  /* Coral gradient — high contrast against the dark poster */
+  background: linear-gradient(145deg, #f05a42 0%, #E64833 55%, #c73820 100%);
+
+  /* Ring + coral glow + depth shadow */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 0 28px rgba(230, 72, 51, 0.45),
+    0 8px 24px rgba(0, 0, 0, 0.50);
+
+  color: #fff;
+
+  transition:
+    transform  0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.yt-card__poster:hover .yt-card__play-btn {
+  transform: scale(1.14);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.24),
+    0 0 40px rgba(230, 72, 51, 0.65),
+    0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* Keyboard focus — teal ring matches brand accent */
+.yt-card__poster:focus-visible .yt-card__play-btn {
+  box-shadow:
+    0 0 0 3px #90AEAD,
+    0 0 0 5px rgba(144, 174, 173, 0.25),
+    0 0 32px rgba(230, 72, 51, 0.50),
+    0 8px 24px rgba(0, 0, 0, 0.50);
+}
+
+.yt-card__play-icon {
+  width: 30px;
+  height: 30px;
+  /* Nudge right so the triangle looks optically centred */
+  transform: translateX(2px);
+}
+
+/* ── Bottom-left title label ──────────────────────────────────────────────── */
+
+.yt-card__label {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.775rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  color: rgba(251, 233, 208, 0.88);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.70);
+
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Live iframe (after click) ────────────────────────────────────────────── */
+
+.yt-card__iframe {
+  position: absolute;
+  /* -1px inset hides subpixel-gap black edges the browser can render
+     at the iframe boundary; the container's overflow:hidden clips it */
+  inset: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  border: none;
+  display: block;
+}

@@ -2,7 +2,7 @@
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
   background: var(--bg-app);
 }
 
@@ -18,14 +18,13 @@
 
 .layout-content {
   flex: 1;
-  min-height: 0;
-  overflow: auto;
 }
 
-/* deckShell inside the layout: fill the content area instead of 100vh */
+/* deckShell inside the layout: fixed viewport height minus the nav bar */
 .layout-content > .deckShell,
 .layout-content .demo-page .deckShell {
-  height: 100%;
+  height: calc(100vh - 64px);
+  overflow: hidden;
 }
 
 .layout-footer {

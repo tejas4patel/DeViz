@@ -386,7 +386,7 @@ export default function PrivacyPage() {
                     privacy@deviz.io
                   </a>
                 </p>
-                <p className="text-sm mt-1">San Francisco, CA, USA</p>
+                <p className="text-sm mt-1">Atlanta, GA, USA</p>
                 <p className="text-sm mt-3 text-slate-500">
                   You may also submit a request via our{' '}
                   <Link to="/contact" className="underline" style={{ color: S }}>contact page</Link>.

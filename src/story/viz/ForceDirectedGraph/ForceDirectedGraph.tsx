@@ -250,15 +250,15 @@ export default function ForceDirectedGraph({
         const offset = 15;
         const margin = 10;
 
-        let popoverLeft = event.pageX - containerRect.left + offset;
-        let popoverTop = event.pageY - containerRect.top + offset;
+        let popoverLeft = event.clientX - containerRect.left + offset;
+        let popoverTop = event.clientY - containerRect.top + offset;
 
         // Adjust if goes off screen
         if (popoverLeft + popoverRect.width > containerRect.width - margin) {
-          popoverLeft = event.pageX - containerRect.left - popoverRect.width - offset;
+          popoverLeft = event.clientX - containerRect.left - popoverRect.width - offset;
         }
         if (popoverTop + popoverRect.height > containerRect.height - margin) {
-          popoverTop = event.pageY - containerRect.top - popoverRect.height - offset;
+          popoverTop = event.clientY - containerRect.top - popoverRect.height - offset;
         }
         if (popoverLeft < margin) popoverLeft = margin;
         if (popoverTop < margin) popoverTop = margin;
@@ -290,14 +290,14 @@ export default function ForceDirectedGraph({
         const offset = 15;
         const margin = 10;
 
-        let popoverLeft = event.pageX - containerRect.left + offset;
-        let popoverTop = event.pageY - containerRect.top + offset;
+        let popoverLeft = event.clientX - containerRect.left + offset;
+        let popoverTop = event.clientY - containerRect.top + offset;
 
         if (popoverLeft + popoverRect.width > containerRect.width - margin) {
-          popoverLeft = event.pageX - containerRect.left - popoverRect.width - offset;
+          popoverLeft = event.clientX - containerRect.left - popoverRect.width - offset;
         }
         if (popoverTop + popoverRect.height > containerRect.height - margin) {
-          popoverTop = event.pageY - containerRect.top - popoverRect.height - offset;
+          popoverTop = event.clientY - containerRect.top - popoverRect.height - offset;
         }
         if (popoverLeft < margin) popoverLeft = margin;
         if (popoverTop < margin) popoverTop = margin;
@@ -437,14 +437,14 @@ export default function ForceDirectedGraph({
         const offset = 15;
         const margin = 10;
 
-        let tooltipLeft = evt.pageX - containerRect.left + offset;
-        let tooltipTop = evt.pageY - containerRect.top + offset;
+        let tooltipLeft = evt.clientX - containerRect.left + offset;
+        let tooltipTop = evt.clientY - containerRect.top + offset;
 
         if (tooltipLeft + tooltipRect.width > containerRect.width - margin) {
-          tooltipLeft = evt.pageX - containerRect.left - tooltipRect.width - offset;
+          tooltipLeft = evt.clientX - containerRect.left - tooltipRect.width - offset;
         }
         if (tooltipTop + tooltipRect.height > containerRect.height - margin) {
-          tooltipTop = evt.pageY - containerRect.top - tooltipRect.height - offset;
+          tooltipTop = evt.clientY - containerRect.top - tooltipRect.height - offset;
         }
         if (tooltipLeft < margin) tooltipLeft = margin;
         if (tooltipTop < margin) tooltipTop = margin;
@@ -551,46 +551,57 @@ export default function ForceDirectedGraph({
           `;
           popover.style.display = 'block';
 
-          const svgElement = svgRef.current;
           const containerElement = ref.current;
-          if (svgElement && containerElement && nodeData.x !== undefined && nodeData.y !== undefined) {
-            const svgRect = svgElement.getBoundingClientRect();
+          if (containerElement) {
             const containerRect = containerElement.getBoundingClientRect();
-            const viewBox = svgElement.getAttribute('viewBox')?.split(' ').map(Number) || [0, 0, width, height];
-            const scaleX = svgRect.width / viewBox[2];
-            const scaleY = svgRect.height / viewBox[3];
-
-            const transform = enableZoom ? d3.zoomTransform(svgElement) : d3.zoomIdentity;
-            const transformedX = transform.applyX(nodeData.x);
-            const transformedY = transform.applyY(nodeData.y);
-
-            const nodeX = svgRect.left - containerRect.left + transformedX * scaleX;
-            const nodeY = svgRect.top - containerRect.top + transformedY * scaleY;
-
             const popoverRect = popover.getBoundingClientRect();
-            const nodeConfig = nodeGroupConfigs[nodeData.group];
-            const nodeRadiusScreen = nodeConfig ? nodeConfig.radius * scaleX * transform.k : 32;
+            const offset = 15;
+            const margin = 10;
 
-            const margin = 15;
-            const offset = 10;
-            let popoverLeft = nodeX + nodeRadiusScreen + offset;
-            let popoverTop = nodeY - popoverRect.height / 2;
+            let popoverLeft = event.clientX - containerRect.left + offset;
+            let popoverTop = event.clientY - containerRect.top + offset;
 
+            // Adjust if goes off screen
             if (popoverLeft + popoverRect.width > containerRect.width - margin) {
-              popoverLeft = nodeX - nodeRadiusScreen - popoverRect.width - offset;
+              popoverLeft = event.clientX - containerRect.left - popoverRect.width - offset;
+            }
+            if (popoverTop + popoverRect.height > containerRect.height - margin) {
+              popoverTop = event.clientY - containerRect.top - popoverRect.height - offset;
             }
             if (popoverLeft < margin) popoverLeft = margin;
-            if (popoverLeft + popoverRect.width > containerRect.width - margin) {
-              popoverLeft = Math.max(margin, containerRect.width - popoverRect.width - margin);
-            }
             if (popoverTop < margin) popoverTop = margin;
-            if (popoverTop + popoverRect.height > containerRect.height - margin) {
-              popoverTop = Math.max(margin, containerRect.height - popoverRect.height - margin);
-            }
 
             popover.style.left = popoverLeft + 'px';
             popover.style.top = popoverTop + 'px';
           }
+        }
+      })
+      .on('mousemove', function (event, d) {
+        const popover = popoverRef.current;
+        const containerElement = ref.current;
+        const nodeData = d as SimNode;
+        
+        if (popover && nodeData.detail && containerElement) {
+          const containerRect = containerElement.getBoundingClientRect();
+          const popoverRect = popover.getBoundingClientRect();
+          const offset = 15;
+          const margin = 10;
+
+          let popoverLeft = event.clientX - containerRect.left + offset;
+          let popoverTop = event.clientY - containerRect.top + offset;
+
+          // Adjust if goes off screen
+          if (popoverLeft + popoverRect.width > containerRect.width - margin) {
+            popoverLeft = event.clientX - containerRect.left - popoverRect.width - offset;
+          }
+          if (popoverTop + popoverRect.height > containerRect.height - margin) {
+            popoverTop = event.clientY - containerRect.top - popoverRect.height - offset;
+          }
+          if (popoverLeft < margin) popoverLeft = margin;
+          if (popoverTop < margin) popoverTop = margin;
+
+          popover.style.left = popoverLeft + 'px';
+          popover.style.top = popoverTop + 'px';
         }
       })
       .on('mouseleave', function (_, d) {
@@ -741,7 +752,7 @@ export default function ForceDirectedGraph({
     : 'force-directed-graph__tooltip';
 
   return (
-    <div ref={ref} className="force-directed-graph">
+    <div ref={ref} className="force-directed-graph" style={{ minHeight }}>
       <svg ref={svgRef} width="100%" height="100%" className="force-directed-graph__svg" />
       <div ref={popoverRef} className={popoverClass} />
       <div ref={linkPopoverRef} className="force-directed-graph__link-popover" />

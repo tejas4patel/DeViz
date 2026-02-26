@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Brain, Smartphone, Cpu, Zap } from 'lucide-react';
+import { Brain, Smartphone, Cpu, Zap, MoveRight } from 'lucide-react';
 
 export default function ProblemPage() {
   return (
@@ -8,7 +8,7 @@ export default function ProblemPage() {
       {/* ── Hero ── */}
       <section className="prob-hero">
         <div className="container">
-          <div className="prob-hero-eyebrow">Cognitive Load Theory × Attention Economy × AI Retrieval</div>
+          <div className="prob-hero-eyebrow">Cognitive Load Theory × Attention Economy × Agentic Workflow Retrieval</div>
           <blockquote className="prob-hero-quote">
             <span className="prob-quote-mark">"</span>
             <span className="prob-quote-text">
@@ -18,32 +18,10 @@ export default function ProblemPage() {
             <span className="prob-quote-mark close">"</span>
           </blockquote>
           <p className="prob-hero-sub">
-            As AI systems increasingly mediate how knowledge is discovered, interpreted, and synthesized,
+            As agentic workflow systems increasingly mediate how knowledge is discovered, interpreted, and synthesized,
             structure is no longer optional. Three forces — cognitive, motivational, and computational —
             determine which ideas travel, which endure, and which quietly fade.
           </p>
-        </div>
-      </section>
-
-      {/* ── Stats ── */}
-      <section className="prob-stats-section">
-        <div className="container">
-          <div className="prob-stats-row">
-            <div className="prob-stat">
-              <div className="prob-stat-num">80%</div>
-              <div className="prob-stat-label">of complex reports never read past the executive summary</div>
-            </div>
-            <div className="prob-stat-divider" />
-            <div className="prob-stat">
-              <div className="prob-stat-num">3–7</div>
-              <div className="prob-stat-label">cognitive elements working memory can hold simultaneously (Sweller, 1988)</div>
-            </div>
-            <div className="prob-stat-divider" />
-            <div className="prob-stat">
-              <div className="prob-stat-num">∞</div>
-              <div className="prob-stat-label">content produced annually — with zero corresponding increase in human processing capacity</div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -126,19 +104,19 @@ export default function ProblemPage() {
                 <div className="force-card-icon"><Cpu size={32} color="#244855" strokeWidth={2} /></div>
                 <h3>Algorithmic Invisibility</h3>
                 <p className="force-card-intro">
-                  Poorly structured content produces weak embeddings in AI systems — becoming invisible
+                  Poorly structured content produces weak embeddings in agentic workflow systems — becoming invisible
                   to the retrieval mechanisms now mediating discovery.
                 </p>
                 <div className="force-card-detail">
                   <p>
-                    In AI-mediated discovery — especially RAG (Retrieval-Augmented Generation) systems —
+                    In agentic workflow-mediated discovery — especially RAG (Retrieval-Augmented Generation) systems —
                     structural quality directly influences algorithmic performance. Embedding models perform
                     better on content with clear logical segmentation, stable terminology, and rich metadata.
                   </p>
                   <p>
                     Poorly engineered content produces ambiguous embeddings and weak semantic anchors,
                     increasing the risk of incorrect retrieval or hallucinated summaries — directly
-                    undermining the trustworthiness of any AI knowledge system built on that content.
+                    undermining the trustworthiness of any agentic workflow knowledge system built on that content.
                   </p>
                 </div>
                 <div className="force-insight">
@@ -185,7 +163,7 @@ export default function ProblemPage() {
                 </div>
                 <div className="dgv-result success">Comprehension ✓</div>
               </div>
-              <div className="domain-gap-arrow">→</div>
+              <div className="domain-gap-arrow"><MoveRight size={26} strokeWidth={1.75} /></div>
               <div className="domain-gap-card novice">
                 <div className="dgv-label">Novice Reader — same document</div>
                 <div className="dgv-schema">

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Props = {
   activeIdx: number;
@@ -53,10 +54,10 @@ export default function DeckControls(props: Props) {
             First
           </button>
           <button className="btn" disabled={!canPrev} onClick={onPrev}>
-            Prev
+            <ChevronLeft size={20} strokeWidth={2} />
           </button>
           <button className="btn" disabled={!canNext} onClick={onNext}>
-            Next
+            <ChevronRight size={20} strokeWidth={2} />
           </button>
           <button className="btn" disabled={!canNext} onClick={onLast}>
             Last

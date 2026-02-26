@@ -4,6 +4,7 @@ import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 
 export default defineConfig({
+  base: '/deviz/',
   plugins: [react()],
   server: { port: 5173 },
   css: {

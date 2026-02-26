@@ -8,7 +8,7 @@ import './tailwind.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/deviz">
       <App />
     </BrowserRouter>
   </React.StrictMode>,

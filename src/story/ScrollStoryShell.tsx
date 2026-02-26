@@ -230,7 +230,7 @@ export default function ScrollStoryShell() {
             {viewMode === 'source' ? (
               <div style={{ width: '100%', height: '70vh', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
                 <iframe 
-                  src="nihms-2127800.pdf"
+                  src={`${import.meta.env.BASE_URL}nihms-2127800.pdf`}
                   style={{ width: '100%', height: '100%', border: 'none' }}
                   title="Source Document"
                 />

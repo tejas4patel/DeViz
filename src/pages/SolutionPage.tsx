@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { MoveRight } from 'lucide-react';
 
 export default function SolutionPage() {
   return (
@@ -18,7 +19,7 @@ export default function SolutionPage() {
           </p>
           <p className="sol-hero-sub">
             DeViz applies five engineering practices — grounded in cognitive science, behavioral economics,
-            and AI retrieval architecture — to transform raw documents into structured knowledge that survives
+            and agentic workflow retrieval architecture — to transform raw documents into structured knowledge that survives
             the three forces working against it.
           </p>
         </div>
@@ -32,7 +33,7 @@ export default function SolutionPage() {
           <p className="section-intro-text">
             Content engineering is structural neuro-design — the intentional alignment of content with
             how minds and attention systems work. It operates at the intersection of human cognition,
-            behavioral reinforcement systems, and AI retrieval architectures.
+            behavioral reinforcement systems, and agentic workflow retrieval architectures.
           </p>
           <div className="sol-concept-grid">
             <div className="sol-concept-card is">
@@ -41,7 +42,7 @@ export default function SolutionPage() {
                 <li className="sol-concept-item yes">Structural design of knowledge artifacts</li>
                 <li className="sol-concept-item yes">Alignment with cognitive architecture and memory limits</li>
                 <li className="sol-concept-item yes">Progressive complexity sequencing for any audience</li>
-                <li className="sol-concept-item yes">Semantic infrastructure for AI retrieval and RAG systems</li>
+                <li className="sol-concept-item yes">Semantic infrastructure for agentic workflow retrieval and RAG systems</li>
                 <li className="sol-concept-item yes">Attention-aware engagement design that counters dopamine loops</li>
                 <li className="sol-concept-item yes">Terminology control for consistency, precision, and embedding quality</li>
               </ul>
@@ -68,7 +69,7 @@ export default function SolutionPage() {
           <h2>Five Engineering Practices</h2>
           <p className="section-intro-text">
             These practices reduce extraneous cognitive load, increase early value perception, and create
-            structural pathways that support sustained engagement — for both human readers and AI retrieval systems.
+            structural pathways that support sustained engagement — for both human readers and agentic workflow retrieval systems.
           </p>
 
           <div className="practice-list">
@@ -98,7 +99,7 @@ export default function SolutionPage() {
                   Introduce key terms once and use them consistently throughout. Avoid semantic drift where
                   multiple near-synonyms inflate processing costs. Uncontrolled terminology forces readers
                   to mentally map equivalences — burning working memory that should be spent on comprehension.
-                  Controlled vocabulary also directly improves AI embedding precision by creating stable
+                  Controlled vocabulary also directly improves agentic workflow embedding precision by creating stable
                   semantic anchors in the vector space, reducing retrieval ambiguity and the risk of
                   hallucinated or misattributed summaries.
                 </p>
@@ -141,13 +142,13 @@ export default function SolutionPage() {
               <div className="practice-num">05</div>
               <div className="practice-content">
                 <span className="practice-tag">Retrieval</span>
-                <h3>Semantic Encoding for AI Retrieval</h3>
+                <h3>Semantic Encoding for Agentic Workflow Retrieval</h3>
                 <p>
                   Use clear headings, logical categories, and rich metadata. This makes content more
-                  discoverable both for humans scanning and for AI retrieval systems. In RAG architectures,
+                  discoverable both for humans scanning and for agentic workflow retrieval systems. In RAG architectures,
                   content with strong semantic encoding produces high-quality embeddings with minimal
-                  ambiguity — the difference between an AI system that reliably surfaces the right passage
-                  and one that hallucinates context. Content engineering is infrastructure for trustworthy AI:
+                  ambiguity — the difference between an agentic workflow system that reliably surfaces the right passage
+                  and one that hallucinates context. Content engineering is infrastructure for trustworthy agentic workflow:
                   reducing noise in vector spaces and strengthening signal for accurate contextual retrieval.
                 </p>
               </div>
@@ -157,15 +158,15 @@ export default function SolutionPage() {
         </div>
       </section>
 
-      {/* ── AI / RAG ── */}
+      {/* ── Agentic Workflow / RAG ── */}
       <section className="content-section">
         <div className="container">
-          <div className="section-label">AI &amp; Retrieval</div>
-          <h2 className="rag-section-title">Content Engineering as AI Infrastructure</h2>
+          <div className="section-label">Agentic Workflow &amp; Retrieval</div>
+          <h2 className="rag-section-title">Content Engineering as Agentic Workflow Infrastructure</h2>
           <p className="rag-intro">
-            In AI-mediated discovery — especially Retrieval-Augmented Generation (RAG) systems —
+            In agentic workflow-mediated discovery — especially Retrieval-Augmented Generation (RAG) systems —
             the structural quality of content directly influences algorithmic performance.
-            Well-engineered content is infrastructure for trustworthy AI, not just easier reading.
+            Well-engineered content is infrastructure for trustworthy agentic workflow, not just easier reading.
           </p>
           <div className="rag-grid">
             <div className="rag-card">
@@ -186,14 +187,14 @@ export default function SolutionPage() {
               <h4>Rich Metadata</h4>
               <p>
                 Structured headings, categories, and labels provide retrieval signals that guide
-                AI systems toward the correct passages under semantically complex queries.
+                agentic workflow systems toward the correct passages under semantically complex queries.
               </p>
             </div>
           </div>
           <div className="rag-warning">
             <strong>Without content engineering:</strong> Poorly structured content produces ambiguous embeddings
             and weak semantic anchors, increasing the risk of incorrect retrieval or hallucinated summaries —
-            directly undermining the trustworthiness of any AI knowledge system built on that content.
+            directly undermining the trustworthiness of any agentic workflow knowledge system built on that content.
           </div>
         </div>
       </section>
@@ -214,7 +215,7 @@ export default function SolutionPage() {
                 <div className="resolution-force-label">Cognitive Constraints</div>
                 <div className="resolution-force">Fixed working memory limits comprehension of dense, unstructured content</div>
               </div>
-              <div className="resolution-arrow">→</div>
+              <div className="resolution-arrow"><MoveRight size={26} strokeWidth={1.75} /></div>
               <div className="resolution-solution">
                 <strong>Structural Modeling + Density Calibration</strong>
                 Reduces extraneous cognitive load by organizing content to match how the brain builds
@@ -227,7 +228,7 @@ export default function SolutionPage() {
                 <div className="resolution-force-label">Motivational Constraints</div>
                 <div className="resolution-force">Dopamine-driven attention economies favor instant, low-cost stimuli over deep content</div>
               </div>
-              <div className="resolution-arrow">→</div>
+              <div className="resolution-arrow"><MoveRight size={26} strokeWidth={1.75} /></div>
               <div className="resolution-solution">
                 <strong>Layered Disclosure + Early Value Design</strong>
                 Provides immediate cognitive payoffs at each scene to counter abandonment, while
@@ -238,13 +239,13 @@ export default function SolutionPage() {
             <div className="resolution-item">
               <div>
                 <div className="resolution-force-label">Computational Constraints</div>
-                <div className="resolution-force">AI retrieval requires structural clarity for accurate embedding and contextual recall</div>
+                <div className="resolution-force">Agentic workflow retrieval requires structural clarity for accurate embedding and contextual recall</div>
               </div>
-              <div className="resolution-arrow">→</div>
+              <div className="resolution-arrow"><MoveRight size={26} strokeWidth={1.75} /></div>
               <div className="resolution-solution">
                 <strong>Semantic Encoding + Terminology Control</strong>
                 Creates stable, high-precision vector representations that power reliable retrieval
-                and prevent hallucination in AI-mediated knowledge systems.
+                and prevent hallucination in agentic workflow-mediated knowledge systems.
               </div>
             </div>
 

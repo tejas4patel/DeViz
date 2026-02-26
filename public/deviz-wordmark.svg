@@ -1,0 +1,27 @@
+<svg width="144" height="44" viewBox="0 0 144 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="DeViz">
+  <defs>
+    <linearGradient id="dvz-top" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E64833"/>
+      <stop offset="100%" stop-color="#B82C1A"/>
+    </linearGradient>
+    <linearGradient id="dvz-left" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B82C1A"/>
+      <stop offset="100%" stop-color="#8B1F12"/>
+    </linearGradient>
+    <linearGradient id="dvz-right" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A6221A"/>
+      <stop offset="100%" stop-color="#6B1710"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon -->
+  <path d="M12 18 L22 12 L32 18 L22 24 Z" fill="url(#dvz-top)"/>
+  <path d="M12 18 L22 24 L22 34 L12 28 Z" fill="url(#dvz-left)"/>
+  <path d="M22 24 L32 18 L32 28 L22 34 Z" fill="url(#dvz-right)"/>
+  <path d="M12 18 L22 12 L32 18 M22 12 L22 24 M12 18 L12 28 M32 18 L32 28 M22 24 L22 34 M12 28 L22 34 L32 28"
+        stroke="rgba(0,0,0,0.2)" stroke-width="1" stroke-linejoin="round" fill="none"/>
+  <!-- Wordmark -->
+  <text x="54" y="31" font-family="Inter, system-ui, -apple-system, sans-serif"
+        font-size="23" font-weight="800" letter-spacing="-0.69">
+    <tspan fill="#244855">De</tspan><tspan fill="#E64833">Viz</tspan>
+  </text>
+</svg>

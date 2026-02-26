@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { story } from './storyData';
 import SceneRenderer from './SceneRenderer';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function StoryShell() {
   const scenes = story.scenes;
@@ -50,14 +51,14 @@ export default function StoryShell() {
               disabled={!canPrev}
               onClick={() => setIdx(v => Math.max(0, v - 1))}
             >
-              Prev
+              <ChevronLeft size={20} strokeWidth={2} />
             </button>
             <button
               className="btn"
               disabled={!canNext}
               onClick={() => setIdx(v => Math.min(scenes.length - 1, v + 1))}
             >
-              Next
+              <ChevronRight size={20} strokeWidth={2} />
             </button>
           </div>
         </div>

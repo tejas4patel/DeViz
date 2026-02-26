@@ -1,18 +1,16 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { DeVizLogo } from '../../story/components/DeVizLogo';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const location = useLocation();
   const navigate = useNavigate();
-  const from = (location.state as { from?: Location })?.from?.pathname ?? '/dashboard';
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: wire up real authentication
-    navigate(from, { replace: true });
+    localStorage.setItem('demo-auth', 'true');
+    navigate('/dashboard/upload', { replace: true });
   }
 
   return (
@@ -37,7 +35,10 @@ export default function LoginPage() {
             />
           </div>
           <div className="form-field">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              Password
+              <Link to="/forgot-password" className="auth-field-link">Forgot password?</Link>
+            </label>
             <input
               id="password"
               type="password"

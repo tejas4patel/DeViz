@@ -2,7 +2,7 @@ import type { Story } from './storyTypes';
 
 export const story: Story = {
   title: 'DeViz Data Story',
-  subtitle: 'Interactive Health Center Data Visualization',
+  subtitle: '',
   scenes: [
     {
       id: 'scene00_cognitive_map',
