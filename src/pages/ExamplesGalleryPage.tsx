@@ -4,11 +4,7 @@
 
 import { Link } from 'react-router-dom';
 import { MoveRight } from 'lucide-react';
-
-const P = '#244855';
-const S = '#E64833';
-const A = '#90AEAD';
-const C = '#FBE9D0';
+import { BRAND_PRIMARY as P, BRAND_SECONDARY as S, BRAND_ACCENT as A, BRAND_CREAM as C } from '../constants/colors';
 
 // ── Mini Viz Previews (SVG) ────────────────────────────────────────────────
 
@@ -255,10 +251,8 @@ export default function ExamplesGalleryPage() {
             <Link
               key={example.id}
               to="/story/demo-job-001"
-              className="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden flex flex-col transition-shadow duration-200 no-underline"
+              className="example-gallery-card bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden flex flex-col no-underline"
               style={{ color: 'inherit' }}
-              onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 20px 40px -12px rgba(0,0,0,0.12)')}
-              onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.boxShadow = '')}
             >
               {/* Viz preview area */}
               <div className="p-6 pb-0">

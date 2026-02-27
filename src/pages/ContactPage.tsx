@@ -5,11 +5,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MessageCircle, CreditCard, Settings, Users, CheckCircle, Mail, MessageSquare, MapPin, Loader2 } from 'lucide-react';
-
-const P = '#244855';
-const S = '#E64833';
-const A = '#90AEAD';
-const C = '#FBE9D0';
+import { BRAND_PRIMARY as P, BRAND_SECONDARY as S, BRAND_ACCENT as A, BRAND_CREAM as C } from '../constants/colors';
 
 interface FormData {
   name: string;

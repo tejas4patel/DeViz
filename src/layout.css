@@ -137,22 +137,93 @@
   border-color: var(--text-inverse);
 }
 
+/* Hamburger button — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-inverse);
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 0;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.nav-hamburger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile menu overlay backdrop */
+.nav-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 98;
+}
+
+/* Mobile dropdown menu */
+.nav-mobile-menu {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: var(--brand-primary);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.nav-mobile-menu .nav-link {
+  padding: 0.75rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+}
+
+.nav-mobile-menu .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-mobile-auth {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nav-mobile-auth .nav-button,
+.nav-mobile-auth .nav-link {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Mobile scroll fix: at ≤980px, #root locks to 100vh/overflow:hidden (for the deck viewer).
+   Make .layout-content the single scroll container for public pages. */
+@media (max-width: 980px) {
+  .layout {
+    height: 100vh;
+  }
+
+  .layout-content {
+    overflow-y: auto;
+    min-height: 0;
+  }
+}
+
 /* Responsive Navigation */
 @media (max-width: 768px) {
-  .nav-container {
-    padding: 0 1rem;
+  .nav-links,
+  .nav-auth {
+    display: none;
   }
 
-  .nav-links {
-    gap: 1rem;
-  }
-
-  .nav-link {
-    font-size: 0.9rem;
-  }
-
-  .nav-button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
+  .nav-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

@@ -5,12 +5,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Check, Plus } from 'lucide-react';
-
-// Brand palette constants
-const P = '#244855';   // brand primary (dark teal)
-const S = '#E64833';   // brand secondary (coral)
-const A = '#90AEAD';   // brand accent (muted teal)
-const C = '#FBE9D0';   // cream
+import { BRAND_PRIMARY as P, BRAND_SECONDARY as S, BRAND_ACCENT as A, BRAND_CREAM as C } from '../constants/colors';
 
 function CheckIcon({ color = S }: { color?: string }) {
   return (
@@ -176,7 +171,7 @@ export default function PricingPage() {
       </div>
 
       {/* ── Pricing Cards (overlap hero) ─────────────────────────────────── */}
-      <div className="relative -mt-20 container mx-auto px-6 pb-20">
+      <div className="relative -mt-20 container mx-auto px-4 sm:px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
           {/* Starter */}
@@ -205,30 +200,17 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <Link
-              to="/register"
-              className="block text-center py-3 px-6 rounded-xl border-2 font-semibold transition-all duration-200"
-              style={{ borderColor: P, color: P }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = P;
-                (e.currentTarget as HTMLAnchorElement).style.color = C;
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = '';
-                (e.currentTarget as HTMLAnchorElement).style.color = P;
-              }}
-            >
+            <Link to="/register" className="plan-card-cta">
               Start Free Trial
             </Link>
           </div>
 
           {/* Professional — featured */}
           <div
-            className="relative rounded-2xl p-8 flex flex-col"
+            className="relative rounded-2xl p-8 flex flex-col md:[transform:scale(1.03)]"
             style={{
               background: `linear-gradient(140deg, #2a5565 0%, ${P} 100%)`,
               boxShadow: `0 30px 60px -12px ${P}80`,
-              transform: 'scale(1.03)',
               zIndex: 10,
             }}
           >
@@ -300,19 +282,7 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
-            <Link
-              to="/contact"
-              className="block text-center py-3 px-6 rounded-xl border-2 font-semibold transition-all duration-200"
-              style={{ borderColor: P, color: P }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = P;
-                (e.currentTarget as HTMLAnchorElement).style.color = C;
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.background = '';
-                (e.currentTarget as HTMLAnchorElement).style.color = P;
-              }}
-            >
+            <Link to="/contact" className="plan-card-cta">
               Contact Sales
             </Link>
           </div>
@@ -322,7 +292,8 @@ export default function PricingPage() {
       {/* ── Comparison Table ──────────────────────────────────────────────── */}
       <div className="container mx-auto px-6 pb-20 max-w-5xl">
         <h2 className="text-3xl font-bold text-center mb-12" style={{ color: P }}>Compare Plans</h2>
-        <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+        <div className="overflow-x-auto rounded-2xl shadow-lg border border-slate-200">
+        <div className="bg-white overflow-hidden min-w-[560px]">
           {/* Header */}
           <div className="grid grid-cols-4" style={{ background: P }}>
             <div className="p-5 text-sm font-semibold text-white/70">Feature</div>
@@ -352,6 +323,7 @@ export default function PricingPage() {
               <div className="p-5 text-center text-sm text-slate-500">{row.enterprise}</div>
             </div>
           ))}
+        </div>
         </div>
       </div>
 

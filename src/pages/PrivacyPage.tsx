@@ -4,10 +4,7 @@
 
 import { Link } from 'react-router-dom';
 import { Mail, User, FileText, BarChart3, CreditCard, CheckCircle, Shield } from 'lucide-react';
-
-const P = '#244855';
-const S = '#E64833';
-const A = '#90AEAD';
+import { BRAND_PRIMARY as P, BRAND_SECONDARY as S, BRAND_ACCENT as A } from '../constants/colors';
 
 const sections = [
   { id: 'introduction',   title: 'Introduction' },

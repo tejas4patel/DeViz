@@ -960,21 +960,43 @@ a {
 
     height: 100vh;
 
-    display: block;
+    display: flex;
+
+    flex-direction: column;
+
+  }
+
+  .deckBody {
+
+    flex: 1;
+
+    min-height: 0;
+
+    display: flex;
+
+    flex-direction: column;
 
   }
 
   .deckStage {
 
-    height: 100%;
+    flex: 1;
+
+    min-height: 0;
 
     overflow: hidden;
 
-    display: block;
+    display: flex;
+
+    flex-direction: column;
 
   }
 
   .slideScrollBody {
+
+    flex: 1;
+
+    min-height: 0;
 
     overflow: hidden;
 
@@ -1000,6 +1022,12 @@ a {
 
     overflow: hidden;
 
+  }
+
+  /* Public pages: remove competing scroll containers so .layout-content can scroll */
+  .landing-page,
+  .page-content {
+    overflow: visible;
   }
 
 }
@@ -1804,8 +1832,14 @@ a {
   text-align: center;
 }
 
+/* Row that places a label and a secondary link side-by-side */
+.form-field-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .auth-field-link {
-  float: right;
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--brand-secondary);
@@ -3421,10 +3455,24 @@ a {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .video-stats {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  /* Prevent quote marks from overflowing on narrow screens */
+  .prob-quote-mark:first-child {
+    left: 0;
+  }
+
+  .prob-quote-mark.close {
+    right: 0;
+  }
+
+  /* Prevent steps grid from forcing horizontal scroll on very narrow screens */
+  .steps-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -3958,4 +4006,32 @@ a {
   .rag-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ===== PricingPage plan CTA buttons (replaces JS hover handlers) ===== */
+.plan-card-cta {
+  display: block;
+  text-align: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: 2px solid var(--brand-primary);
+  color: var(--brand-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.plan-card-cta:hover {
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+}
+
+/* ===== ExamplesGalleryPage card hover (replaces JS hover handlers) ===== */
+.example-gallery-card {
+  transition: box-shadow 0.2s ease;
+}
+
+.example-gallery-card:hover {
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
 }

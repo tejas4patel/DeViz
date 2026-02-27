@@ -5,6 +5,7 @@
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import { DeVizLogo } from '../story/components/DeVizLogo';
 import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
 type Props = {
   authenticated?: boolean;
@@ -47,91 +48,135 @@ export default function Layout({ authenticated = false }: Props) {
   );
 }
 
+const PUBLIC_NAV_LINKS = [
+  { to: '/', label: 'Home', exact: true },
+  { to: '/problem', label: 'Problem', exact: true },
+  { to: '/solution', label: 'Solution', exact: true },
+  { to: '/how-it-works', label: 'How It Works', exact: true },
+  { to: '/pricing', label: 'Pricing', exact: true },
+  { to: '/examples', label: 'Examples', exact: true },
+  { to: '/contact', label: 'Contact', exact: true },
+] as const;
+
+const DASHBOARD_NAV_LINKS = [
+  { to: '/dashboard', label: 'Dashboard', exact: true },
+  { to: '/dashboard/upload', label: 'Upload', exact: true },
+  { to: '/dashboard/runs', label: 'Runs', exact: false },
+  { to: '/dashboard/settings', label: 'Settings', exact: true },
+] as const;
+
+function isActive(linkTo: string, currentPath: string, exact: boolean) {
+  return exact ? currentPath === linkTo : currentPath.startsWith(linkTo);
+}
+
 function PublicNav({ currentPath }: { currentPath: string }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const close = () => setMenuOpen(false);
+
   return (
     <div className="nav-container">
-      <Link to="/" className="nav-brand">
+      <Link to="/" className="nav-brand" onClick={close}>
         <DeVizLogo size={28} variant="wordmark" onDark />
       </Link>
 
       <div className="nav-links">
-        <Link to="/" className={currentPath === '/' ? 'nav-link active' : 'nav-link'}>
-          Home
-        </Link>
-        <Link to="/problem" className={currentPath === '/problem' ? 'nav-link active' : 'nav-link'}>
-          Problem
-        </Link>
-        <Link to="/solution" className={currentPath === '/solution' ? 'nav-link active' : 'nav-link'}>
-          Solution
-        </Link>
-        <Link
-          to="/how-it-works"
-          className={currentPath === '/how-it-works' ? 'nav-link active' : 'nav-link'}
-        >
-          How It Works
-        </Link>
-        <Link to="/pricing" className={currentPath === '/pricing' ? 'nav-link active' : 'nav-link'}>
-          Pricing
-        </Link>
-        <Link
-          to="/examples"
-          className={currentPath === '/examples' ? 'nav-link active' : 'nav-link'}
-        >
-          Examples
-        </Link>
-        <Link to="/contact" className={currentPath === '/contact' ? 'nav-link active' : 'nav-link'}>
-          Contact
-        </Link>
+        {PUBLIC_NAV_LINKS.map(({ to, label, exact }) => (
+          <Link key={to} to={to} className={isActive(to, currentPath, exact) ? 'nav-link active' : 'nav-link'}>
+            {label}
+          </Link>
+        ))}
       </div>
 
       <div className="nav-auth">
-        <Link to="/login" className="nav-link">
-          Login
-        </Link>
-        <Link to="/register" className="nav-button primary">
-          Sign Up
-        </Link>
+        <Link to="/login" className="nav-link">Login</Link>
+        <Link to="/register" className="nav-button primary">Sign Up</Link>
       </div>
+
+      <button
+        className="nav-hamburger"
+        onClick={() => setMenuOpen(o => !o)}
+        aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+        aria-expanded={menuOpen}
+      >
+        {menuOpen ? <X size={22} strokeWidth={2} /> : <Menu size={22} strokeWidth={2} />}
+      </button>
+
+      {menuOpen && (
+        <>
+          <div className="nav-mobile-backdrop" onClick={close} aria-hidden="true" />
+          <div className="nav-mobile-menu">
+            {PUBLIC_NAV_LINKS.map(({ to, label, exact }) => (
+              <Link
+                key={to}
+                to={to}
+                className={isActive(to, currentPath, exact) ? 'nav-link active' : 'nav-link'}
+                onClick={close}
+              >
+                {label}
+              </Link>
+            ))}
+            <div className="nav-mobile-auth">
+              <Link to="/login" className="nav-link" onClick={close}>Login</Link>
+              <Link to="/register" className="nav-button primary" onClick={close}>Sign Up</Link>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
 function DashboardNav({ currentPath }: { currentPath: string }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const close = () => setMenuOpen(false);
+
   return (
     <div className="nav-container">
-      <Link to="/dashboard" className="nav-brand">
+      <Link to="/dashboard" className="nav-brand" onClick={close}>
         <DeVizLogo size={28} variant="wordmark" onDark />
       </Link>
 
       <div className="nav-links">
-        <Link to="/dashboard" className={currentPath === '/dashboard' ? 'nav-link active' : 'nav-link'}>
-          Dashboard
-        </Link>
-        <Link
-          to="/dashboard/upload"
-          className={currentPath === '/dashboard/upload' ? 'nav-link active' : 'nav-link'}
-        >
-          Upload
-        </Link>
-        <Link
-          to="/dashboard/runs"
-          className={currentPath.startsWith('/dashboard/runs') ? 'nav-link active' : 'nav-link'}
-        >
-          Runs
-        </Link>
-        <Link
-          to="/dashboard/settings"
-          className={currentPath === '/dashboard/settings' ? 'nav-link active' : 'nav-link'}
-        >
-          Settings
-        </Link>
+        {DASHBOARD_NAV_LINKS.map(({ to, label, exact }) => (
+          <Link key={to} to={to} className={isActive(to, currentPath, exact) ? 'nav-link active' : 'nav-link'}>
+            {label}
+          </Link>
+        ))}
       </div>
 
       <div className="nav-auth">
-        <Link to="/logout" className="nav-button secondary">
-          Sign Out
-        </Link>
+        <Link to="/logout" className="nav-button secondary">Sign Out</Link>
       </div>
+
+      <button
+        className="nav-hamburger"
+        onClick={() => setMenuOpen(o => !o)}
+        aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+        aria-expanded={menuOpen}
+      >
+        {menuOpen ? <X size={22} strokeWidth={2} /> : <Menu size={22} strokeWidth={2} />}
+      </button>
+
+      {menuOpen && (
+        <>
+          <div className="nav-mobile-backdrop" onClick={close} aria-hidden="true" />
+          <div className="nav-mobile-menu">
+            {DASHBOARD_NAV_LINKS.map(({ to, label, exact }) => (
+              <Link
+                key={to}
+                to={to}
+                className={isActive(to, currentPath, exact) ? 'nav-link active' : 'nav-link'}
+                onClick={close}
+              >
+                {label}
+              </Link>
+            ))}
+            <div className="nav-mobile-auth">
+              <Link to="/logout" className="nav-button secondary" onClick={close}>Sign Out</Link>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
