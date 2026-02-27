@@ -381,13 +381,9 @@ export default function USMap({
       <svg
         ref={svgRef}
         className="us-map__svg"
-        width={width}
-        height={height}
-        style={{
-          minWidth: `${minWidth}px`,
-          minHeight: `${minHeight}px`,
-          backgroundColor: styleConfig.backgroundColor,
-        }}
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ backgroundColor: styleConfig.backgroundColor }}
       />
       {enableTooltip && (
         <div

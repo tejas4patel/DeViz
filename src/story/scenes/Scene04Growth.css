@@ -216,13 +216,11 @@
 .scene04__map {
   flex: 1;
   min-width: 0;
+  min-height: 0;
   background: #fafafa;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: inset 0 2px 8px rgba(36, 72, 85, 0.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .scene04__map .us-map {
@@ -266,5 +264,82 @@
 
   .scene04__map {
     min-height: 400px;
+  }
+}
+
+/* Mobile: compact stats so the map fills the remaining height */
+@media (max-width: 640px) {
+  .scene04 {
+    padding: 10px;
+  }
+
+  .scene04__header {
+    margin-bottom: 8px;
+  }
+
+  .scene04__tabs {
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .scene04__tab {
+    padding: 6px 12px;
+  }
+
+  .scene04__tab-year {
+    font-size: 15px;
+  }
+
+  .scene04__tab-centers {
+    font-size: 11px;
+  }
+
+  .scene04__stats {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 2px;
+    /* hide scrollbar visually */
+    scrollbar-width: none;
+  }
+
+  .scene04__stats::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scene04__stat-card {
+    min-width: 110px;
+    flex-shrink: 0;
+    padding: 10px 12px;
+  }
+
+  .scene04__stat-icon {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .scene04__stat-value {
+    font-size: 22px;
+  }
+
+  .scene04__stat-label {
+    font-size: 11px;
+  }
+
+  .scene04__stat-growth {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+
+  .scene04__legend {
+    display: none;
+  }
+
+  .scene04__map {
+    min-height: 0;
+  }
+
+  .scene04__footer p {
+    font-size: 10px;
   }
 }

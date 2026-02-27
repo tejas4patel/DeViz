@@ -51,15 +51,7 @@ export default function Scene02FqhcMap() {
         underserved communities across the U.S. County shading reflects poverty rates, revealing
         how FQHCs cluster where need is greatest. Hover a center dot to see site-level detail.
       </p>
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '540px',
-        }}
-      >
+      <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
         <USMap
           data={fqhcData}
           topology={usTopology}
