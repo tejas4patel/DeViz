@@ -517,7 +517,8 @@ export default function ForceDirectedGraph({
       .style('cursor', enableDrag ? 'grab' : 'pointer');
 
     if (enableDrag) {
-      node.call(drag);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      node.call(drag as any);
     }
 
     // Node interaction handlers
@@ -709,7 +710,7 @@ export default function ForceDirectedGraph({
 
     // Simulation tick
     simulation.on('tick', () => {
-      linkData.selectAll('path').attr('d', curve);
+      linkData.selectAll('path').attr('d', (d: unknown) => curve(d as SimLink));
       node.attr('transform', (d: SimNode) => `translate(${d.x}, ${d.y})`);
     });
 

@@ -5,11 +5,10 @@ import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from 'lucide-r
 import type { Scene } from './storyTypes'
 
 type Props = {
-
-
   scenes: Scene[];
   activeIdx: number;
   onSelectSlide: (idx: number) => void;
+  viewMode?: 'source' | 'story';
 };
 
 type PopState = {
