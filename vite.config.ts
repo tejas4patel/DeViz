@@ -4,7 +4,7 @@ import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 
 export default defineConfig(({ command }) => ({
-  base: '/',
+  base: command === 'build' ? '/DeViz/' : '/',
   plugins: [react()],
   server: { port: 5173 },
   css: {
