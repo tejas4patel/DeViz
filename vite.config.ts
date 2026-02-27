@@ -3,8 +3,8 @@ import react from "@vitejs/plugin-react"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 
-export default defineConfig({
-  base: '/deviz/',
+export default defineConfig(({ command }) => ({
+  base: '/',
   plugins: [react()],
   server: { port: 5173 },
   css: {
@@ -12,4 +12,4 @@ export default defineConfig({
       plugins: [tailwindcss, autoprefixer],
     },
   },
-})
+}))

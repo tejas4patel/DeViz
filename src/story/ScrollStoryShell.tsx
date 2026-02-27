@@ -228,7 +228,7 @@ export default function ScrollStoryShell() {
 
           <div className="slideScrollBody">
             {viewMode === 'source' ? (
-              <div style={{ width: '100%', height: '70vh', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+              <div style={{ width: '100%', height: '100%', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
                 <iframe 
                   src={`${import.meta.env.BASE_URL}nihms-2127800.pdf`}
                   style={{ width: '100%', height: '100%', border: 'none' }}

@@ -7,9 +7,5 @@ export default function StoryViewer() {
   const { storyId } = useParams<{ storyId: string }>();
   void storyId;
 
-  return (
-    <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <ScrollStoryShell />
-    </div>
-  );
+  return <ScrollStoryShell />;
 }
