@@ -202,7 +202,9 @@
 }
 
 /* Mobile scroll fix: at ≤980px, #root locks to 100vh/overflow:hidden (for the deck viewer).
-   Make .layout-content the single scroll container for public pages. */
+   Make .layout-content the single scroll container for public pages.
+   For deck-viewer pages (layout-content contains a .deckShell), keep overflow:hidden
+   so sub-pixel rounding never produces a phantom non-scrollable scrollbar. */
 @media (max-width: 980px) {
   .layout {
     height: 100vh;
@@ -211,6 +213,10 @@
   .layout-content {
     overflow-y: auto;
     min-height: 0;
+  }
+
+  .layout-content:has(> .deckShell) {
+    overflow: hidden;
   }
 }
 
