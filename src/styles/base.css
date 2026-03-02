@@ -1,0 +1,100 @@
+:root {
+
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Color palette */
+
+  --brand-primary: #244855;
+
+  --brand-secondary: #E64833;
+
+  --brand-accent: #90AEAD;
+
+  --text-primary: #244855;
+
+  --text-secondary: #874F41;
+
+  --text-inverse: #FBE9D0;
+
+  --bg-app: #FBE9D0;
+
+  --bg-surface: #f5e0c0;
+
+  --bg-surface-elevated: #ecd5b0;
+
+  --bg-section: rgba(36, 72, 85, 0.06);
+
+  --bg-highlight: rgba(144, 174, 173, 0.12);
+
+  --status-info-bg: #E8F0FE; --status-info-fg: #2F6FED;
+
+  --status-success-bg: rgba(144, 174, 173, 0.2); --status-success-fg: #244855;
+
+  --status-warning-bg: #FFF6E5; --status-warning-fg: #F59E0B;
+
+  --status-error-bg: rgba(230, 72, 51, 0.12); --status-error-fg: #E64833;
+
+  --border-default: #d4c4a8;
+
+  --border-subtle: #e8d8c0;
+
+  /* Mappings for usage */
+
+  font-family: var(--font-sans);
+
+  color: var(--text-primary);
+
+  background: var(--bg-app);
+
+}
+
+* {
+
+  box-sizing: border-box;
+
+}
+
+html,
+
+body {
+
+  margin: 0;
+
+  min-height: 100%;
+
+}
+
+body {
+
+  background-color: var(--bg-app);
+
+  background-image:
+
+    radial-gradient(circle at 0% 0%, rgba(230, 72, 51, 0.07), transparent 45%),
+
+    radial-gradient(circle at 100% 0%, rgba(144, 174, 173, 0.10), transparent 40%),
+
+    radial-gradient(circle at 50% 120%, rgba(36, 72, 85, 0.06), transparent 60%);
+
+  background-attachment: fixed;
+
+  background-size: 100% 100%;
+
+}
+
+#root {
+
+  height: 100%;
+
+  overflow: hidden;
+
+}
+
+a {
+
+  color: inherit;
+
+}
+

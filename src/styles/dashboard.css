@@ -1,0 +1,336 @@
+/* ============================================================
+
+   DASHBOARD PAGES
+
+   ============================================================ */
+
+.dashboard-page {
+
+  padding: 2rem 1.5rem;
+
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+}
+
+.dashboard-header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 2rem;
+
+}
+
+.dashboard-header h1 {
+
+  font-size: 1.75rem;
+
+  font-weight: 800;
+
+  color: var(--brand-primary);
+
+  margin: 0;
+
+}
+
+.dashboard-empty {
+
+  text-align: center;
+
+  padding: 5rem 2rem;
+
+  background: var(--bg-surface);
+
+  border-radius: 16px;
+
+  border: 1px dashed var(--border-default);
+
+}
+
+.empty-icon {
+
+  display: flex;
+
+  justify-content: center;
+
+  margin-bottom: 1.25rem;
+
+}
+
+.dashboard-empty h2 {
+
+  font-size: 1.4rem;
+
+  font-weight: 700;
+
+  color: var(--brand-primary);
+
+  margin: 0 0 0.5rem;
+
+}
+
+.dashboard-empty p {
+
+  color: var(--text-secondary);
+
+  margin: 0 0 1.5rem;
+
+}
+
+/* Upload page */
+
+.upload-page {
+
+  padding: 2rem 1.5rem;
+
+  max-width: 640px;
+
+  margin: 0 auto;
+
+}
+
+.page-header {
+
+  margin-bottom: 2rem;
+
+}
+
+.page-header h1 {
+
+  font-size: 1.75rem;
+
+  font-weight: 800;
+
+  color: var(--brand-primary);
+
+  margin: 0 0 0.4rem;
+
+}
+
+.page-header p {
+
+  color: var(--text-secondary);
+
+  margin: 0;
+
+}
+
+.upload-form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.5rem;
+
+}
+
+.upload-zone {
+
+  border: 2px dashed var(--border-default);
+
+  border-radius: 16px;
+
+  padding: 3rem 2rem;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  background: var(--bg-surface);
+
+}
+
+.upload-zone:hover,
+
+.upload-zone.dragging {
+
+  border-color: var(--brand-secondary);
+
+  background: var(--bg-section);
+
+}
+
+.upload-zone.has-file {
+
+  border-color: var(--brand-accent);
+
+  background: var(--bg-highlight);
+
+}
+
+.upload-icon { display: flex; justify-content: center; margin-bottom: 0.75rem; }
+
+.upload-label { font-size: 1.1rem; font-weight: 600; color: var(--brand-primary); }
+
+.upload-filename { font-size: 1rem; font-weight: 600; color: var(--brand-primary); }
+
+.upload-hint { font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.4rem; }
+
+/* Processing page */
+
+.processing-page {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  height: calc(100vh - 64px);
+
+  padding: 2rem;
+
+}
+
+.processing-card {
+
+  background: rgba(255, 255, 255, 0.75);
+
+  border-radius: 16px;
+
+  border: 1px solid var(--border-default);
+
+  padding: 2.5rem;
+
+  max-width: 480px;
+
+  width: 100%;
+
+  text-align: center;
+
+  box-shadow: 0 4px 24px rgba(36, 72, 85, 0.10);
+
+}
+
+.processing-icon { display: flex; justify-content: center; margin-bottom: 1.25rem; }
+
+.processing-card h1 {
+
+  font-size: 1.5rem;
+
+  font-weight: 700;
+
+  color: var(--brand-primary);
+
+  margin: 0 0 0.25rem;
+
+}
+
+.processing-sub {
+
+  font-size: 0.8rem;
+
+  color: var(--text-secondary);
+
+  margin: 0 0 1.5rem;
+
+}
+
+.progress-bar-track {
+
+  height: 8px;
+
+  background: var(--bg-surface-elevated);
+
+  border-radius: 99px;
+
+  overflow: hidden;
+
+  margin-bottom: 0.5rem;
+
+}
+
+.progress-bar-fill {
+
+  height: 100%;
+
+  background: var(--brand-secondary);
+
+  border-radius: 99px;
+
+  transition: width 0.4s ease;
+
+}
+
+.progress-label {
+
+  font-size: 0.875rem;
+
+  font-weight: 600;
+
+  color: var(--brand-secondary);
+
+  margin-bottom: 1.5rem;
+
+}
+
+.step-list {
+
+  list-style: none;
+
+  padding: 0;
+
+  margin: 0;
+
+  text-align: left;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.5rem;
+
+}
+
+.step-item-sm {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.75rem;
+
+  font-size: 0.875rem;
+
+  color: var(--text-secondary);
+
+  padding: 0.4rem 0.75rem;
+
+  border-radius: 6px;
+
+}
+
+.step-item-sm.done {
+
+  color: var(--brand-accent);
+
+}
+
+.step-item-sm.active {
+
+  color: var(--brand-secondary);
+
+  background: var(--bg-section);
+
+  font-weight: 600;
+
+}
+
+.step-dot {
+
+  min-width: 1.25rem;
+
+  text-align: center;
+
+  font-size: 0.8rem;
+
+}
+

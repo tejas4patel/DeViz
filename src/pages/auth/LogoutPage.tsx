@@ -1,14 +1,11 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default function LogoutPage() {
-  const navigate = useNavigate();
-
   useEffect(() => {
-    localStorage.removeItem('demo-auth');
-    const timer = setTimeout(() => navigate('/login', { replace: true }), 300);
-    return () => clearTimeout(timer);
-  }, [navigate]);
+    // Redirect to the SWA logout endpoint. SWA tears down the session and
+    // redirects to post_logout_redirect_uri defined in staticwebapp.config.json.
+    window.location.href = '/.auth/logout?post_logout_redirect_uri=/signed-out';
+  }, []);
 
   return (
     <div className="page">

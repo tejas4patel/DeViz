@@ -5,15 +5,14 @@ export default function AuthCallbackPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => navigate('/dashboard', { replace: true }), 600);
-    return () => clearTimeout(timer);
+    // Azure SWA handles the real OAuth callback internally at /.auth/login/aad/callback.
+    // This React route is kept for backwards-compatibility only.
+    navigate('/dashboard', { replace: true });
   }, [navigate]);
 
   return (
     <div className="page">
-      <h1>Signing you in</h1>
-      <p>Completing authentication and preparing your workspace.</p>
-      <p style={{ opacity: 0.8 }}>Placeholder: integrate MSAL or your Azure auth library here.</p>
+      <h1>Redirecting&hellip;</h1>
     </div>
   );
 }

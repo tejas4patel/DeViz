@@ -1,17 +1,9 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { DeVizLogo } from '../../story/components/DeVizLogo';
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const navigate = useNavigate();
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    localStorage.setItem('demo-auth', 'true');
-    navigate('/dashboard/upload', { replace: true });
+  function handleSignIn() {
+    window.location.href = '/.auth/login/aad?post_login_redirect_uri=/dashboard';
   }
 
   return (
@@ -20,51 +12,16 @@ export default function RegisterPage() {
         <div className="auth-brand">
           <Link to="/"><DeVizLogo size={32} variant="wordmark" /></Link>
         </div>
-        <h1 className="auth-title">Create account</h1>
-
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="form-field">
-            <label htmlFor="name">Full name</label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              placeholder="Jane Smith"
-              required
-              autoComplete="name"
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-              autoComplete="email"
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              autoComplete="new-password"
-              minLength={8}
-            />
-          </div>
-          <button type="submit" className="btn-primary full-width">Create account</button>
-        </form>
-
+        <h1 className="auth-title">Get access</h1>
+        <p style={{ textAlign: 'center', marginBottom: '1.5rem', opacity: 0.75, fontSize: '0.9rem' }}>
+          Access is managed through your Microsoft work or school account.
+          Contact your administrator to request access.
+        </p>
+        <button type="button" className="btn-primary full-width" onClick={handleSignIn}>
+          Sign in with Microsoft
+        </button>
         <p className="auth-footer">
-          Already have an account? <Link to="/login">Sign in</Link>
+          Already have access? <Link to="/login">Sign in</Link>
         </p>
       </div>
     </div>

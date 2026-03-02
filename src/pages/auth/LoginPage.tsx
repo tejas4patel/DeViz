@@ -1,16 +1,9 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { DeVizLogo } from '../../story/components/DeVizLogo';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    localStorage.setItem('demo-auth', 'true');
-    navigate('/dashboard/upload', { replace: true });
+  function handleSignIn() {
+    window.location.href = '/.auth/login/aad?post_login_redirect_uri=/dashboard';
   }
 
   return (
@@ -20,40 +13,14 @@ export default function LoginPage() {
           <Link to="/"><DeVizLogo size={32} variant="wordmark" /></Link>
         </div>
         <h1 className="auth-title">Sign in</h1>
-
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="form-field">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-              autoComplete="email"
-            />
-          </div>
-          <div className="form-field">
-            <div className="form-field-label-row">
-              <label htmlFor="password">Password</label>
-              <Link to="/forgot-password" className="auth-field-link">Forgot password?</Link>
-            </div>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              autoComplete="current-password"
-            />
-          </div>
-          <button type="submit" className="btn-primary full-width">Sign in</button>
-        </form>
-
+        <p style={{ textAlign: 'center', marginBottom: '1.5rem', opacity: 0.75, fontSize: '0.9rem' }}>
+          DeViz uses your Microsoft work or school account.
+        </p>
+        <button type="button" className="btn-primary full-width" onClick={handleSignIn}>
+          Sign in with Microsoft
+        </button>
         <p className="auth-footer">
-          Don't have an account? <Link to="/register">Sign up free</Link>
+          Don&apos;t have an account? Contact your administrator.
         </p>
       </div>
     </div>

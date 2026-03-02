@@ -6,6 +6,7 @@ import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import { DeVizLogo } from '../story/components/DeVizLogo';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useAuthContext } from '../context/AuthContext';
 
 type Props = {
   authenticated?: boolean;
@@ -13,7 +14,12 @@ type Props = {
 
 export default function Layout({ authenticated = false }: Props) {
   const location = useLocation();
-  const [isAuthenticated] = useState(() => localStorage.getItem('demo-auth') === 'true');
+  const { isAuthenticated, loading } = useAuthContext();
+
+  // Wait for /.auth/me to resolve before deciding to redirect — prevents flash
+  if (authenticated && loading) {
+    return null;
+  }
 
   if (authenticated && !isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
