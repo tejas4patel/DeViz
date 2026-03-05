@@ -20,7 +20,6 @@ function isTypingTarget(el: Element | null) {
 
 export default function ScrollStoryShell() {
   const [detailLevel, setDetailLevel] = useState<DetailLevel>(() => {
-    const saved = sessionStorage.getItem('deckDetailLevel');
     return 'expert';
   });
   

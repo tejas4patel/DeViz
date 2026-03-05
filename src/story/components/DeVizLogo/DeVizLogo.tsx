@@ -13,11 +13,9 @@ type Props = {
 
 export default function DeVizLogo({ size = 44, variant = 'icon', onDark = false, className, style }: Props) {
   const uid = useId().replace(/:/g, '');
-  const bgId    = `dvz-bg-${uid}`;
   const topId   = `dvz-top-${uid}`;
   const leftId  = `dvz-left-${uid}`;
   const rightId = `dvz-right-${uid}`;
-  const glowId  = `dvz-glow-${uid}`;
 
   const icon = (
     <svg

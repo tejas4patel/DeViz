@@ -6,6 +6,7 @@ export interface GraphNode {
   label: string;
   detail?: string;
   group: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any; // Allow additional properties
 }
 

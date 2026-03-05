@@ -6,7 +6,6 @@ import {
   SimNode,
   SimLink,
   GraphNode,
-  NodeGroupConfig,
 } from './types';
 import {
   defaultLinkStyleConfig,
@@ -452,7 +451,7 @@ export default function ForceDirectedGraph({
         tooltip.style.left = tooltipLeft + 'px';
         tooltip.style.top = tooltipTop + 'px';
 
-        d3.select(evt.currentTarget as any)
+        d3.select(evt.currentTarget as SVGGElement)
           .select('circle:nth-child(2)')
           .transition()
           .duration(200)
@@ -503,7 +502,7 @@ export default function ForceDirectedGraph({
         d.fx = event.x;
         d.fy = event.y;
       })
-      .on('end', function (event, d) {
+      .on('end', function (event) {
         if (!event.active) simulation.alphaTarget(0);
         d3.select(this).style('cursor', 'grab');
       });

@@ -4,7 +4,7 @@
 
 import { Link } from 'react-router-dom';
 import { MoveRight } from 'lucide-react';
-import { BRAND_PRIMARY as P, BRAND_SECONDARY as S, BRAND_ACCENT as A, BRAND_CREAM as C } from '../constants/colors';
+import { BRAND_PRIMARY as P, BRAND_SECONDARY as S, BRAND_ACCENT as A } from '../constants/colors';
 
 // ── Mini Viz Previews (SVG) ────────────────────────────────────────────────
 

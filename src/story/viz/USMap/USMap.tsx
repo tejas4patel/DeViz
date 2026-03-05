@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { feature } from 'topojson-client';
-import type { Topology, GeometryCollection } from 'topojson-specification';
+import type { GeometryCollection } from 'topojson-specification';
 import type { USMapProps, FQHCSite } from './types';
 import {
   defaultMapStyleConfig,
@@ -25,8 +25,6 @@ export default function USMap({
   zoomConfig = {},
   width = 960,
   height = 600,
-  minWidth = 800,
-  minHeight = 500,
   enableZoom = true,
   enableTooltip = true,
   onSiteClick,
@@ -36,6 +34,7 @@ export default function USMap({
 }: USMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const zoomBehaviorRef = useRef<any>(null);
   const currentZoomScale = useRef<number>(1);
   const [error, setError] = useState<string | null>(null);
@@ -113,6 +112,7 @@ export default function USMap({
           .join('path')
           .attr('class', 'us-map__county')
           .attr('d', path)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .attr('fill', (d: any) => {
             const fips = d.id;
             const county = countyData[fips];

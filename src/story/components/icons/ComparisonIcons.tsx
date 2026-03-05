@@ -42,7 +42,7 @@ interface HeaderIconProps {
   gradientId: string;
 }
 
-export const ManualProcessIcon = ({ primaryColor, secondaryColor, accentColor, gradientId }: HeaderIconProps) => (
+export const ManualProcessIcon = ({ primaryColor, secondaryColor, accentColor }: HeaderIconProps) => (
   <div style={{ 
     background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
     borderRadius: '12px',
@@ -67,7 +67,7 @@ export const ManualProcessIcon = ({ primaryColor, secondaryColor, accentColor, g
   </div>
 );
 
-export const AutomatedProcessIcon = ({ primaryColor, secondaryColor, accentColor, gradientId }: HeaderIconProps) => (
+export const AutomatedProcessIcon = ({ primaryColor, secondaryColor, accentColor }: HeaderIconProps) => (
   <div style={{ 
     background: `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`,
     borderRadius: '12px',
@@ -105,7 +105,8 @@ export const TransitionCubeIcon = () => (
   </div>
 );
 
-export const TransitionArrowIcon = ({ gradientId }: { gradientId: string }) => (
+// eslint-disable-next-line no-empty-pattern
+export const TransitionArrowIcon = ({}: { gradientId: string }) => (
   <div style={{
     width: '48px',
     height: '48px',

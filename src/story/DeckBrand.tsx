@@ -16,7 +16,7 @@ type Props = {
 };
 
 export default function DeckBrand(props: Props) {
-  const { title, subtitle, scenes, activeIdx, onSelectSlide, detailLevel, onDetailLevelChange, viewMode, onViewModeChange, totalScenes } = props;
+  const { title, subtitle, scenes, activeIdx, onSelectSlide, viewMode, onViewModeChange } = props;
 
   return (
     <div className="deckBrand" style={{ gap: '4px' }}>

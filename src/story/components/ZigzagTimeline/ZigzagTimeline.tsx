@@ -129,20 +129,6 @@ export default function ZigzagTimeline({
       }
     };
 
-    // Icon mapping
-    const getIconKey = (icon?: string): string => {
-      const iconMap: Record<string, string> = {
-        '📋': 'manual',
-        '📐': 'planning',
-        '🧪': 'pilot',
-        '🚀': 'launch',
-        '📈': 'expansion',
-        '🏥': 'scaleup',
-        '✨': 'operation',
-      };
-      return icon ? iconMap[icon] || 'manual' : 'manual';
-    };
-
     // Draw nodes
     const nodesGroup = g.append('g').attr('class', 'zigzag-timeline__nodes');
 

@@ -3,7 +3,7 @@
  */
 
 import { Link } from 'react-router-dom';
-import { Mail, User, FileText, BarChart3, CreditCard, CheckCircle, Shield } from 'lucide-react';
+import { Mail, User, FileText, BarChart3, CreditCard, Shield } from 'lucide-react';
 import { BRAND_PRIMARY as P, BRAND_SECONDARY as S, BRAND_ACCENT as A } from '../constants/colors';
 
 const sections = [
@@ -182,7 +182,7 @@ export default function PrivacyPage() {
 
             <Section id="introduction" n={1} title="Introduction">
               <p>
-                DeViz, Inc. ("DeViz," "we," "us," or "our") is committed to protecting your personal information. This Privacy Policy describes how we collect, use, store, and share information when you use the DeViz platform and related services ("Service").
+                DeViz, Inc. (&ldquo;DeViz,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) is committed to protecting your personal information. This Privacy Policy describes how we collect, use, store, and share information when you use the DeViz platform and related services (&ldquo;Service&rdquo;).
               </p>
               <p>
                 By using the Service, you consent to the data practices described in this policy. If you do not agree, please do not use the Service.

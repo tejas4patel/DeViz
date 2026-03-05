@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
           <>
             <h1 className="auth-title">Check your email</h1>
             <p className="auth-subtitle">
-              If an account exists for <strong>{email}</strong>, you'll receive a password reset link shortly.
+              If an account exists for <strong>{email}</strong>, you&apos;ll receive a password reset link shortly.
             </p>
             <Link to="/login" className="btn-primary full-width" style={{ display: 'block', textAlign: 'center', marginTop: '1.5rem' }}>
               Back to sign in
@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
           <>
             <h1 className="auth-title">Reset password</h1>
             <p className="auth-subtitle">
-              Enter your email and we'll send you a link to reset your password.
+              Enter your email and we&apos;ll send you a link to reset your password.
             </p>
 
             <form className="auth-form" onSubmit={handleSubmit}>

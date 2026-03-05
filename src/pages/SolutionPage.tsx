@@ -14,8 +14,8 @@ export default function SolutionPage() {
             It is Infrastructure.
           </h1>
           <p className="sol-hero-thesis">
-            "Content engineering is not editing. It is structural design — the difference between
-            content that is merely published and content that is understood, retained, and reliably retrieved."
+            {'"'}Content engineering is not editing. It is structural design — the difference between
+            content that is merely published and content that is understood, retained, and reliably retrieved.{'"'}
           </p>
           <p className="sol-hero-sub">
             DeViz applies five engineering practices — grounded in cognitive science, behavioral economics,
@@ -29,7 +29,7 @@ export default function SolutionPage() {
       <section className="content-section">
         <div className="container">
           <div className="section-label">Defining the Discipline</div>
-          <h2>Content Engineering: What It Is and Isn't</h2>
+          <h2>Content Engineering: What It Is and Isn&apos;t</h2>
           <p className="section-intro-text">
             Content engineering is structural neuro-design — the intentional alignment of content with
             how minds and attention systems work. It operates at the intersection of human cognition,

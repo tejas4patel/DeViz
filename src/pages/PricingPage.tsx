@@ -125,47 +125,66 @@ export default function PricingPage() {
             Start free, scale as you grow.
           </p>
 
-          {/* Stats row */}
-          <div className="flex flex-wrap justify-center gap-12 mb-12">
-            {[
-              { num: '10,000+', label: 'Documents transformed' },
-              { num: '500+',    label: 'Teams trust DeViz' },
-              { num: '4.9 / 5', label: 'Average rating' },
-            ].map(({ num, label }) => (
-              <div key={label} className="text-center">
-                <div className="text-3xl font-bold text-white">{num}</div>
-                <div className="text-sm mt-1" style={{ color: 'rgba(255,255,255,0.55)' }}>{label}</div>
-              </div>
-            ))}
-          </div>
-
           {/* Billing toggle */}
           <div
-            className="inline-flex items-center gap-4 border border-white/20 rounded-2xl px-6 py-3"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
+            className="inline-flex items-center gap-5 px-6 py-3.5 rounded-2xl"
+            style={{
+              background: 'rgba(0,0,0,0.22)',
+              border: '1px solid rgba(255,255,255,0.09)',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.06)',
+            }}
           >
-            <span className="text-sm font-medium" style={{ color: !annual ? '#fff' : 'rgba(255,255,255,0.45)' }}>
+            <span
+              className="text-sm font-semibold cursor-pointer select-none transition-colors duration-200"
+              style={{ color: !annual ? '#fff' : 'rgba(255,255,255,0.38)' }}
+              onClick={() => setAnnual(false)}
+            >
               Monthly
             </span>
+
             <button
               onClick={() => setAnnual(!annual)}
-              className="relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none"
-              style={{ background: annual ? S : 'rgba(255,255,255,0.3)' }}
+              className="relative w-14 h-7 rounded-full transition-all duration-300 focus:outline-none flex-shrink-0"
+              style={{
+                background: annual
+                  ? `linear-gradient(135deg, ${S} 0%, #c23a26 100%)`
+                  : 'rgba(255,255,255,0.18)',
+                border: `1px solid ${annual ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.15)'}`,
+                boxShadow: annual
+                  ? `0 0 0 3px ${S}30, 0 2px 8px rgba(0,0,0,0.25)`
+                  : '0 0 0 3px rgba(255,255,255,0.06)',
+              }}
               aria-label="Toggle billing cycle"
             >
               <span
-                className="absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-300"
-                style={{ left: annual ? '28px' : '4px' }}
+                className="absolute w-5 h-5 rounded-full transition-all duration-300"
+                style={{
+                  top: '3px',
+                  left: annual ? '31px' : '3px',
+                  background: '#fff',
+                  boxShadow: '0 1px 6px rgba(0,0,0,0.28)',
+                }}
               />
             </button>
-            <span className="text-sm font-medium" style={{ color: annual ? '#fff' : 'rgba(255,255,255,0.45)' }}>
+
+            <span
+              className="text-sm font-semibold cursor-pointer select-none transition-colors duration-200"
+              style={{ color: annual ? '#fff' : 'rgba(255,255,255,0.38)' }}
+              onClick={() => setAnnual(true)}
+            >
               Annual
             </span>
-            {annual && (
-              <span className="text-white text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: S }}>
-                Save 20%
-              </span>
-            )}
+
+            <span
+              className="text-xs font-bold px-3 py-1 rounded-full transition-all duration-300"
+              style={{
+                background: annual ? S : 'rgba(255,255,255,0.1)',
+                color: annual ? '#fff' : 'rgba(255,255,255,0.35)',
+                boxShadow: annual ? `0 0 12px ${S}50` : 'none',
+              }}
+            >
+              Save 20%
+            </span>
           </div>
         </div>
       </div>

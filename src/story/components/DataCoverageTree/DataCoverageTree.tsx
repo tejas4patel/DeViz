@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import type { DataCoverageTreeProps } from './types';
@@ -117,7 +118,7 @@ export default function DataCoverageTree({
         .attr('stroke-width', linkStrokeWidth)
         .attr('opacity', 0.3)
         .attr('stroke-linecap', 'round')
-        .attr('d', (d: any) => {
+        .attr('d', () => {
           const o = { x: source.x0, y: source.y0 };
           return diagonal({ source: o, target: o });
         });
@@ -218,13 +219,13 @@ export default function DataCoverageTree({
 
           d3.select(this).select('circle').transition().duration(200).attr('r', nodeRadius * 1.3);
         })
-        .on('mouseleave', function (event, d: any) {
+        .on('mouseleave', function () {
           setTooltip({ visible: false, content: null, x: 0, y: 0 });
           d3.select(this).select('circle').transition().duration(200).attr('r', nodeRadius);
         });
 
       // Node circles with new color palette
-      nodeEnter.each(function (d: any, i: number) {
+      nodeEnter.each(function (d: any) {
         const nodeGroup = d3.select(this);
         const availability = d.data.availability;
         const isCategory = d.data.category && d.depth > 0;

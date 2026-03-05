@@ -141,7 +141,7 @@ export default function TermsPage() {
 
             <Section id="introduction" n={1} title="Introduction & Acceptance">
               <p>
-                Welcome to DeViz. These Terms of Service ("Terms") govern your access to and use of the DeViz platform, including all related websites, mobile applications, and services (collectively, the "Service") operated by DeViz, Inc. ("DeViz," "we," "us," or "our").
+                Welcome to DeViz. These Terms of Service (&ldquo;Terms&rdquo;) govern your access to and use of the DeViz platform, including all related websites, mobile applications, and services (collectively, the &ldquo;Service&rdquo;) operated by DeViz, Inc. (&ldquo;DeViz,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;).
               </p>
               <p>
                 By creating an account or using the Service in any way, you confirm that you are at least 18 years old, have read and understood these Terms, and agree to be bound by them. If you are using the Service on behalf of an organization, you represent that you have authority to bind that organization to these Terms.

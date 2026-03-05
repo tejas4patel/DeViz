@@ -122,7 +122,7 @@ export default function ContactPage() {
           <p className="text-slate-600 mb-2">
             Thanks for reaching out, <strong>{formData.name || 'there'}</strong>.
           </p>
-          <p className="text-sm text-slate-500 mb-8">We'll get back to you within 24 hours.</p>
+          <p className="text-sm text-slate-500 mb-8">We&apos;ll get back to you within 24 hours.</p>
           <Link
             to="/"
             className="inline-block py-3 px-8 rounded-xl font-semibold text-white transition-opacity hover:opacity-90"

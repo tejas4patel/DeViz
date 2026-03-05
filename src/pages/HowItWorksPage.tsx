@@ -117,7 +117,7 @@ export default function HowItWorksPage() {
       <section className="content-section alt">
         <div className="container cta-section">
           <h2>Ready to transform your documents?</h2>
-          <p className="cta-subtitle">Join thousands of professionals who've revolutionized how they share complex information.</p>
+          <p className="cta-subtitle">Join thousands of professionals who&apos;ve revolutionized how they share complex information.</p>
           <div className="hero-actions">
             <Link to="/register" className="btn-primary large">Get Started Free</Link>
             <Link to="/demo" className="btn-secondary large">View Live Demo</Link>

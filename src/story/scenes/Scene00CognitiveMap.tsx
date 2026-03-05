@@ -118,7 +118,7 @@ export default function Scene00CognitiveMap() {
               </h3>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                {categoryScenes.map((scene, idx) => (
+                {categoryScenes.map((scene) => (
                   <div
                     key={scene.id}
                     style={{

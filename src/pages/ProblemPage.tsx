@@ -10,12 +10,12 @@ export default function ProblemPage() {
         <div className="container">
           <div className="prob-hero-eyebrow">Cognitive Load Theory × Attention Economy × Agentic Workflow Retrieval</div>
           <blockquote className="prob-hero-quote">
-            <span className="prob-quote-mark">"</span>
+            <span className="prob-quote-mark">{'"'}</span>
             <span className="prob-quote-text">
               We cook food before we eat it.<br />
               Why do we consume information raw?
             </span>
-            <span className="prob-quote-mark close">"</span>
+            <span className="prob-quote-mark close">{'"'}</span>
           </blockquote>
           <p className="prob-hero-sub">
             As agentic workflow systems increasingly mediate how knowledge is discovered, interpreted, and synthesized,
